@@ -201,6 +201,14 @@ This program is available under Apache License Version 2.0, available at https:/
               value: false
             },
 
+            placeholder: {
+              type: String,
+              value: '',
+              reflectToAttribute: true
+            },
+
+            _placeholderElement: Element,
+
             _phone: Boolean,
 
             _phoneMediaQuery: {
@@ -217,6 +225,7 @@ This program is available under Apache License Version 2.0, available at https:/
           return [
             '_openedChanged(opened, _overlayElement)',
             '_disabledChanged(disabled, _inputElement)',
+            '_placeholderChanged(placeholder, _inputElement)',
           ];
         }
 
@@ -240,6 +249,26 @@ This program is available under Apache License Version 2.0, available at https:/
 
           this._inputElement.addEventListener('click', e => this._toggleOverlay());
           this._inputElement.addEventListener('keydown', e => this._onKeyDown(e));
+        }
+
+        _placeholderChanged(placeholder) {
+          this._removePlaceholder();
+
+          if (this._slotted || !placeholder || !this._inputElement) {
+            return;
+          }
+
+          this._placeholderElement = document.createElement('div');
+          this._placeholderElement.textContent = placeholder;
+          this._placeholderElement.slot = 'prefix';
+          this._placeholderElement.style.opacity = 0.7;
+          this._inputElement.appendChild(this._placeholderElement);
+        }
+
+        _removePlaceholder() {
+          if (this._placeholderElement) {
+            this._placeholderElement.parentElement.removeChild(this._placeholderElement);
+          }
         }
 
         /** @private */
@@ -343,6 +372,8 @@ This program is available under Apache License Version 2.0, available at https:/
           this._inputElement.focus();
           const selected = this._menuElement._navItems[this._menuElement.selected];
           if (selected) {
+            this._removePlaceholder();
+
             if (this._slotted) {
               this._slotted.parentElement.removeChild(this._slotted);
             }
