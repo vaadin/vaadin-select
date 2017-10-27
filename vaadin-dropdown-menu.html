@@ -112,7 +112,7 @@ This program is available under Apache License Version 2.0, available at https:/
       }
     </style>
 
-    <vaadin-dropdown-menu-text-field label="[[label]]" readonly value="[[value]]"></vaadin-dropdown-menu-text-field>
+    <vaadin-dropdown-menu-text-field placeholder="[[placeholder]]" label="[[label]]" readonly value="[[value]]"></vaadin-dropdown-menu-text-field>
     <vaadin-dropdown-menu-overlay opened="{{opened}}" with-backdrop="[[_phone]]" phone$="[[_phone]]"></vaadin-dropdown-menu-overlay>
 
     <iron-media-query
@@ -201,6 +201,13 @@ This program is available under Apache License Version 2.0, available at https:/
               value: false
             },
 
+            /**
+             * A hint to the user of what can be entered in the control.
+             */
+            placeholder: {
+              type: String
+            },
+
             _phone: Boolean,
 
             _phoneMediaQuery: {
@@ -209,7 +216,9 @@ This program is available under Apache License Version 2.0, available at https:/
 
             _overlayElement: Object,
 
-            _inputElement: Object
+            _inputElement: Object,
+
+            _nativeInput: Object
           };
         }
 
@@ -217,6 +226,7 @@ This program is available under Apache License Version 2.0, available at https:/
           return [
             '_openedChanged(opened, _overlayElement)',
             '_disabledChanged(disabled, _inputElement)',
+            '_placeholderChanged(placeholder, _nativeInput)',
           ];
         }
 
@@ -237,9 +247,18 @@ This program is available under Apache License Version 2.0, available at https:/
 
           this._overlayElement = this.shadowRoot.querySelector('vaadin-dropdown-menu-overlay');
           this._inputElement = this.shadowRoot.querySelector('vaadin-dropdown-menu-text-field');
+          this._nativeInput = this._inputElement.shadowRoot.querySelector('[part~="value"]');
 
           this._inputElement.addEventListener('click', e => this._toggleOverlay());
           this._inputElement.addEventListener('keydown', e => this._onKeyDown(e));
+        }
+
+        _placeholderChanged(placeholder, nativeInput) {
+          if (!placeholder || !nativeInput) {
+            return;
+          }
+
+          nativeInput.style.visibility = 'visible';
         }
 
         /** @private */
@@ -343,6 +362,8 @@ This program is available under Apache License Version 2.0, available at https:/
           this._inputElement.focus();
           const selected = this._menuElement._navItems[this._menuElement.selected];
           if (selected) {
+            this._nativeInput.style.visibility = 'hidden';
+
             if (this._slotted) {
               this._slotted.parentElement.removeChild(this._slotted);
             }
