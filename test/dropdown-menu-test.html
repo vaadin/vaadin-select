@@ -382,6 +382,15 @@
           dropdown._overlayElement.click();
           expect(dropdown.opened).to.be.false;
         });
+
+        it('should blur the selected item on closing overlay', () => {
+          const blurSpy = sinon.spy();
+          const item = dropdown._items[1];
+          item.blur = blurSpy;
+
+          Enter(item);
+          expect(blurSpy).to.be.called;
+        });
       });
 
       describe('aria', () => {
