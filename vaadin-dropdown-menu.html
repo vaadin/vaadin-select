@@ -92,7 +92,7 @@ This program is available under Apache License Version 2.0, available at https:/
        * ### Styling
        *
        * See [`<vaadin-text-field>` documentation](https://github.com/vaadin/vaadin-text-field/blob/master/vaadin-text-field.html)
-       * for `<vaadin-dropdown-menu-text-field>` parts.
+       * for `<vaadin-dropdown-menu-text-field>` parts and available slots (prefix, suffix etc.)
        *
        * @memberof Vaadin
        * @extends Vaadin.TextFieldElement
@@ -168,13 +168,16 @@ This program is available under Apache License Version 2.0, available at https:/
        * <vaadin-dropdown-menu>
        *   <template>
        *     <vaadin-list-box>
-       *       <vaadin-item>Foo</vaadin-item>
+       *       <vaadin-item label="foo">Foo</vaadin-item>
        *       <vaadin-item>Bar</vaadin-item>
        *       <vaadin-item>Baz</vaadin-item>
        *     </vaadin-list-box>
        *   </template>
        * </vaadin-dropdown-menu>
        * ```
+       *
+       * Hint: You are able to change the visual representation of selected value in the input part
+       * of the dropdown-menu. To do so please set the `label`s to the vaadin-dropdown-menu options.
        *
        * ### Styling
        *
@@ -229,6 +232,9 @@ This program is available under Apache License Version 2.0, available at https:/
              * value and displays it.
              * If no value is provided to the component, it selects the first item without
              * value or empty value.
+             * Hint: not to select item by default set the value the way it won't match any
+             * dropdown-menu option's values or set all values of the options so they won't
+             * match the value of dropdown-menu itself.
              */
             value: {
               type: String,
@@ -265,6 +271,8 @@ This program is available under Apache License Version 2.0, available at https:/
 
             /**
              * A hint to the user of what can be entered in the control.
+             * Placeholder will be displayed only in case no items will be selected by default.
+             * See value property description regarding selection of the value by default.
              */
             placeholder: {
               type: String
