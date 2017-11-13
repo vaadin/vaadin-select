@@ -332,6 +332,10 @@ This program is available under Apache License Version 2.0, available at https:/
             this._menuElement = Array.from(this._overlayElement.$.content.children).filter(e => e._hasVaadinListMixin)[0];
 
             if (this._menuElement) {
+              this._menuElement.addEventListener('selected-changed', () => this._updateSelectedSlot());
+              this._menuElement.addEventListener('keydown', e => this._onKeyDownInside(e));
+              this._menuElement.addEventListener('click', e => this._closeAndRestore(e));
+
               // To access items content we need menu DOM updated
               Polymer.RenderStatus.afterNextRender(this._menuElement, () => {
                 this._menuElement._observer.flush(); // Ensure observer was run
@@ -388,10 +392,6 @@ This program is available under Apache License Version 2.0, available at https:/
           }
 
           if (opened) {
-            this._menuElement.addEventListener('selected-changed', () => this._updateSelectedSlot());
-            this._menuElement.addEventListener('keydown', e => this._onKeyDownInside(e));
-            this._menuElement.addEventListener('click', e => this.opened = false);
-
             this._menuElement && Polymer.RenderStatus.afterNextRender(this._menuElement, () => this._menuElement.focus());
             this._setPosition();
             window.addEventListener('scroll', this._boundSetPosition, true);
@@ -418,8 +418,19 @@ This program is available under Apache License Version 2.0, available at https:/
           }
         }
 
-        _updateSelectedSlot() {
+        _closeAndRestore() {
+          const selected = this._items[this._menuElement.selected];
+
+          // in Firefox and Safari, selected item stays focused on closing overlay
+          if (selected) {
+            selected.blur();
+          }
+
           this.opened = false;
+        }
+
+        _updateSelectedSlot() {
+          this._closeAndRestore();
           this._selectionElement.innerHTML = '';
 
           const selected = this._items[this._menuElement.selected];
