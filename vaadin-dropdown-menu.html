@@ -330,6 +330,21 @@ This program is available under Apache License Version 2.0, available at https:/
           this._instance = this._createTemplateInstance();
           if (this._instance) {
             this._overlayElement.content = this._instance.root;
+            Promise.all(
+              Array.from(this._overlayElement.$.content.children)
+                .filter(el => /-/.test(el.localName))
+                .map(el => customElements.whenDefined(el.localName))
+            ).then(() => this._ensureMenuElement());
+          }
+        }
+
+        get focusElement() {
+          return this._inputElement ||
+            (this._inputElement = this.shadowRoot.querySelector('vaadin-dropdown-menu-text-field'));
+        }
+
+        _ensureMenuElement() {
+          if (!this._menuElement) {
             this._menuElement = Array.from(this._overlayElement.$.content.children).filter(e => e._hasVaadinListMixin)[0];
 
             if (this._menuElement) {
@@ -340,11 +355,6 @@ This program is available under Apache License Version 2.0, available at https:/
               });
             }
           }
-        }
-
-        get focusElement() {
-          return this._inputElement ||
-            (this._inputElement = this.shadowRoot.querySelector('vaadin-dropdown-menu-text-field'));
         }
 
         /** @private */
@@ -389,6 +399,7 @@ This program is available under Apache License Version 2.0, available at https:/
           }
 
           if (opened) {
+            this._ensureMenuElement();
             this._menuElement.addEventListener('selected-changed', () => this._updateSelectedSlot());
             this._menuElement.addEventListener('keydown', e => this._onKeyDownInside(e));
             this._menuElement.addEventListener('click', e => this.opened = false);
