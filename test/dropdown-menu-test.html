@@ -230,6 +230,12 @@
           expect(dropdown._overlayElement.opened).to.be.false;
         });
 
+        it('overlay should be opened on click event on toggle button', () => {
+          expect(dropdown._overlayElement.opened).to.be.false;
+          MockInteractions.tap(dropdown._toggleElement);
+          expect(dropdown._overlayElement.opened).to.be.true;
+        });
+
         it('On ArrowUp Should open the overlay, not select any item, and keep opened', () => {
           arrowUp(input);
           expect(dropdown._overlayElement.opened).to.be.true;
