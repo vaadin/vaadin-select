@@ -330,6 +330,7 @@ This program is available under Apache License Version 2.0, available at https:/
           this._instance = this._createTemplateInstance();
           if (this._instance) {
             this._overlayElement.content = this._instance.root;
+            this._ensureMenuElement();
             Promise.all(
               Array.from(this._overlayElement.$.content.children)
                 .filter(el => /-/.test(el.localName))
