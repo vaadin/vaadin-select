@@ -123,6 +123,18 @@ This program is available under Apache License Version 2.0, available at https:/
         get focusElement() {
           return this.root.querySelector('[part=input-field]');
         }
+
+        ready() {
+          // Keep text-field in `focused` state when opening the overlay for styling purpose.
+          // Need this for styling purpose and for consistency with `<vaadin-combo-box>`.
+          this.addEventListener('focusout', e => {
+            if (e.relatedTarget && e.relatedTarget.localName === 'vaadin-dropdown-menu-overlay') {
+              e.stopImmediatePropagation();
+            }
+          });
+
+          super.ready();
+        }
       }
       customElements.define(VaadinDropdownMenuTextFieldElement.is, VaadinDropdownMenuTextFieldElement);
     }
