@@ -284,6 +284,8 @@ This program is available under Apache License Version 2.0, available at https:/
               type: String
             },
 
+            _initialized: Boolean,
+
             _phone: Boolean,
 
             _phoneMediaQuery: {
@@ -447,7 +449,12 @@ This program is available under Apache License Version 2.0, available at https:/
             delete this._selectedChanging;
           }
 
-          this.validate();
+          // Skip validation for initial value
+          if (this._initialized === undefined) {
+            this._initialized = true;
+          } else {
+            this.validate();
+          }
         }
 
         _valueChanged(value, items) {
