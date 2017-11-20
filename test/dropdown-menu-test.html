@@ -468,6 +468,19 @@
           expect(spy).to.be.calledOnce;
         });
 
+        it('should show error message when validated.', () => {
+          expect(dropdown.invalid).to.be.false;
+          dropdown.errorMessage = 'Please choose one option';
+          dropdown.setAttribute('required', '');
+          dropdown.validate();
+
+          const textField = dropdown.shadowRoot.querySelector('vaadin-dropdown-menu-text-field');
+
+          expect(dropdown.invalid).to.be.true;
+          expect(textField.invalid).to.be.true;
+          expect(textField.errorMessage).to.be.equal(dropdown.errorMessage);
+        });
+
       });
 
     });
