@@ -461,12 +461,21 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _setPosition() {
-          var navbarDiff = document.documentElement.clientHeight - window.innerHeight;
-          this.paddingBottom = (!this.paddingBottom) ? parseInt(window.getComputedStyle(this._overlayElement, null).getPropertyValue('padding-bottom')) : this.paddingBottom;
+          if (!this.defaultPadding) {
+            this.defaultPadding = parseInt(window.getComputedStyle(this._overlayElement, null).getPropertyValue('padding-bottom'));
+          }
 
-          if (navbarDiff > this.paddingBottom || navbarDiff > parseInt(this._overlayElement.style.paddingBottom) - this.paddingBottom) {
-            this._overlayElement.style.paddingBottom = this.paddingBottom + navbarDiff + 'px';
-          } else if (navbarDiff === 0) {
+          const innerHeight = window.innerHeight;
+          const innerWidth = window.innerWidth;
+
+          const vertical = (innerWidth > innerHeight) ? true : false;
+
+          const rectBottom = this._overlayElement.getBoundingClientRect().bottom;
+          const defaultBarHeight = 50;
+
+          if (vertical && rectBottom > innerHeight) {
+            this._overlayElement.style.paddingBottom = defaultBarHeight + this.defaultPadding + 'px';
+          } else {
             this._overlayElement.style.paddingBottom = '';
           }
 
