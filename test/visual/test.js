@@ -4,13 +4,9 @@ gemini.suite('vaadin-dropdown-menu', function(rootSuite) {
     suite
       .setUrl('/dropdown-menu.html')
       .setCaptureElements('#dropdown-menu')
-      .before(actions => {
-        actions
-          .waitForJSCondition(function(window) {
-            return window.webComponentsAreReady;
-          }, 120000);
-      })
-      .capture('dropdown-menu');
+      .capture('dropdown-menu', {}, (actions, find) => {
+        actions.wait(6000);
+      });
   });
 
 });
