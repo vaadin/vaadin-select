@@ -121,18 +121,21 @@
       </template>
     </vaadin-demo-snippet>
 
-    <h3>Custom Styling of the Content</h3>
+    <h3>Styling the Content</h3>
     <vaadin-demo-snippet id="dropdown-menu-list-box-custom-styling">
       <template preserve-content>
         <style>
-          vaadin-item:hover {
+          vaadin-item {
             font-style: italic;
-            background: var(--lumo-success-color-10pct);
-            box-shadow: inset 0 -3px 0 0 var(--lumo-success-color-50pct);
+          }
+
+          vaadin-item:hover {
+            background: #eee;
+            box-shadow: inset 0 -3px 0 0 #007bff;
           }
 
           vaadin-item[selected]::before {
-            color: var(--lumo-success-color);
+            color: #007bff;
           }
         </style>
         <vaadin-dropdown-menu label="Name">
