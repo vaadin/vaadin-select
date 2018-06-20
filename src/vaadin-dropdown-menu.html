@@ -66,7 +66,7 @@ This program is available under Apache License Version 2.0, available at https:/
 <dom-module id="vaadin-dropdown-menu-text-field">
   <script>
     (function() {
-      let memoizedTemplate;
+      let memorizedTemplate;
       /**
        * The text-field element.
        *
@@ -86,21 +86,21 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         static get template() {
-          if (!memoizedTemplate) {
+          if (!memorizedTemplate) {
             // Clone the superclass template
-            memoizedTemplate = super.template.cloneNode(true);
+            memorizedTemplate = super.template.cloneNode(true);
 
             // Create a slot for the value element
             const slot = document.createElement('slot');
             slot.setAttribute('name', 'value');
 
             // Insert the slot before the text-field
-            const input = memoizedTemplate.content.querySelector('input');
+            const input = memorizedTemplate.content.querySelector('input');
 
             input.parentElement.replaceChild(slot, input);
             slot.appendChild(input);
           }
-          return memoizedTemplate;
+          return memorizedTemplate;
         }
 
         get focusElement() {
@@ -351,6 +351,17 @@ This program is available under Apache License Version 2.0, available at https:/
         connectedCallback() {
           super.connectedCallback();
           this.addEventListener('iron-resize', this._boundSetPosition);
+
+          const origForwardHostProp = this._overlayElement._instance && this._overlayElement._instance.forwardHostProp;
+
+          if (origForwardHostProp) {
+            this._overlayElement._instance.forwardHostProp = (...args) => {
+              origForwardHostProp.apply(this._overlayElement._instance, args);
+              setTimeout(() => {
+                this._updateValueSlot();
+              });
+            };
+          }
         }
 
         ready() {
