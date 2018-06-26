@@ -11,6 +11,7 @@
 
   <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
   <link rel="import" href="mock-item.html">
+  <link rel="import" href="shadow-wrapper.html">
   <link rel="import" href="../vaadin-dropdown-menu.html">
 </head>
 
@@ -19,26 +20,38 @@
     <template>
       <dom-bind>
         <template>
-          <div>
-            <div id="parent">
-              <vaadin-dropdown-menu id="dropdown">
-                <template>
-                  <vaadin-list-box>
-                    <template is="dom-repeat" items="{{items}}">
-                      <vaadin-item value="{{item}}">{{item}}</vaadin-item>
-                    </template>
-                    <vaadin-item value="extra">extra</vaadin-item>
-                  </vaadin-list-box>
-                </template>
-              </vaadin-dropdown-menu>
-            </div>
+          <div id="grandParent">
+            <mock-item id="containerElement">
+              <div id="parent">
+                <vaadin-dropdown-menu id="dropdown">
+                  <template>
+                    <vaadin-list-box>
+                      <template is="dom-repeat" items="{{items}}">
+                        <vaadin-item value="{{item}}">{{item}}</vaadin-item>
+                      </template>
+                      <vaadin-item value="extra">extra</vaadin-item>
+                    </vaadin-list-box>
+                  </template>
+                </vaadin-dropdown-menu>
+              </div>
+            </mock-item>
           </div>
         </template>
       </dom-bind>
     </template>
   </test-fixture>
 
+  <test-fixture id="shadow">
+    <template>
+      <div>
+        <dropdown-wrapper id="wrapper">
+        </dropdown-wrapper>
+      </div>
+    </template>
+  </test-fixture>
+
   <script>
+
     describe('dropdown', () => {
       let template, dropdown, menu;
 
@@ -90,12 +103,13 @@
       });
 
       describe('detaching', () => {
-        let parent, grandParent;
+        let parent, grandParent, containerElement;
 
         beforeEach(() => {
           template.items = ['A', 'B', 'C'];
+          grandParent = template.$.grandParent;
           parent = template.$.parent;
-          grandParent = parent.parentElement;
+          containerElement = template.$.containerElement;
         });
 
         it('should not select any item if detached', done => {
@@ -130,10 +144,10 @@
           });
         });
 
-        it('should not change value on parent dettach', function(done) {
+        it('should not change value on container element dettach', function(done) {
           dropdown.value = 'B';
 
-          grandParent.removeChild(parent);
+          grandParent.removeChild(containerElement);
           Polymer.RenderStatus.afterNextRender(dropdown, () => {
             expect(dropdown.value).to.be.equal('B');
             expect(menu.selected).to.be.undefined;
@@ -141,6 +155,41 @@
           });
         });
       });
+
+      describe('wrapped dropdown', () => {
+        let grandParent, wrapper, parent, dropdown;
+
+        beforeEach(() => {
+          grandParent = fixture('shadow');
+          wrapper = document.querySelector('#wrapper');
+          parent = wrapper.$.parent;
+          dropdown = wrapper.$.dropdown;
+          wrapper.items = ['A', 'B', 'C'];
+        });
+
+        it('should not change value on dettach', function(done) {
+          dropdown.value = 'B';
+
+          parent.removeChild(dropdown);
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(dropdown.value).to.be.equal('B');
+            expect(menu.selected).to.be.undefined;
+            done();
+          });
+        });
+
+        it('should not change value on wrapper dettach', function(done) {
+          dropdown.value = 'B';
+
+          grandParent.removeChild(wrapper);
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(dropdown.value).to.be.equal('B');
+            expect(menu.selected).to.be.undefined;
+            done();
+          });
+        });
+      });
+
     });
   </script>
 </body>
