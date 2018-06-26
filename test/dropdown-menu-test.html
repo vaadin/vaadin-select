@@ -518,13 +518,8 @@
           expect(ev.defaultPrevented).to.be.false;
         });
 
-        it('Should set pointer-events to none on the native input to fix iOS Zooming', done => {
-          dropdown.value = 'nomatch';
-          flush(() => {
-            const nativeInput = dropdown._inputElement.shadowRoot.querySelector('input');
-            expect(getComputedStyle(nativeInput)['pointer-events']).to.equal('none');
-            done();
-          });
+        it('Should set pointer-events to none on the native input to fix iOS Zooming', () => {
+          expect(dropdown._nativeInput.style.pointerEvents).to.equal('none');
         });
       });
 
