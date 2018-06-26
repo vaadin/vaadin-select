@@ -75,7 +75,7 @@
         it('should select an item on valid value', done => {
           dropdown.value = 'B';
           Polymer.RenderStatus.afterNextRender(dropdown, () => {
-            expect(dropdown._menuElement.selected).to.be.equal(1);
+            expect(menu.selected).to.be.equal(1);
             done();
           });
         });
@@ -157,17 +157,26 @@
       });
 
       describe('wrapped dropdown', () => {
-        let grandParent, wrapper, parent, dropdown;
+        let grandParent, wrapper, parent, dropdown, menu;
 
         beforeEach(() => {
           grandParent = fixture('shadow');
           wrapper = document.querySelector('#wrapper');
           parent = wrapper.$.parent;
           dropdown = wrapper.$.dropdown;
+          menu = dropdown._menuElement;
           wrapper.items = ['A', 'B', 'C'];
         });
 
-        it('should not change value on dettach', function(done) {
+        it('should select an item on valid value when in a shadow container', done => {
+          dropdown.value = 'B';
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(dropdown._menuElement.selected).to.be.equal(1);
+            done();
+          });
+        });
+
+        it('should not change value on dettach when in a shadow container', function(done) {
           dropdown.value = 'B';
 
           parent.removeChild(dropdown);
@@ -178,7 +187,7 @@
           });
         });
 
-        it('should not change value on wrapper dettach', function(done) {
+        it('should not change value on wrapper dettach when in a shadow container', function(done) {
           dropdown.value = 'B';
 
           grandParent.removeChild(wrapper);

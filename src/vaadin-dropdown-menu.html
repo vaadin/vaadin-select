@@ -264,6 +264,7 @@ This program is available under Apache License Version 2.0, available at https:/
         connectedCallback() {
           super.connectedCallback();
           this.addEventListener('iron-resize', this._boundSetPosition);
+          this.__connected = true;
         }
 
         ready() {
@@ -307,6 +308,7 @@ This program is available under Apache License Version 2.0, available at https:/
           this.removeEventListener('iron-resize', this._boundSetPosition);
           // Making sure the dropdown is closed and removed from DOM after detaching the dropdown.
           this.opened = false;
+          this.__connected = false;
         }
 
         /** @private */
@@ -442,7 +444,7 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _updateSelectedItem(value, items) {
-          if (items && document.body.contains(this)) {
+          if (items && this.__connected) {
             this._menuElement.selected = items.reduce((prev, item, idx) => {
               return prev === undefined && item.value === value ? idx : prev;
             }, undefined);
