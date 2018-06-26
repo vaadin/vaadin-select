@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../../test-fixture/test-fixture.html">
+
+  <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
+  <link rel="import" href="mock-item.html">
+  <link rel="import" href="shadow-wrapper.html">
+  <link rel="import" href="../vaadin-dropdown-menu.html">
+</head>
+
+<body>
+  <test-fixture id="domBind">
+    <template>
+      <dom-bind>
+        <template>
+          <div id="grandParent">
+            <mock-item id="containerElement">
+              <div id="parent">
+                <vaadin-dropdown-menu id="dropdown">
+                  <template>
+                    <vaadin-list-box>
+                      <template is="dom-repeat" items="{{items}}">
+                        <vaadin-item value="{{item}}">{{item}}</vaadin-item>
+                      </template>
+                      <vaadin-item value="extra">extra</vaadin-item>
+                    </vaadin-list-box>
+                  </template>
+                </vaadin-dropdown-menu>
+              </div>
+            </mock-item>
+          </div>
+        </template>
+      </dom-bind>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="shadow">
+    <template>
+      <div>
+        <dropdown-wrapper id="wrapper">
+        </dropdown-wrapper>
+      </div>
+    </template>
+  </test-fixture>
+
+  <script>
+
+    describe('dropdown', () => {
+      let template, dropdown, menu;
+
+      beforeEach(() => {
+        template = fixture('domBind');
+        dropdown = template.$.dropdown;
+        menu = dropdown._menuElement;
+      });
+
+      describe('selecting items', () => {
+        beforeEach(() => template.items = ['A', 'B', 'C']);
+
+        it('should have an empty value by default', () => {
+          expect(dropdown.value).to.be.empty;
+        });
+
+        it('should not select any item by default', () => {
+          expect(menu.selected).to.be.undefined;
+        });
+
+        it('should select an item on valid value', done => {
+          dropdown.value = 'B';
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(menu.selected).to.be.equal(1);
+            done();
+          });
+        });
+
+        it('should restore undefined selection on invalid value', done => {
+          dropdown.value = 'B';
+          dropdown.value = 'foo';
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(menu.selected).to.be.undefined;
+            done();
+          });
+        });
+      });
+
+      describe('setting items', () => {
+        it('should select appropriate item when setting items', done => {
+          dropdown.value = 'bar';
+          template.items = ['foo', 'bar'];
+
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(menu.selected).to.be.equal(1);
+            done();
+          });
+        });
+      });
+
+      describe('detaching', () => {
+        let parent, grandParent, containerElement;
+
+        beforeEach(() => {
+          template.items = ['A', 'B', 'C'];
+          grandParent = template.$.grandParent;
+          parent = template.$.parent;
+          containerElement = template.$.containerElement;
+        });
+
+        it('should not select any item if detached', done => {
+          parent.removeChild(dropdown);
+          dropdown.value = 'B';
+
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(menu.selected).to.be.undefined;
+            done();
+          });
+        });
+
+        it('should select the item on attach', function(done) {
+          parent.removeChild(dropdown);
+          dropdown.value = 'B';
+
+          parent.appendChild(dropdown);
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(menu.selected).to.be.equal(1);
+            done();
+          });
+        });
+
+        it('should not change value on dettach', function(done) {
+          dropdown.value = 'B';
+
+          parent.removeChild(dropdown);
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(dropdown.value).to.be.equal('B');
+            expect(menu.selected).to.be.undefined;
+            done();
+          });
+        });
+
+        it('should not change value on container element dettach', function(done) {
+          dropdown.value = 'B';
+
+          grandParent.removeChild(containerElement);
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(dropdown.value).to.be.equal('B');
+            expect(menu.selected).to.be.undefined;
+            done();
+          });
+        });
+      });
+
+      describe('wrapped dropdown', () => {
+        let grandParent, wrapper, parent, dropdown, menu;
+
+        beforeEach(() => {
+          grandParent = fixture('shadow');
+          wrapper = document.querySelector('#wrapper');
+          parent = wrapper.$.parent;
+          dropdown = wrapper.$.dropdown;
+          menu = dropdown._menuElement;
+          wrapper.items = ['A', 'B', 'C'];
+        });
+
+        it('should select an item on valid value when in a shadow container', done => {
+          dropdown.value = 'B';
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(dropdown._menuElement.selected).to.be.equal(1);
+            done();
+          });
+        });
+
+        it('should not change value on dettach when in a shadow container', function(done) {
+          dropdown.value = 'B';
+
+          parent.removeChild(dropdown);
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(dropdown.value).to.be.equal('B');
+            expect(menu.selected).to.be.undefined;
+            done();
+          });
+        });
+
+        it('should not change value on wrapper dettach when in a shadow container', function(done) {
+          dropdown.value = 'B';
+
+          grandParent.removeChild(wrapper);
+          Polymer.RenderStatus.afterNextRender(dropdown, () => {
+            expect(dropdown.value).to.be.equal('B');
+            expect(menu.selected).to.be.undefined;
+            done();
+          });
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>
