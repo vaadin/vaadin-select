@@ -3131,7 +3131,7 @@
             {
               "name": "renderer",
               "type": "Function | null | undefined",
-              "description": "Custom function for rendering the content of the `<vaadin-dropdown-menu>`.\nReceives arguments `root`, `owner`, `model`\n\n`root` the `<vaadin-dropdown-menu-overlay>` internal container element\n\n`owner` the `<vaadin-dropdown-menu>` element\n\n`model` null\n\n**NOTE:** The renderer callback can be called several times with previous content when available.\n\n**NOTE:** `<vaadin-dropdown-menu>` does not have any specific properties to pass with the `model` object,\nit is set to null.",
+              "description": "Custom function for rendering the content of the `<vaadin-dropdown-menu>`.\nReceives arguments `root`, `owner`, `model`\n\n`root` the `<vaadin-dropdown-menu-overlay>` internal container element\n\n`owner` the `<vaadin-dropdown-menu>` element\n\n`model` null\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.\n\n**NOTE:** `<vaadin-dropdown-menu>` does not have any specific properties to pass with the `model` object,\nit is set to null.",
               "privacy": "public",
               "sourceRange": {
                 "start": {
@@ -4212,7 +4212,7 @@
             },
             {
               "name": "renderer",
-              "description": "Custom function for rendering the content of the `<vaadin-dropdown-menu>`.\nReceives arguments `root`, `owner`, `model`\n\n`root` the `<vaadin-dropdown-menu-overlay>` internal container element\n\n`owner` the `<vaadin-dropdown-menu>` element\n\n`model` null\n\n**NOTE:** The renderer callback can be called several times with previous content when available.\n\n**NOTE:** `<vaadin-dropdown-menu>` does not have any specific properties to pass with the `model` object,\nit is set to null.",
+              "description": "Custom function for rendering the content of the `<vaadin-dropdown-menu>`.\nReceives arguments `root`, `owner`, `model`\n\n`root` the `<vaadin-dropdown-menu-overlay>` internal container element\n\n`owner` the `<vaadin-dropdown-menu>` element\n\n`model` null\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.\n\n**NOTE:** `<vaadin-dropdown-menu>` does not have any specific properties to pass with the `model` object,\nit is set to null.",
               "sourceRange": {
                 "start": {
                   "line": 166,
