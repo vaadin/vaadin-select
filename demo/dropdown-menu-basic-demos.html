@@ -21,6 +21,29 @@
       </template>
     </vaadin-demo-snippet>
 
+    <h3>Content Renderer Function</h3>
+    <p>
+      The content can be provided using the renderer callback function.
+    </p>
+    <vaadin-demo-snippet id="dropdown-menu-list-box-renderer">
+      <template preserve-content>
+        <vaadin-dropdown-menu></vaadin-dropdown-menu>
+        <script>
+          window.addDemoReadyListener('#dropdown-menu-list-box-renderer', function(document) {
+            document.querySelector('vaadin-dropdown-menu').renderer = function(root) {
+              const listBox = window.document.createElement('vaadin-list-box');
+              ['Jose', 'Manolo', 'Pedro'].forEach(function(name) {
+                const item = window.document.createElement('vaadin-item');
+                item.innerText = name;
+                listBox.appendChild(item);
+              });
+              root.appendChild(listBox);
+            };
+          });
+        </script>
+      </template>
+    </vaadin-demo-snippet>
+
     <h3>Configuring the Dropdown</h3>
     <vaadin-demo-snippet id="dropdown-menu-list-box-configuring">
       <template preserve-content>
