@@ -2,8 +2,8 @@
 <!-- Example: Error thrown when calling `appendChild` on Vaadin element -->
 
 #### Live Demo
-<!-- jsBin starting point (fork and edit) -->
-https://jsbin.com/sigesom/edit?html,output
+<!-- Click "Remix This" and edit -- must be logged in to persist! -->
+https://glitch.com/edit/#!/rhetorical-oil
 <!-- ...or provide your own repro URL -->
 
 #### Steps to Reproduce
