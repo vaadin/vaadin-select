@@ -58,6 +58,13 @@
            expect(dropdownMenu).to.eql(dropdown);
          };
        });
+
+       it('should remove template when added after renderer', () => {
+         dropdown.renderer = () => {};
+         const template = document.createElement('template');
+         expect(() => dropdown._contentTemplate = template).to.throw(Error);
+         expect(dropdown._contentTemplate).to.be.not.ok;
+       });
      });
 
      describe('with template', () => {
@@ -69,15 +76,13 @@
          expect(dropdown.shadowRoot.querySelector('vaadin-list-box mock-item').textContent.trim()).to.equal('templatizer item');
        });
 
-       it('renderer should receive empty root when defined after template', () => {
-         dropdown.renderer = root => expect(root.firstChild).to.be.null;
+       it('should throw an error when setting a renderer if there is already a template', () => {
+         expect(() => dropdown.renderer = () => {}).to.throw(Error);
        });
 
-       it('the initial template instance should be used after renderer was assigned and removed', () => {
-         dropdown.renderer = root => root.appendChild(rendererContent);
-         expect(dropdown.shadowRoot.querySelector('vaadin-list-box mock-item').textContent.trim()).to.equal('renderer item');
-         dropdown.renderer = null;
-         expect(dropdown.shadowRoot.querySelector('vaadin-list-box mock-item').textContent.trim()).to.equal('templatizer item');
+       it('should remove renderer when added after template', () => {
+         expect(() => dropdown.renderer = () => {}).to.throw(Error);
+         expect(dropdown.renderer).to.be.not.ok;
        });
      });
    });
