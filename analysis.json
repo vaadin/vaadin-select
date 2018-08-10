@@ -8,11 +8,11 @@
       "sourceRange": {
         "file": "src/vaadin-dropdown-menu.html",
         "start": {
-          "line": 549,
+          "line": 585,
           "column": 6
         },
         "end": {
-          "line": 549,
+          "line": 585,
           "column": 62
         }
       },
@@ -3016,7 +3016,7 @@
           "tagname": "vaadin-dropdown-menu-text-field"
         },
         {
-          "description": "`<vaadin-dropdown-menu>` is a Polymer 2 element for selecting values from a list of items.\n\n```\n<vaadin-dropdown-menu>\n  <template>\n    <vaadin-list-box>\n      <vaadin-item label=\"foo\">Foo</vaadin-item>\n      <vaadin-item>Bar</vaadin-item>\n      <vaadin-item>Baz</vaadin-item>\n    </vaadin-list-box>\n  </template>\n</vaadin-dropdown-menu>\n```\n\nHint: By setting the `label` property of inner vaadin-items you will\nbe able to change the visual representation of the selected value in the input part.\n\n### Styling\n\nThe following shadow DOM parts are available for styling:\n\nPart name | Description\n----------------|----------------\n`toggle-button` | The toggle button\n\nThe following state attributes are available for styling:\n\nAttribute    | Description | Part name\n-------------|-------------|------------\n`opened` | Set when the dropdown menu is open | :host\n`invalid` | Set when the element is invalid | :host\n`focused` | Set when the element is focused | :host\n`focus-ring` | Set when the element is keyboard focused | :host\n`readonly` | Set when the dropdown menu is read only | :host\n\n`<vaadin-dropdown-menu>` element sets these custom CSS properties:\n\nProperty name | Description | Theme for element\n--- | --- | ---\n`--vaadin-dropdown-menu-text-field-width` | Width of the menu text field | `vaadin-dropdown-menu-overlay`\n\nSee [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)",
+          "description": "`<vaadin-dropdown-menu>` is a Web Component for selecting values from a list of items. The content of the\nthe dropdown menu can be populated in two ways: imperatively by using renderer callback function and\ndeclaratively by using Polymer's Templates.\n\n### Rendering\n\nBy default, the dropdown menu uses the content provided by using the renderer callback function.\n\nThe renderer function provides `root`, `dropdownMenu` arguments.\nGenerate DOM content, append it to the `root` element and control the state\nof the host element by accessing `dropdownMenu`.\n\n```html\n<vaadin-dropdown-menu id=\"dropdown-menu\"></vaadin-dropdown-menu>\n```\n```js\nconst dropdownMenu = document.querySelector('#dropdown-menu');\ndropdownMenu.renderer = (root, dropdownMenu) => {\n  const listBox = document.createElement('vaadin-list-box');\n  // append 3 <vaadin-item> elements\n  ['Jose', 'Manolo', 'Pedro'].forEach(function(name) {\n    const item = document.createElement('vaadin-item');\n    item.textContent = name;\n    listBox.appendChild(item);\n  });\n\n  // update the content\n  root.appendChild(listBox);\n};\n```\n\n### Polymer Templates\n\nAlternatively, the content can be provided with Polymer's Template.\nDropdown menu finds the first child template and uses that in case renderer callback function\nis not provided. You can also set a custom template using the `template` property.\n\n```\n<vaadin-dropdown-menu>\n  <template>\n    <vaadin-list-box>\n      <vaadin-item label=\"foo\">Foo</vaadin-item>\n      <vaadin-item>Bar</vaadin-item>\n      <vaadin-item>Baz</vaadin-item>\n    </vaadin-list-box>\n  </template>\n</vaadin-dropdown-menu>\n```\n\nHint: By setting the `label` property of inner vaadin-items you will\nbe able to change the visual representation of the selected value in the input part.\n\n### Styling\n\nThe following shadow DOM parts are available for styling:\n\nPart name | Description\n----------------|----------------\n`toggle-button` | The toggle button\n\nThe following state attributes are available for styling:\n\nAttribute    | Description | Part name\n-------------|-------------|------------\n`opened` | Set when the dropdown menu is open | :host\n`invalid` | Set when the element is invalid | :host\n`focused` | Set when the element is focused | :host\n`focus-ring` | Set when the element is keyboard focused | :host\n`readonly` | Set when the dropdown menu is read only | :host\n\n`<vaadin-dropdown-menu>` element sets these custom CSS properties:\n\nProperty name | Description | Theme for element\n--- | --- | ---\n`--vaadin-dropdown-menu-text-field-width` | Width of the menu text field | `vaadin-dropdown-menu-overlay`\n\nSee [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)",
           "summary": "",
           "path": "src/vaadin-dropdown-menu.html",
           "properties": [
@@ -3027,11 +3027,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 358,
+                  "line": 394,
                   "column": 8
                 },
                 "end": {
-                  "line": 361,
+                  "line": 397,
                   "column": 9
                 }
               },
@@ -3141,11 +3141,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 143,
+                  "line": 179,
                   "column": 12
                 },
                 "end": {
-                  "line": 149,
+                  "line": 185,
                   "column": 13
                 }
               },
@@ -3165,11 +3165,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 161,
+                  "line": 197,
                   "column": 12
                 },
                 "end": {
-                  "line": 161,
+                  "line": 197,
                   "column": 30
                 }
               },
@@ -3186,11 +3186,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 166,
+                  "line": 202,
                   "column": 12
                 },
                 "end": {
-                  "line": 169,
+                  "line": 205,
                   "column": 13
                 }
               },
@@ -3208,11 +3208,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 174,
+                  "line": 210,
                   "column": 12
                 },
                 "end": {
-                  "line": 176,
+                  "line": 212,
                   "column": 13
                 }
               },
@@ -3229,11 +3229,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 191,
+                  "line": 227,
                   "column": 12
                 },
                 "end": {
-                  "line": 196,
+                  "line": 232,
                   "column": 13
                 }
               },
@@ -3253,11 +3253,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 201,
+                  "line": 237,
                   "column": 12
                 },
                 "end": {
-                  "line": 205,
+                  "line": 241,
                   "column": 13
                 }
               },
@@ -3275,11 +3275,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 210,
+                  "line": 246,
                   "column": 12
                 },
                 "end": {
-                  "line": 215,
+                  "line": 251,
                   "column": 13
                 }
               },
@@ -3298,11 +3298,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 220,
+                  "line": 256,
                   "column": 12
                 },
                 "end": {
-                  "line": 223,
+                  "line": 259,
                   "column": 13
                 }
               },
@@ -3319,11 +3319,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 232,
+                  "line": 268,
                   "column": 12
                 },
                 "end": {
-                  "line": 234,
+                  "line": 270,
                   "column": 13
                 }
               },
@@ -3340,11 +3340,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 239,
+                  "line": 275,
                   "column": 12
                 },
                 "end": {
-                  "line": 243,
+                  "line": 279,
                   "column": 13
                 }
               },
@@ -3362,11 +3362,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 245,
+                  "line": 281,
                   "column": 12
                 },
                 "end": {
-                  "line": 245,
+                  "line": 281,
                   "column": 27
                 }
               },
@@ -3383,11 +3383,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 247,
+                  "line": 283,
                   "column": 12
                 },
                 "end": {
-                  "line": 249,
+                  "line": 285,
                   "column": 13
                 }
               },
@@ -3403,11 +3403,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 251,
+                  "line": 287,
                   "column": 12
                 },
                 "end": {
-                  "line": 251,
+                  "line": 287,
                   "column": 35
                 }
               },
@@ -3424,11 +3424,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 253,
+                  "line": 289,
                   "column": 12
                 },
                 "end": {
-                  "line": 253,
+                  "line": 289,
                   "column": 33
                 }
               },
@@ -3445,11 +3445,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 255,
+                  "line": 291,
                   "column": 12
                 },
                 "end": {
-                  "line": 255,
+                  "line": 291,
                   "column": 34
                 }
               },
@@ -3466,11 +3466,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 257,
+                  "line": 293,
                   "column": 12
                 },
                 "end": {
-                  "line": 257,
+                  "line": 293,
                   "column": 26
                 }
               },
@@ -3487,11 +3487,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 259,
+                  "line": 295,
                   "column": 12
                 },
                 "end": {
-                  "line": 259,
+                  "line": 295,
                   "column": 36
                 }
               },
@@ -3508,11 +3508,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 261,
+                  "line": 297,
                   "column": 12
                 },
                 "end": {
-                  "line": 261,
+                  "line": 297,
                   "column": 32
                 }
               },
@@ -3529,11 +3529,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 263,
+                  "line": 299,
                   "column": 12
                 },
                 "end": {
-                  "line": 263,
+                  "line": 299,
                   "column": 32
                 }
               },
@@ -3551,11 +3551,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 287,
+                  "line": 323,
                   "column": 8
                 },
                 "end": {
-                  "line": 317,
+                  "line": 353,
                   "column": 9
                 }
               },
@@ -3571,11 +3571,11 @@
               "privacy": "private",
               "sourceRange": {
                 "start": {
-                  "line": 282,
+                  "line": 318,
                   "column": 8
                 },
                 "end": {
-                  "line": 285,
+                  "line": 321,
                   "column": 9
                 }
               },
@@ -3591,11 +3591,11 @@
               "privacy": "private",
               "sourceRange": {
                 "start": {
-                  "line": 364,
+                  "line": 400,
                   "column": 8
                 },
                 "end": {
-                  "line": 369,
+                  "line": 405,
                   "column": 9
                 }
               },
@@ -3611,11 +3611,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 517,
+                  "line": 553,
                   "column": 8
                 },
                 "end": {
-                  "line": 522,
+                  "line": 558,
                   "column": 9
                 }
               },
@@ -3805,11 +3805,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 319,
+                  "line": 355,
                   "column": 8
                 },
                 "end": {
-                  "line": 325,
+                  "line": 361,
                   "column": 9
                 }
               },
@@ -3838,11 +3838,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 327,
+                  "line": 363,
                   "column": 8
                 },
                 "end": {
-                  "line": 343,
+                  "line": 379,
                   "column": 9
                 }
               },
@@ -3865,11 +3865,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 345,
+                  "line": 381,
                   "column": 8
                 },
                 "end": {
-                  "line": 356,
+                  "line": 392,
                   "column": 9
                 }
               },
@@ -3885,11 +3885,11 @@
               "privacy": "private",
               "sourceRange": {
                 "start": {
-                  "line": 372,
+                  "line": 408,
                   "column": 8
                 },
                 "end": {
-                  "line": 379,
+                  "line": 415,
                   "column": 9
                 }
               },
@@ -3905,11 +3905,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 381,
+                  "line": 417,
                   "column": 8
                 },
                 "end": {
-                  "line": 383,
+                  "line": 419,
                   "column": 9
                 }
               },
@@ -3929,11 +3929,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 385,
+                  "line": 421,
                   "column": 8
                 },
                 "end": {
-                  "line": 397,
+                  "line": 433,
                   "column": 9
                 }
               },
@@ -3956,11 +3956,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 399,
+                  "line": 435,
                   "column": 8
                 },
                 "end": {
-                  "line": 404,
+                  "line": 440,
                   "column": 9
                 }
               },
@@ -3980,11 +3980,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 406,
+                  "line": 442,
                   "column": 8
                 },
                 "end": {
-                  "line": 410,
+                  "line": 446,
                   "column": 9
                 }
               },
@@ -4004,11 +4004,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 412,
+                  "line": 448,
                   "column": 8
                 },
                 "end": {
-                  "line": 442,
+                  "line": 478,
                   "column": 9
                 }
               },
@@ -4031,11 +4031,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 444,
+                  "line": 480,
                   "column": 8
                 },
                 "end": {
-                  "line": 453,
+                  "line": 489,
                   "column": 9
                 }
               },
@@ -4052,11 +4052,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 455,
+                  "line": 491,
                   "column": 8
                 },
                 "end": {
-                  "line": 472,
+                  "line": 508,
                   "column": 9
                 }
               },
@@ -4076,11 +4076,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 474,
+                  "line": 510,
                   "column": 8
                 },
                 "end": {
-                  "line": 476,
+                  "line": 512,
                   "column": 9
                 }
               },
@@ -4103,11 +4103,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 478,
+                  "line": 514,
                   "column": 8
                 },
                 "end": {
-                  "line": 501,
+                  "line": 537,
                   "column": 9
                 }
               },
@@ -4123,11 +4123,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 503,
+                  "line": 539,
                   "column": 8
                 },
                 "end": {
-                  "line": 514,
+                  "line": 550,
                   "column": 9
                 }
               },
@@ -4150,11 +4150,11 @@
               "privacy": "protected",
               "sourceRange": {
                 "start": {
-                  "line": 524,
+                  "line": 560,
                   "column": 8
                 },
                 "end": {
-                  "line": 532,
+                  "line": 568,
                   "column": 9
                 }
               },
@@ -4170,11 +4170,11 @@
               "privacy": "public",
               "sourceRange": {
                 "start": {
-                  "line": 539,
+                  "line": 575,
                   "column": 8
                 },
                 "end": {
-                  "line": 541,
+                  "line": 577,
                   "column": 9
                 }
               },
@@ -4223,11 +4223,11 @@
           "metadata": {},
           "sourceRange": {
             "start": {
-              "line": 124,
+              "line": 160,
               "column": 6
             },
             "end": {
-              "line": 542,
+              "line": 578,
               "column": 7
             }
           },
@@ -4276,11 +4276,11 @@
               "description": "Set when the dropdown menu is open",
               "sourceRange": {
                 "start": {
-                  "line": 143,
+                  "line": 179,
                   "column": 12
                 },
                 "end": {
-                  "line": 149,
+                  "line": 185,
                   "column": 13
                 }
               },
@@ -4292,11 +4292,11 @@
               "description": "Custom function for rendering the content of the `<vaadin-dropdown-menu>`.\nReceives two arguments:\n\n- `root` The `<vaadin-dropdown-menu-overlay>` internal container\n  DOM element. Append your content to it.\n- `dropdownMenu` The reference to the `<vaadin-dropdown-menu>` element.\n\n**NOTE:** The renderer callback can be called multiple times with the previous content.",
               "sourceRange": {
                 "start": {
-                  "line": 161,
+                  "line": 197,
                   "column": 12
                 },
                 "end": {
-                  "line": 161,
+                  "line": 197,
                   "column": 30
                 }
               },
@@ -4308,11 +4308,11 @@
               "description": "The error message to display when the dropdown menu value is invalid",
               "sourceRange": {
                 "start": {
-                  "line": 166,
+                  "line": 202,
                   "column": 12
                 },
                 "end": {
-                  "line": 169,
+                  "line": 205,
                   "column": 13
                 }
               },
@@ -4324,11 +4324,11 @@
               "description": "String used for the label element.",
               "sourceRange": {
                 "start": {
-                  "line": 174,
+                  "line": 210,
                   "column": 12
                 },
                 "end": {
-                  "line": 176,
+                  "line": 212,
                   "column": 13
                 }
               },
@@ -4340,11 +4340,11 @@
               "description": "It stores the the `value` property of the selected item, providing the\nvalue for iron-form.\nWhen there’s an item selected, it's the value of that item, otherwise\nit's an empty string.\nOn change or initialization, the component finds the item which matches the\nvalue and displays it.\nIf no value is provided to the component, it selects the first item without\nvalue or empty value.\nHint: If you do not want to select any item by default, you can either set all\nthe values of inner vaadin-items, or set the vaadin-dropdown-menu value to\nan inexistent value in the items list.",
               "sourceRange": {
                 "start": {
-                  "line": 191,
+                  "line": 227,
                   "column": 12
                 },
                 "end": {
-                  "line": 196,
+                  "line": 232,
                   "column": 13
                 }
               },
@@ -4356,11 +4356,11 @@
               "description": "The current required state of the dropdown menu. True if required.",
               "sourceRange": {
                 "start": {
-                  "line": 201,
+                  "line": 237,
                   "column": 12
                 },
                 "end": {
-                  "line": 205,
+                  "line": 241,
                   "column": 13
                 }
               },
@@ -4372,11 +4372,11 @@
               "description": "Set to true if the value is invalid.",
               "sourceRange": {
                 "start": {
-                  "line": 210,
+                  "line": 246,
                   "column": 12
                 },
                 "end": {
-                  "line": 215,
+                  "line": 251,
                   "column": 13
                 }
               },
@@ -4388,11 +4388,11 @@
               "description": "The name of this element.",
               "sourceRange": {
                 "start": {
-                  "line": 220,
+                  "line": 256,
                   "column": 12
                 },
                 "end": {
-                  "line": 223,
+                  "line": 259,
                   "column": 13
                 }
               },
@@ -4404,11 +4404,11 @@
               "description": "A hint to the user of what can be entered in the control.\nThe placeholder will be displayed in the case that there\nis no item selected, or the selected item has an empty\nstring label, or the selected item has no label and it's\nDOM content is empty.",
               "sourceRange": {
                 "start": {
-                  "line": 232,
+                  "line": 268,
                   "column": 12
                 },
                 "end": {
-                  "line": 234,
+                  "line": 270,
                   "column": 13
                 }
               },
@@ -4420,11 +4420,11 @@
               "description": "When present, it specifies that the element is read-only.",
               "sourceRange": {
                 "start": {
-                  "line": 239,
+                  "line": 275,
                   "column": 12
                 },
                 "end": {
-                  "line": 243,
+                  "line": 279,
                   "column": 13
                 }
               },
