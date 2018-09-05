@@ -104,6 +104,14 @@
           expect(() => dropdown._contentTemplate = template).to.throw(Error);
           expect(dropdown._contentTemplate).to.be.not.ok;
         });
+
+        it('should detach the instance of the list-box rendered while closed, and create new one', () => {
+          dropdown.renderer = root => root.appendChild(rendererContent);
+          const listBox = dropdown.shadowRoot.querySelector('vaadin-list-box');
+          const spy = sinon.spy(dropdown._overlayElement, 'removeChild');
+          dropdown.opened = true;
+          expect(spy).to.be.calledWith(listBox);
+        });
       });
 
       describe('with template', () => {
