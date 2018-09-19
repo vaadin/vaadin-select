@@ -428,6 +428,9 @@ This program is available under Apache License Version 2.0, available at https:/
             this._menuElement.addEventListener('selected-changed', e => this._updateValueSlot());
             this._menuElement.addEventListener('keydown', e => this._onKeyDownInside(e));
             this._menuElement.addEventListener('click', e => this.opened = false);
+            if (this._menuElement.focusFollowsMouse !== undefined) {
+              this._menuElement.focusFollowsMouse = true;
+            }
           }
         }
 
