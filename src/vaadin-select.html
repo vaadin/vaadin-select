@@ -318,7 +318,17 @@ This program is available under Apache License Version 2.0, available at https:/
 
             _oldTemplate: Object,
 
-            _oldRenderer: Object
+            _oldRenderer: Object,
+
+            /**
+            * Used to detect user value changes and fire `change` events.
+            */
+            _lastCommittedValue: String,
+
+            /**
+            * Used to detect opened value changes and fire `change` events.
+            */
+            _lastCommittedWasOpened: Boolean
           };
         }
 
@@ -345,6 +355,7 @@ This program is available under Apache License Version 2.0, available at https:/
         ready() {
           super.ready();
 
+          this._lastCommittedValue = this.value;
           this._overlayElement = this.shadowRoot.querySelector('vaadin-select-overlay');
           this._valueElement = this.shadowRoot.querySelector('[part="value"]');
           this._toggleElement = this.shadowRoot.querySelector('[part="toggle-button"]');
@@ -474,6 +485,18 @@ This program is available under Apache License Version 2.0, available at https:/
             return;
           }
           this.validate();
+
+          // In the next _detectAndDispatchChange() call, the change detection should pass
+          this._lastCommittedValue = undefined;
+          this._detectAndDispatchChange();
+        }
+
+        _detectAndDispatchChange() {
+          if (this.value !== this._lastCommittedValue && this._lastCommittedWasOpened) {
+            this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
+            this._lastCommittedValue = this.value;
+            this._lastCommittedWasOpened = false;
+          }
         }
 
         _onKeyDown(e) {
@@ -507,6 +530,7 @@ This program is available under Apache License Version 2.0, available at https:/
             this._menuElement.focus();
             this._setPosition();
             window.addEventListener('scroll', this._boundSetPosition, true);
+            this._lastCommittedValue = this.value;
           } else if (wasOpened) {
             if (this._phone) {
               this._setFocused(false);
@@ -518,6 +542,7 @@ This program is available under Apache License Version 2.0, available at https:/
             }
             this.validate();
             window.removeEventListener('scroll', this._boundSetPosition, true);
+            this._lastCommittedWasOpened = true;
           }
         }
 
@@ -634,6 +659,12 @@ This program is available under Apache License Version 2.0, available at https:/
         validate() {
           return !(this.invalid = !(this.disabled || !this.required || this.value));
         }
+
+        /**
+         * Fired when value changes.
+         * To comply with https://developer.mozilla.org/en-US/docs/Web/Events/change
+         * @event change
+         */
       }
 
       customElements.define(SelectElement.is, SelectElement);
