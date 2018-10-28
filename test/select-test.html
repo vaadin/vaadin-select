@@ -817,6 +817,79 @@
           expect(spy).not.to.have.been.called;
         });
       });
+
+      describe('`change` event', () => {
+        let menu, changeSpy, valueChangedSpy;
+        beforeEach(done => {
+          menu = select._menuElement;
+          Polymer.RenderStatus.afterNextRender(menu, done);
+
+          valueChangedSpy = sinon.spy();
+          select.addEventListener('value-changed', valueChangedSpy);
+
+          changeSpy = sinon.spy();
+          select.addEventListener('change', changeSpy);
+        });
+
+        it('should fire exactly one `change` event', () => {
+          select.opened = true;
+          menu.selected = 1;
+          select.opened = false;
+
+          expect(changeSpy.callCount).to.equal(1);
+        });
+
+        it('should not fire when closed', () => {
+          select.value = 'v2';
+          select.opened = true;
+          select.opened = false;
+
+          expect(changeSpy.callCount).to.equal(0);
+        });
+
+        it('should stop input `change` event from bubbling', () => {
+          select._inputElement.dispatchEvent(new CustomEvent('change'));
+
+          expect(changeSpy.callCount).to.equal(0);
+        });
+
+        it('should not set composed flag to true on `change` event', done => {
+          select.addEventListener('change', e => {
+            expect(e.composed).to.be.false;
+            done();
+          });
+
+          select.opened = true;
+          menu.selected = 1;
+        });
+
+        it('should not fire until close', () => {
+          select.opened = true;
+          menu.value = 'hello';
+          expect(changeSpy.callCount).to.equal(0);
+        });
+
+        it('should not fire `change` event when not commiting a value by closing', () => {
+          menu.selected = 1;
+
+          expect(changeSpy.callCount).to.equal(0);
+        });
+
+        it('should not fire for changes when closed', () => {
+          menu.selected = 1;
+          select.opened = true;
+          select.opened = false;
+          expect(changeSpy.callCount).to.equal(0);
+        });
+
+        it('should fire `change` events when value changes when alphanumeric keys are pressed', () => {
+          select.opened = false;
+          keyDownChar(input, 'o');
+          keyDownChar(input, 'p');
+          keyDownChar(input, 't');
+          expect(changeSpy.callCount).to.equal(1);
+        });
+      });
     });
 
     describe('vaadin-select theme attribute', () => {
