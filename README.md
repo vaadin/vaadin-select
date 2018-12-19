@@ -101,20 +101,44 @@ To use the Material theme, import the correspondent file from the `theme/materia
 - `vaadin-select.html`
 
 
-## Running demos and tests in browser
+## Running demos and tests in a browser
+Ensure you have [npm](https://www.npmjs.com/) and [Bower](https://bower.io) installed.
 
-1. Fork the `vaadin-select` repository and clone it locally.
+Clone the `vaadin-select` repository.
+```bash
+$ git clone https://github.com/vaadin/vaadin-select.git
+```
 
-1. Make sure you have [npm](https://www.npmjs.com/) installed.
+Change into the vaadin-select directory.
+```bash
+$ cd vaadin-select
+```
 
-1. When in the `vaadin-select` directory, run `npm install` and then `bower install` to install dependencies.
+Install the dependencies.
+```bash
+$ npm install
+$ bower install
+```
 
-1. Run `polymer serve --open`, browser will automatically open the component API documentation.
+Launch a webserver to serve the demo & tests
+```bash
+$ polymer serve --port 3000
+```
 
-1. You can also open demo or in-browser tests by adding **demo** or **test** to the URL, for example:
+View the demos at :
 
-  - http://127.0.0.1:8080/components/vaadin-select/demo
-  - http://127.0.0.1:8080/components/vaadin-select/test
+[http://127.0.0.1:3000/components/vaadin-select/demo](http://127.0.0.1:3000/components/vaadin-select/demo)
+
+or run the test by visiting :
+
+[http://127.0.0.1:3000/components/vaadin-select/test](http://127.0.0.1:3000/components/vaadin-select/test)
+
+If you wish to see the API documentation then run :
+```bash 
+$ polymer analyze vaadin-*.html > analysis.json
+```
+And vist :
+[http://127.0.0.1:3000/](http://127.0.0.1:3000/)
 
 
 ## Running tests from the command line
