@@ -109,7 +109,7 @@ Clone the `vaadin-select` repository.
 $ git clone https://github.com/vaadin/vaadin-select.git
 ```
 
-Change into the vaadin-select directory.
+Change into the `vaadin-select` directory.
 ```bash
 $ cd vaadin-select
 ```
