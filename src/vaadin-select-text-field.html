@@ -29,6 +29,10 @@ This program is available under Apache License Version 2.0, available at https:/
       get focusElement() {
         return this.shadowRoot.querySelector('[part=input-field]');
       }
+
+      get inputElement() {
+        return this.shadowRoot.querySelector('input');
+      }
     }
 
     customElements.define(SelectTextFieldElement.is, SelectTextFieldElement);
