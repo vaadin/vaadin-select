@@ -288,7 +288,9 @@
 
       it('should have a slot for value in a template', () => {
         const template = select._inputElement.constructor.template;
-        expect(template.content.querySelector('slot[name="input"]')).to.be.ok;
+        const slotExists = template.content.querySelector('slot[name="input"]') ||
+                           template.content.querySelector('slot[name="value"]');
+        expect(slotExists).to.be.ok;
       });
 
       describe('selection', () => {
@@ -658,7 +660,8 @@
 
         it('Should hide native input when a item is selected, and it has content', () => {
           menu.selected = 2;
-          expect(select._valueElement.slot).to.equal('input');
+          const slotExists = select._valueElement.slot === 'input' || select._valueElement.slot === 'value';
+          expect(slotExists).to.be.true;
         });
 
         it('Should toggle native native input visibility when the content of the selected item is empty', () => {
