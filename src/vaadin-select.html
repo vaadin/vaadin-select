@@ -485,7 +485,7 @@ This program is available under Apache License Version 2.0, available at https:/
             if (/^(Enter|SpaceBar|\s|ArrowDown|Down|ArrowUp|Up)$/.test(e.key)) {
               e.preventDefault();
               this.opened = true;
-            } else if (/[a-zA-Z]/.test(e.key)) {
+            } else if (/[a-zA-Z0-9]/.test(e.key)) {
               this._searchBuf += e.key.toLowerCase();
               let matching = this._items.filter(item => item.value.toLowerCase().startsWith(this._searchBuf));
               if (matching.length === 0) {
