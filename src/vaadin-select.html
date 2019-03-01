@@ -318,7 +318,9 @@ This program is available under Apache License Version 2.0, available at https:/
 
             _oldTemplate: Object,
 
-            _oldRenderer: Object
+            _oldRenderer: Object,
+
+            _searchBuf: String
           };
         }
 
@@ -352,6 +354,8 @@ This program is available under Apache License Version 2.0, available at https:/
           this._nativeInput.setAttribute('aria-hidden', true);
           this._nativeInput.setAttribute('tabindex', -1);
           this._nativeInput.style.pointerEvents = 'none';
+
+          this._searchBuf = '';
 
           this.focusElement.addEventListener('click', e => this.opened = !this.readonly);
           this.focusElement.addEventListener('keydown', e => this._onKeyDown(e));
@@ -477,9 +481,21 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _onKeyDown(e) {
-          if (!this.readonly && !this.opened && /^(ArrowDown|Down|ArrowUp|Up|Enter|SpaceBar| )$/.test(e.key)) {
-            e.preventDefault();
-            this.opened = true;
+          if (!this.readonly && !this.opened) {
+            if (/^(Enter|SpaceBar|\s|ArrowDown|Down|ArrowUp|Up)$/.test(e.key)) {
+              e.preventDefault();
+              this.opened = true;
+            } else if (/[a-zA-Z]/.test(e.key)) {
+              this._searchBuf += e.key.toLowerCase();
+              let matching = this._items.filter(item => item.value.toLowerCase().startsWith(this._searchBuf));
+              if (matching.length === 0) {
+                this._searchBuf = e.key.toLowerCase();
+                matching = this._items.filter(item => item.value.toLowerCase().startsWith(this._searchBuf));
+              }
+              if (matching.length > 0) {
+                this._updateSelectedItem(matching[0].value, this._items);
+              }
+            }
           }
         }
 
