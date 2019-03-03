@@ -486,27 +486,28 @@ This program is available under Apache License Version 2.0, available at https:/
               e.preventDefault();
               this.opened = true;
 
-            } else if (/(?<!.)[a-zA-Z0-9](?!.)/.test(e.key)) {
-			        this._searchBuf += e.key.toLowerCase();
-              
+            } else if (/[a-zA-Z0-9]/.test(e.key) && e.key.length === 1) {
+              this._searchBuf += e.key.toLowerCase();
               let matching = this._items.filter(item => item.value.toLowerCase().startsWith(this._searchBuf));
-              
               if (matching.length > 0) {
                 this._updateSelectedItem(matching[0].value, this._items);
-              
               } else {
                 this._searchBuf = e.key.toLowerCase();
                 matching = this._items.filter(item => item.value.toLowerCase().startsWith(this._searchBuf));
-                if (matching.length === 0) return;
+                if (matching.length === 0) {
+                  return;
+                }
 
                 let matchingIdx = 0;
                 if (this._menuElement.selected) {
-                  let currValue = this._items[this._menuElement.selected].value;
+                  const currValue = this._items[this._menuElement.selected].value;
                   matchingIdx = matching.findIndex(item => item.value === currValue);
-                  if (matchingIdx == -1) matchingIdx = 0;
+                  if (matchingIdx == -1) {
+                    matchingIdx = 0;
+                  }
                 }
 
-                const newIdx = (matchingIdx+1) % matching.length;
+                const newIdx = (matchingIdx + 1) % matching.length;
                 this._updateSelectedItem(matching[newIdx].value, this._items);
               }
             }
