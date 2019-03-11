@@ -318,9 +318,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
             _oldTemplate: Object,
 
-            _oldRenderer: Object,
-
-            _searchBuf: String
+            _oldRenderer: Object
           };
         }
 
@@ -354,8 +352,6 @@ This program is available under Apache License Version 2.0, available at https:/
           this._nativeInput.setAttribute('aria-hidden', true);
           this._nativeInput.setAttribute('tabindex', -1);
           this._nativeInput.style.pointerEvents = 'none';
-
-          this._searchBuf = '';
 
           this.focusElement.addEventListener('click', e => this.opened = !this.readonly);
           this.focusElement.addEventListener('keydown', e => this._onKeyDown(e));
@@ -487,33 +483,11 @@ This program is available under Apache License Version 2.0, available at https:/
               this.opened = true;
 
             } else if (/[a-zA-Z0-9]/.test(e.key) && e.key.length === 1) {
-              this._searchBuf += e.key.toLowerCase();
-              let matching = this._items.filter(item => item.value.toLowerCase().startsWith(this._searchBuf));
-              const currItem = this._items[this._menuElement.selected];
-              if (!currItem) {
-                if (matching.length > 0) {
-                  this._updateSelectedItem(matching[0].value, this._items);
-                }
-                return;
-              }
-              const currValue = currItem.value;
-              const items = this._items;
-
-              if (matching.length > 0) {
-                if (matching.findIndex(x => x.value === currValue) == -1) {
-                  const index = items.findIndex(x => x.value === currValue);
-                  const after = items.slice(index + 1).concat(items).filter(x => matching.find(y => y.value === x.value));
-                  this._updateSelectedItem(after[0].value, items);
-                }
-              } else {
-                this._searchBuf = e.key.toLowerCase();
-                matching = items.filter(item => item.value.toLowerCase().startsWith(this._searchBuf));
-                if (matching.length === 0) {
-                  return;
-                }
-                const index = items.findIndex(x => x.value === currValue);
-                const after = items.slice(index + 1).concat(items).filter(x => matching.find(y => y.value === x.value));
-                this._updateSelectedItem(after[0].value, items);
+              const selected = this._menuElement.selected;
+              const currentIdx = selected !== undefined ? selected : -1;
+              const newIdx = this._menuElement._searchKey(currentIdx, e.key);
+              if (newIdx >= 0) {
+                this._updateSelectedItem(this._items[newIdx].value, this._items);
               }
             }
           }
