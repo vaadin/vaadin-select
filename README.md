@@ -37,10 +37,10 @@
       return;
     }
     // create the <vaadin-list-box>
-    const listBox = window.document.createElement('vaadin-list-box');
+    const listBox = document.createElement('vaadin-list-box');
     // append 3 <vaadin-item> elements
     ['Jose', 'Manolo', 'Pedro'].forEach(function(name) {
-      const item = window.document.createElement('vaadin-item');
+      const item = document.createElement('vaadin-item');
       item.textContent = name;
       listBox.appendChild(item);
     });
