@@ -427,6 +427,10 @@ This program is available under Apache License Version 2.0, available at https:/
           if (this._menuElement) {
             this._menuElement.addEventListener('items-changed', e => {
               this._items = this._menuElement.items;
+              const updateItem = this._items.find(item => item.value === this.value);
+              if (this._items.indexOf(updateItem) !== -1) {
+                this._menuElement.selected = this._items.indexOf(updateItem);
+              }
             });
             this._menuElement.addEventListener('selected-changed', e => this._updateValueSlot());
             this._menuElement.addEventListener('keydown', e => this._onKeyDownInside(e));
