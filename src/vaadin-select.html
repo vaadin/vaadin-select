@@ -427,7 +427,7 @@ This program is available under Apache License Version 2.0, available at https:/
           if (this._menuElement) {
             this._menuElement.addEventListener('items-changed', e => {
               this._items = this._menuElement.items;
-              const updateItem = this._items.find(item => item.value === this.value);
+              const updateItem = this._items.filter(item => item.value === this.value)[0];
               if (this._items.indexOf(updateItem) !== -1) {
                 this._menuElement.selected = this._items.indexOf(updateItem);
               }
