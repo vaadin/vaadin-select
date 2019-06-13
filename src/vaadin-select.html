@@ -357,7 +357,21 @@ This program is available under Apache License Version 2.0, available at https:/
           this.focusElement.addEventListener('keydown', e => this._onKeyDown(e));
 
           this._observer = new Polymer.FlattenedNodesObserver(this, info => this._setTemplateFromNodes(info.addedNodes));
+          this._overlayObserver = new Polymer.FlattenedNodesObserver(this._overlayElement, this._updateMenu.bind(this));
           this._observer.flush();
+        }
+
+        _updateMenu() {
+          if (this._menuElement !== this.__getMenuFromOverlay()) {
+            this.__skipClosing = true;
+            this._assignMenuElement();
+            // Items won't be attached on `items-changed` as that was already triggered.
+            this._items = this._menuElement.items;
+          }
+        }
+
+        __getMenuFromOverlay() {
+          return Array.from(this._overlayElement.content.children).filter(element => element.localName !== 'style')[0];
         }
 
         _setTemplateFromNodes(nodes) {
@@ -422,7 +436,7 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _assignMenuElement() {
-          this._menuElement = Array.from(this._overlayElement.content.children).filter(element => element.localName !== 'style')[0];
+          this._menuElement = this.__getMenuFromOverlay();
 
           if (this._menuElement) {
             this._menuElement.addEventListener('items-changed', e => {
@@ -573,7 +587,6 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _updateValueSlot() {
-          this.opened = false;
           this._valueElement.innerHTML = '';
 
           const selected = this._items[this._menuElement.selected];
@@ -596,6 +609,10 @@ This program is available under Apache License Version 2.0, available at https:/
           if (!this._valueChanging && selected) {
             this._selectedChanging = true;
             this.value = selected.value || '';
+            if (!this.__skipClosing) {
+              this.opened = false;
+            }
+            this.__skipClosing = false;
             if (this.__userInteraction) {
               this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
               this.__userInteraction = false;
