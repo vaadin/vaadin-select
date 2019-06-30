@@ -635,11 +635,14 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _setPosition() {
+          const ltr = getComputedStyle(this).getPropertyValue('direction') === 'ltr';
           const inputRect = this._inputElement.shadowRoot.querySelector('[part~="input-field"]').getBoundingClientRect();
           const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
           const bottomAlign = inputRect.top > (viewportHeight - inputRect.height) / 2;
 
           this._overlayElement.style.left = inputRect.left + 'px';
+          this._overlayElement.style.alignItems = ltr ? 'flex-start' : 'flex-end';
+
           if (bottomAlign) {
             this._overlayElement.setAttribute('bottom-aligned', '');
             this._overlayElement.style.removeProperty('top');

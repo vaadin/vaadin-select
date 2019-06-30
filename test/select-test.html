@@ -486,6 +486,13 @@
           expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
         });
 
+        it('should align overlay flex-end to correctly align overlay when using rtl', () => {
+          Enter(input);
+          select.setAttribute('dir', 'rtl');
+          select._setPosition();
+          expect(select._overlayElement.style.alignItems).to.be.equal('flex-end');
+        });
+
         it('should store the text-field width in the custom CSS property on overlay opening', () => {
           input.style.width = '200px';
           select.opened = true;
