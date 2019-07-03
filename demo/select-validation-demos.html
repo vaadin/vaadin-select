@@ -12,7 +12,7 @@
         <iron-form>
           <form method="post">
             <vaadin-select name="title" label="Title" error-message="Please choose the option closest to your profession" required></vaadin-select>
-            <template id="selectTemplate" preserve-content>
+            <template id="items-for-select" preserve-content>
               <vaadin-list-box>
                 <vaadin-item value="">Select your title</vaadin-item>
                 <hr>
@@ -42,7 +42,7 @@
               form.submit();
             });
 
-            const template = document.getElementById('selectTemplate');
+            const template = document.getElementById('items-for-select');
             document.querySelector('vaadin-select').renderer = function(root) {
               if (!root.firstChild) {
                 root.appendChild(template.content.cloneNode(true));

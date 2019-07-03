@@ -10,7 +10,7 @@
     <vaadin-demo-snippet id="select-list-box-template" when-defined="vaadin-select">
       <template preserve-content>
         <vaadin-select></vaadin-select>
-        <template id="selectTemplate" preserve-content>
+        <template id="items-for-select" preserve-content>
           <vaadin-list-box>
             <vaadin-item>Jose</vaadin-item>
             <vaadin-item>Manolo</vaadin-item>
@@ -19,7 +19,7 @@
         </template>
         <script>
           window.addDemoReadyListener('#select-list-box-template', function(document) {
-            const template = document.getElementById('selectTemplate');
+            const template = document.getElementById('items-for-select');
             document.querySelector('vaadin-select').renderer = function(root) {
               if (!root.firstChild) {
                 root.appendChild(template.content.cloneNode(true));
@@ -81,7 +81,7 @@
         <vaadin-select label="Label" placeholder="Placeholder"></vaadin-select>
         <vaadin-select label="Disabled" disabled></vaadin-select>
         <vaadin-select label="Read-only" readonly value="Option one"></vaadin-select>
-        <template id="basicTemplate" preserve-content>
+        <template id="items-for-select" preserve-content>
           <vaadin-list-box>
             <vaadin-item>Option one</vaadin-item>
             <vaadin-item>Option two</vaadin-item>
@@ -89,7 +89,7 @@
         </template>
 
         <vaadin-select label="Required" required></vaadin-select>
-        <template id="requiredTemplate" preserve-content>
+        <template id="items-for-required-select" preserve-content>
           <vaadin-list-box>
             <vaadin-item value="" disabled>Select an option</vaadin-item>
             <hr>
@@ -109,13 +109,13 @@
               };
             };
 
-            const basicTemplate = document.getElementById('basicTemplate');
+            const basicTemplate = document.getElementById('items-for-select');
             const basicSelects = document.querySelectorAll('vaadin-select:not([required])');
             for (let i = 0; i < basicSelects.length; i++) {
               basicSelects[i].renderer = makeStaticTemplateRenderer(basicTemplate);
             }
 
-            const requiredTemplate = document.getElementById('requiredTemplate');
+            const requiredTemplate = document.getElementById('items-for-required-select');
             const requiredSelect = document.querySelector('vaadin-select[required]');
             requiredSelect.renderer = makeStaticTemplateRenderer(requiredTemplate);
           });
@@ -130,7 +130,7 @@
     <vaadin-demo-snippet id="select-list-box-custom-label" when-defined="vaadin-select">
       <template preserve-content>
         <vaadin-select placeholder="Language"></vaadin-select>
-        <template id="selectTemplate" preserve-content>
+        <template id="items-for-select" preserve-content>
           <vaadin-list-box>
             <vaadin-item>Other</vaadin-item>
             <vaadin-item label="ES">Spanish</vaadin-item>
@@ -140,7 +140,7 @@
         </template>
         <script>
           window.addDemoReadyListener('#select-list-box-custom-label', function(document) {
-            const template = document.getElementById('selectTemplate');
+            const template = document.getElementById('items-for-select');
             document.querySelector('vaadin-select').renderer = function(root) {
               if (!root.firstChild) {
                 root.appendChild(template.content.cloneNode(true));
