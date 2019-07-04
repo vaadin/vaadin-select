@@ -11,17 +11,18 @@
       <template preserve-content>
         <iron-form>
           <form method="post">
-            <vaadin-select name="title" label="Title" error-message="Please choose the option closest to your profession" required></vaadin-select>
-            <template id="items-for-select" preserve-content>
-              <vaadin-list-box>
-                <vaadin-item value="">Select your title</vaadin-item>
-                <hr>
-                <vaadin-item value="sales">Account manager</vaadin-item>
-                <vaadin-item value="design">Designer</vaadin-item>
-                <vaadin-item value="marketing">Marketing manager</vaadin-item>
-                <vaadin-item value="dev">Developer</vaadin-item>
-              </vaadin-list-box>
-            </template>
+            <vaadin-select name="title" label="Title" error-message="Please choose the option closest to your profession" required>
+              <template>
+                <vaadin-list-box>
+                  <vaadin-item value="">Select your title</vaadin-item>
+                  <hr>
+                  <vaadin-item value="sales">Account manager</vaadin-item>
+                  <vaadin-item value="design">Designer</vaadin-item>
+                  <vaadin-item value="marketing">Marketing manager</vaadin-item>
+                  <vaadin-item value="dev">Developer</vaadin-item>
+                </vaadin-list-box>
+              </template>
+            </vaadin-select>
             <vaadin-button>Submit</vaadin-button>
           </form>
         </iron-form>
@@ -41,13 +42,6 @@
             button.addEventListener('click', function() {
               form.submit();
             });
-
-            const template = document.getElementById('items-for-select');
-            document.querySelector('vaadin-select').renderer = function(root) {
-              if (!root.firstChild) {
-                root.appendChild(template.content.cloneNode(true));
-              }
-            };
           });
         </script>
       </template>
