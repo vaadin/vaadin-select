@@ -8,50 +8,22 @@
     <h3>Separators</h3>
     <vaadin-demo-snippet id="select-list-box-separator" when-defined="vaadin-select">
       <template preserve-content>
-        <vaadin-select></vaadin-select>
-        <script>
-          window.addDemoReadyListener('#select-list-box-separator', function(document) {
-            var weekdays = [
-              {name: 'Monday'},
-              {name: 'Tuesday'},
-              {name: 'Wednesday'},
-              {name: 'Thursday'},
-              {name: 'Friday'},
-              {name: 'Saturday'},
-              {name: 'Sunday'}
-            ];
-
-            document.querySelector('vaadin-select').renderer = function(root) {
-              if (root.firstChild) {
-                return;
-              }
-
-              const listBox = window.document.createElement('vaadin-list-box');
-
-              // un-selectable <vaadin-item> to highlight required state
-              const select = window.document.createElement('vaadin-item');
-              select.textContent = 'Weekdays';
-              select.setAttribute('disabled', '');
-              select.setAttribute('value', '');
-              listBox.appendChild(select);
-
-              // <hr> divider
-              const divider = window.document.createElement('hr');
-              listBox.appendChild(divider);
-              weekdays.forEach(k => {
-                const item = window.document.createElement('vaadin-item');
-                item.textContent = k.name;
-                listBox.appendChild(item);
-                item.setAttribute('value', k);
-                if (k.name == 'Friday') {
-                  const divider = window.document.createElement('hr');
-                  listBox.appendChild(divider);
-                }
-              });
-              root.appendChild(listBox);
-            };
-          });
-        </script>
+        <vaadin-select label="Weekdays" placeholder="Weekdays">
+          <template>
+            <vaadin-list-box>
+              <vaadin-item disabled>Weekdays</vaadin-item>
+              <hr>
+              <vaadin-item>Monday</vaadin-item>
+              <vaadin-item>Tuesday</vaadin-item>
+              <vaadin-item>Wednesday</vaadin-item>
+              <vaadin-item>Thursday</vaadin-item>
+              <vaadin-item>Friday</vaadin-item>
+              <hr>
+              <vaadin-item>Saturday</vaadin-item>
+              <vaadin-item>Sunday</vaadin-item>
+            </vaadin-list-box>
+          </template>
+        </vaadin-select>
       </template>
     </vaadin-demo-snippet>
 
@@ -92,9 +64,9 @@
 
     <h3>Customize the label of selected value</h3>
     <p>
-      By setting the <code>label</code> attribute of inner vaadin-items you will be able
-      to change the visual
-      representation of the selected value in the input part.
+      By setting <code>label</code> properties for the <code>vaadin-item</code> elements
+      you can override the default visual representation of the selected item and make the
+      <code>vaadin-select</code> show the item's <code>label</code> instead.
     </p>
     <vaadin-demo-snippet id="select-list-box-custom-label" when-defined="vaadin-select">
       <template preserve-content>

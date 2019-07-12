@@ -61,13 +61,13 @@
       </template>
     </vaadin-demo-snippet>
 
-    <h3>Entity list</h3>
+    <h3>Object list</h3>
     <vaadin-demo-snippet id="select-list-box-dynamic" when-defined="vaadin-select">
       <template preserve-content>
         <vaadin-select label="Department"></vaadin-select>
         <script>
           window.addDemoReadyListener('#select-list-box-dynamic', function(document) {
-            var department = [
+            const department = [
               {id: '1', name: 'Product'},
               {id: '2', name: 'Service'},
               {id: '3', name: 'HR'},
@@ -80,12 +80,11 @@
               }
               // Create the <vaadin-list-box>
               const listBox = window.document.createElement('vaadin-list-box');
-              // append 4 <vaadin-item> elements
-              department.forEach(k => {
-                const item = window.document.createElement('vaadin-item');
-                item.textContent = k.name;
-                listBox.appendChild(item);
-                item.setAttribute('value', k.id);
+              department.forEach(function(item) {
+                const vaadinItem = window.document.createElement('vaadin-item');
+                vaadinItem.textContent = item.name;
+                listBox.appendChild(vaadinItem);
+                vaadinItem.setAttribute('value', item.id);
               });
               // update the content
               root.appendChild(listBox);
@@ -107,11 +106,12 @@
             </vaadin-list-box>
           </template>
         </vaadin-select>
-        <div id="output"></div>
+        <div id="output">Select a value</div>
         <script>
+
           window.addDemoReadyListener('#select-list-box-on-change', function(document) {
             document.querySelector('vaadin-select').addEventListener('change', function(event) {
-              var output = document.querySelector('#output');
+              const output = document.querySelector('#output');
               output.innerText = event.target.value;
             });
           });
@@ -119,41 +119,21 @@
       </template>
     </vaadin-demo-snippet>
 
-
     <h3>Disabled item</h3>
     <vaadin-demo-snippet id="select-list-box-disabled-item">
       <template preserve-content>
-        <vaadin-select></vaadin-select>
-        <script>
-          window.addDemoReadyListener('#select-list-box-disabled-item', function(document) {
-            var team = [
-              {id: '1', name: 'Flow', departmentId: '1'},
-              {id: '2', name: 'Components', departmentId: '1'},
-              {id: '3', name: 'Pro tools', departmentId: '1'},
-              {id: '4', name: 'Developers Journey and Onboarding', departmentId: '1'},
-              {id: '5', name: 'Experts', departmentId: '2'},
-              {id: '6', name: 'Incubator', departmentId: '2'}
-            ];
-
-            document.querySelector('vaadin-select').renderer = function(root) {
-              if (root.firstChild) {
-                return;
-              }
-
-              const listBox = window.document.createElement('vaadin-list-box');
-              team.forEach(k => {
-                const item = window.document.createElement('vaadin-item');
-                item.textContent = k.name;
-                listBox.appendChild(item);
-                item.setAttribute('value', k.id);
-                if (k.id == '4') {
-                  item.setAttribute('disabled', true);
-                }
-              });
-              root.appendChild(listBox);
-            };
-          });
-        </script>
+        <vaadin-select label="Team">
+          <template>
+            <vaadin-list-box>
+              <vaadin-item>Flow</vaadin-item>
+              <vaadin-item>Components</vaadin-item>
+              <vaadin-item>Pro tools</vaadin-item>
+              <vaadin-item disabled>Developers Journey and Onboarding</vaadin-item>
+              <vaadin-item>Experts</vaadin-item>
+              <vaadin-item>Incubator</vaadin-item>
+            </vaadin-list-box>
+          </template>
+        </vaadin-select>
       </template>
     </vaadin-demo-snippet>
 
