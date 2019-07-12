@@ -66,14 +66,14 @@
       <template preserve-content>
         <vaadin-select label="Department"></vaadin-select>
         <script>
-          window.addDemoReadyListener('#select-list-box-dynamic', function (document) {
+          window.addDemoReadyListener('#select-list-box-dynamic', function(document) {
             var department = [
-              { id: '1', name: 'Product' },
-              { id: '2', name: 'Service' },
-              { id: '3', name: 'HR' },
-              { id: '4', name: 'Accounting' }
+              {id: '1', name: 'Product'},
+              {id: '2', name: 'Service'},
+              {id: '3', name: 'HR'},
+              {id: '4', name: 'Accounting'}
             ];
-            document.querySelector('vaadin-select').renderer = function (root) {
+            document.querySelector('vaadin-select').renderer = function(root) {
               // Check if there is a list-box generated with the previous renderer call to update its content instead of recreation
               if (root.firstChild) {
                 return;
@@ -109,8 +109,8 @@
         </vaadin-select>
         <div id="output"></div>
         <script>
-          window.addDemoReadyListener('#select-list-box-on-change', function (document) {
-            document.querySelector('vaadin-select').addEventListener('change', function (event) {
+          window.addDemoReadyListener('#select-list-box-on-change', function(document) {
+            document.querySelector('vaadin-select').addEventListener('change', function(event) {
               var output = document.querySelector('#output');
               output.innerText = event.target.value;
             });
@@ -125,17 +125,17 @@
       <template preserve-content>
         <vaadin-select></vaadin-select>
         <script>
-          window.addDemoReadyListener('#select-list-box-disabled-item', function (document) {
+          window.addDemoReadyListener('#select-list-box-disabled-item', function(document) {
             var team = [
-              { id: '1', name: 'Flow', departmentId: '1' },
-              { id: '2', name: 'Components', departmentId: '1' },
-              { id: '3', name: 'Pro tools', departmentId: '1' },
-              { id: '4', name: 'Developers Journey and Onboarding', departmentId: '1' },
-              { id: '5', name: 'Experts', departmentId: '2' },
-              { id: '6', name: 'Incubator', departmentId: '2' }
+              {id: '1', name: 'Flow', departmentId: '1'},
+              {id: '2', name: 'Components', departmentId: '1'},
+              {id: '3', name: 'Pro tools', departmentId: '1'},
+              {id: '4', name: 'Developers Journey and Onboarding', departmentId: '1'},
+              {id: '5', name: 'Experts', departmentId: '2'},
+              {id: '6', name: 'Incubator', departmentId: '2'}
             ];
 
-            document.querySelector('vaadin-select').renderer = function (root) {
+            document.querySelector('vaadin-select').renderer = function(root) {
               if (root.firstChild) {
                 return;
               }
