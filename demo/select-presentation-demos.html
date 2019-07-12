@@ -1,0 +1,137 @@
+<dom-module id="select-presentation-demos">
+  <template>
+    <style include="vaadin-component-demo-shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+    <h3>Separators</h3>
+    <vaadin-demo-snippet id="select-list-box-separator" when-defined="vaadin-select">
+      <template preserve-content>
+        <vaadin-select></vaadin-select>
+        <script>
+          window.addDemoReadyListener('#select-list-box-separator', function(document) {
+            var weekdays = [
+              {name: 'Monday'},
+              {name: 'Tuesday'},
+              {name: 'Wednesday'},
+              {name: 'Thursday'},
+              {name: 'Friday'},
+              {name: 'Saturday'},
+              {name: 'Sunday'}
+            ];
+
+            document.querySelector('vaadin-select').renderer = function(root) {
+              if (root.firstChild) {
+                return;
+              }
+
+              const listBox = window.document.createElement('vaadin-list-box');
+
+              // un-selectable <vaadin-item> to highlight required state
+              const select = window.document.createElement('vaadin-item');
+              select.textContent = 'Weekdays';
+              select.setAttribute('disabled', '');
+              select.setAttribute('value', '');
+              listBox.appendChild(select);
+
+              // <hr> divider
+              const divider = window.document.createElement('hr');
+              listBox.appendChild(divider);
+              weekdays.forEach(k => {
+                const item = window.document.createElement('vaadin-item');
+                item.textContent = k.name;
+                listBox.appendChild(item);
+                item.setAttribute('value', k);
+                if (k.name == 'Friday') {
+                  const divider = window.document.createElement('hr');
+                  listBox.appendChild(divider);
+                }
+              });
+              root.appendChild(listBox);
+            };
+          });
+        </script>
+      </template>
+    </vaadin-demo-snippet>
+
+    <h3>Customizing the template content</h3>
+    <vaadin-demo-snippet id="select-list-box-custom-content">
+      <template preserve-content>
+        <vaadin-select label="User">
+          <div slot="prefix">
+            <iron-icon icon="lumo:user"></iron-icon>
+          </div>
+          <template>
+            <vaadin-list-box>
+              <vaadin-item>
+                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;"
+                  src="https://randomuser.me/api/portraits/women/43.jpg" />
+                Gabriella
+              </vaadin-item>
+              <vaadin-item>
+                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;"
+                  src="https://randomuser.me/api/portraits/men/77.jpg" />
+                Rudi
+              </vaadin-item>
+              <vaadin-item>
+                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;"
+                  src="https://randomuser.me/api/portraits/men/35.jpg" />
+                Hamsa
+              </vaadin-item>
+              <vaadin-item>
+                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;"
+                  src="https://randomuser.me/api/portraits/men/76.jpg" />
+                Jacob
+              </vaadin-item>
+            </vaadin-list-box>
+          </template>
+        </vaadin-select>
+      </template>
+    </vaadin-demo-snippet>
+
+    <h3>Customize the label of selected value</h3>
+    <p>
+      By setting the <code>label</code> attribute of inner vaadin-items you will be able
+      to change the visual
+      representation of the selected value in the input part.
+    </p>
+    <vaadin-demo-snippet id="select-list-box-custom-label" when-defined="vaadin-select">
+      <template preserve-content>
+        <vaadin-select label="How are you feeling today?" placeholder="How are you feeling
+          today?">
+          <template>
+            <vaadin-list-box>
+              <vaadin-item></vaadin-item>
+              <hr>
+              <vaadin-item label="Good">
+                <div>
+                  <iron-icon icon="vaadin:thumbs-up" style="margin-right: 1.5em"></iron-icon>Good
+                </div>
+              </vaadin-item>
+              <vaadin-item label="Happy">
+                <div>
+                  <iron-icon icon="vaadin:smiley-o" style="margin-right: 1.5em"></iron-icon>Happy
+                </div>
+              </vaadin-item>
+              <vaadin-item label="Bad">
+                <div>
+                  <iron-icon icon="vaadin:thumbs-down" style="margin-right: 1.5em"></iron-icon>Bad
+                </div>
+              </vaadin-item>
+            </vaadin-list-box>
+          </template>
+        </vaadin-select>
+      </template>
+    </vaadin-demo-snippet>
+
+  </template>
+  <script>
+    class SelectPresentationDemos extends DemoReadyEventEmitter(SelectDemo(Polymer.Element)) {
+      static get is() {
+        return 'select-presentation-demos';
+      }
+    }
+    customElements.define(SelectPresentationDemos.is, SelectPresentationDemos);
+  </script>
+</dom-module>
