@@ -37,8 +37,7 @@
     "vaadin-overlay": "vaadin/vaadin-overlay#^3.2.0",
     "vaadin-lumo-styles": "vaadin/vaadin-lumo-styles#^1.1.0",
     "vaadin-material-styles": "vaadin/vaadin-material-styles#^1.1.0",
-    "vaadin-element-mixin": "vaadin/vaadin-element-mixin#^2.0.0",
-    "vaadin-icons": "vaadin/vaadin-icons#^4.3.1"
+    "vaadin-element-mixin": "vaadin/vaadin-element-mixin#^2.0.0"
   },
   "devDependencies": {
     "iron-test-helpers": "^2.0.0",
@@ -48,7 +47,8 @@
     "webcomponentsjs": "^1.0.0",
     "web-component-tester": "^6.1.5",
     "vaadin-demo-helpers": "vaadin/vaadin-demo-helpers#^3.0.0",
-    "vaadin-button": "vaadin/vaadin-button#^2.1.0"
+    "vaadin-button": "vaadin/vaadin-button#^2.1.0",
+    "vaadin-icons": "vaadin/vaadin-icons#^4.3.1"
   },
   "resolutions": {
     "vaadin-element-mixin": "^2.0.0"

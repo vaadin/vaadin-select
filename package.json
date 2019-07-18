@@ -43,8 +43,5 @@
   },
   "devDependencies": {
     "@vaadin/vaadin-component-dev-dependencies": "^3.0.0"
-  },
-  "dependencies": {
-    "@vaadin/vaadin-icons": "^4.3.1"
   }
 }
