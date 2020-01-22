@@ -21,6 +21,13 @@ gemini.suite('vaadin-select', function(rootSuite) {
         .setCaptureElements('#select')
         .capture('select');
     });
+
+    gemini.suite(`rtl-tests-${theme}`, function(suite) {
+      suite
+        .setUrl(`rtl.html?theme=${theme}`)
+        .setCaptureElements('#select')
+        .capture('select');
+    });
   });
 
   gemini.suite(`lumo-variants-tests`, function(suite) {
