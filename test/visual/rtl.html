@@ -31,11 +31,19 @@
 
   <div class="capture-block" id="select">
 
-    <vaadin-select label="Normal" error-message="Error-message" required placeholder="Placeholder">
+    <vaadin-select label="Normal" error-message="Error-message" id="general" required placeholder="Placeholder">
       <div slot="prefix">prefix &nbsp;</div>
     </vaadin-select>
 
-    <vaadin-select label="Selected and Focused" placeholder="Placeholder">
+    <vaadin-select label="Selected value" value="Selected">
+      <template>
+        <vaadin-list-box>
+          <vaadin-item>Selected</vaadin-item>
+        </vaadin-list-box>
+      </template>
+    </vaadin-select>
+
+    <vaadin-select label="Opened and selected" id="opened-selected">
       <template>
         <vaadin-list-box>
           <vaadin-item>default item</vaadin-item>
@@ -46,11 +54,12 @@
 
     <script>
       window.addEventListener('WebComponentsReady', () => {
-        const select1 = document.querySelectorAll('vaadin-select')[0];
-        const select2 = document.querySelectorAll('vaadin-select')[1];
+        const select1 = document.getElementById('general');
+        const select2 = document.getElementById('opened-selected');
 
         Polymer.RenderStatus.afterNextRender(select2._menuElement, () => {
           select1.opened = true;
+          select2._menuElement.selected = 1;
           select2.opened = true;
           window.webComponentsAreReady = true;
         });
