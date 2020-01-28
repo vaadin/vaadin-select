@@ -87,13 +87,17 @@
 
       /* RTL specific styles */
 
-      :host([dir="rtl"]) ::slotted([part~="value"]),
       :host([theme~="align-left"][dir="rtl"]) ::slotted([part~="value"]) {
-        --_lumo-text-field-overflow-mask-image: linear-gradient(to right, transparent 0.25em, #000 1.5em);
+        --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent 0.25em, #000 1.5em);
       }
 
+      :host([theme~="align-center"][dir="rtl"]) ::slotted([part~="value"]) {
+        --_lumo-text-field-overflow-mask-image: none;
+      }
+
+      :host([dir="rtl"]) ::slotted([part~="value"]),
       :host([theme~="align-right"][dir="rtl"]) ::slotted([part~="value"]) {
-        --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent 0.25em, #000 1.5em);
+        --_lumo-text-field-overflow-mask-image: linear-gradient(to right, transparent 0.25em, #000 1.5em);
       }
     </style>
   </template>
