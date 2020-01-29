@@ -28,14 +28,14 @@ gemini.suite('vaadin-select', function(rootSuite) {
         .setCaptureElements('#select')
         .capture('select');
     });
+  });
 
-    ['ltr', 'rtl'].forEach(dir => {
-      gemini.suite(`${dir}-align-tests-${theme}`, function(suite) {
-        suite
-          .setUrl(`align-themes.html?theme=${theme}&dir=${dir}`)
-          .setCaptureElements('#select')
-          .capture('select');
-      });
+  ['ltr', 'rtl'].forEach(dir => {
+    gemini.suite(`${dir}-align-tests`, function(suite) {
+      suite
+        .setUrl(`align-themes.html?dir=${dir}`)
+        .setCaptureElements('#select')
+        .capture('select');
     });
   });
 
