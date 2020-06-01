@@ -137,6 +137,14 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="select-with-slotted-helper">
+    <template>
+      <vaadin-select>
+        <div slot="helper">foo</div>
+      </vaadin-select>
+    </template>
+  </test-fixture>
+
   <script>
     function arrowUp(target) {
       MockInteractions.keyDownOn(target, 38, [], 'ArrowUp');
@@ -719,6 +727,20 @@
           });
         }
       });
+
+      describe('helper-text', () => {
+        it('should display the helper text when slotted helper available', () => {
+          const select = fixture(`select-with-slotted-helper`);
+          const evt = new CustomEvent('slotchange');
+          select.shadowRoot.querySelector('[name="helper"]').dispatchEvent(evt);
+          expect(select._inputElement.querySelector('[slot="helper"]').assignedNodes()[0].textContent).to.eql('foo');
+        });
+
+        it('should display the helper text when provided', () => {
+          select.helperText = 'Foo';
+          expect(select._inputElement.helperText).to.equal(select.helperText);
+        });
+      })
 
       describe('validation', () => {
         it('should set invalid to true when is required but there is no value', () => {
