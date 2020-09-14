@@ -270,9 +270,11 @@ describe('vaadin-select', () => {
         expect(select._overlayElement.opened).to.be.false;
       });
 
-      // TODO: investigate
-      it.skip('should align the overlay on top left corner by default on input click', () => {
+      it('should align the overlay on top left corner by default on input click', async() => {
+        // NOTE: avoid setting bottom-aligned because of web-test-runner window size
+        select.setAttribute('style', 'position: absolute; top: 10px');
         enter(input);
+        await nextFrame();
         const overlayRect = select._overlayElement.getBoundingClientRect();
         const inputRect = input.shadowRoot.querySelector('[part~="input-field"]').getBoundingClientRect();
         expect(overlayRect.top).to.be.equal(inputRect.top);
