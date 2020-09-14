@@ -1,5 +1,8 @@
-<dom-module id="select-styling-demos">
-  <template>
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+class SelectStylingDemos extends DemoReadyEventEmitter(SelectDemo(PolymerElement)) {
+  static get template() {
+    return html`
     <style include="vaadin-component-demo-shared-styles">
       :host {
         display: block;
@@ -8,7 +11,7 @@
 
     <h3>Styling the template content</h3>
     <vaadin-demo-snippet id="select-list-box-custom-styling">
-      <template preserve-content>
+      <template preserve-content="">
         <style>
           vaadin-item {
             font-weight: bold;
@@ -29,7 +32,7 @@
 
     <h3>Custom input field style</h3>
     <vaadin-demo-snippet id="select-list-box-custom-border">
-      <template preserve-content>
+      <template preserve-content="">
         <dom-module id="custom-select-border" theme-for="vaadin-select-text-field">
           <template>
             <style>
@@ -54,7 +57,7 @@
 
     <h3>Custom icon</h3>
     <vaadin-demo-snippet id="select-custom-icon">
-      <template preserve-content>
+      <template preserve-content="">
         <dom-module id="custom-select-icon" theme-for="vaadin-select">
           <template>
             <style>
@@ -79,7 +82,7 @@
 
     <h3>Custom overlay style</h3>
     <vaadin-demo-snippet id="select-theme-variants-demos-custom">
-      <template preserve-content>
+      <template preserve-content="">
         <dom-module id="custom-select-font-style" theme-for="vaadin-item">
           <template>
             <style>
@@ -109,15 +112,11 @@
         </vaadin-select>
       </template>
     </vaadin-demo-snippet>
+`;
+  }
 
-
-  </template>
-  <script>
-    class SelectStylingDemos extends DemoReadyEventEmitter(SelectDemo(Polymer.Element)) {
-      static get is() {
-        return 'select-styling-demos';
-      }
-    }
-    customElements.define(SelectStylingDemos.is, SelectStylingDemos);
-  </script>
-</dom-module>
+  static get is() {
+    return 'select-styling-demos';
+  }
+}
+customElements.define(SelectStylingDemos.is, SelectStylingDemos);

@@ -4,51 +4,47 @@
     {
       "name": "Basics",
       "url": "select-basic-demos",
-      "src": "select-basic-demos.html",
+      "src": "select-basic-demos.js",
       "meta": {
         "title": "vaadin-select Basics",
         "description": "",
         "image": ""
       }
-    }
-    ,
+    },
     {
       "name": "Validation",
       "url": "select-validation-demos",
-      "src": "select-validation-demos.html",
+      "src": "select-validation-demos.js",
       "meta": {
         "title": "vaadin-select Validation",
         "description": "",
         "image": ""
       }
-    }
-    ,
+    },
     {
       "name": "Presentation",
       "url": "select-presentation-demos",
-      "src": "select-presentation-demos.html",
+      "src": "select-presentation-demos.js",
       "meta": {
         "title": "vaadin-select Presentation",
         "description": "",
         "image": ""
       }
-    }
-    ,
+    },
     {
       "name": "Styling",
       "url": "select-styling-demos",
-      "src": "select-styling-demos.html",
+      "src": "select-styling-demos.js",
       "meta": {
         "title": "vaadin-select Styling",
         "description": "",
         "image": ""
       }
-    }
-    ,
+    },
     {
       "name": "Theme Variants",
       "url": "select-theme-variants-demos",
-      "src": "select-theme-variants-demos.html",
+      "src": "select-theme-variants-demos.js",
       "meta": {
         "title": "vaadin-select Theme Variants",
         "description": "",

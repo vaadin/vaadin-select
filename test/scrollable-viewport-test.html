@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title>vaadin-select tests</title>
-  <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../iron-test-helpers/mock-interactions.js"></script>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../test-fixture/test-fixture.html">
-  <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
-  <link rel="import" href="../../vaadin-item/vaadin-item.html">
-  <link rel="import" href="../vaadin-select.html">
+  <script src="../../../wct-browser-legacy/browser.js"></script>
+  <script src="../../../@polymer/iron-test-helpers/mock-interactions.js" type="module"></script>
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script type="module" src="../../../@polymer/test-fixture/test-fixture.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-list-box/vaadin-list-box.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-item/vaadin-item.js"></script>
+  <script type="module" src="../vaadin-select.js"></script>
 </head>
 
 <body>
@@ -46,68 +46,72 @@
     </template>
   </test-fixture>
 
-  <script>
-    function Enter(target) {
-      MockInteractions.keyDownOn(target, 13, [], 'Enter');
-    }
+  <script type="module">
+import '@polymer/test-fixture/test-fixture.js';
+import '@vaadin/vaadin-list-box/vaadin-list-box.js';
+import '@vaadin/vaadin-item/vaadin-item.js';
+import '../vaadin-select.js';
+function Enter(target) {
+  MockInteractions.keyDownOn(target, 13, [], 'Enter');
+}
 
-    function scrollContainer(container, value, scrollLeft) {
-      if (scrollLeft) {
-        container.scrollLeft = scrollLeft;
-      }
-      container.scrollTop = value;
-      window.dispatchEvent(new CustomEvent('scroll', {bubbles: true}));
-    }
+function scrollContainer(container, value, scrollLeft) {
+  if (scrollLeft) {
+    container.scrollLeft = scrollLeft;
+  }
+  container.scrollTop = value;
+  window.dispatchEvent(new CustomEvent('scroll', {bubbles: true}));
+}
 
-    describe('scrollable-viewport', () => {
-      var scrollableContainer, container, select, input, inputFieldBlock;
+describe('scrollable-viewport', () => {
+  var scrollableContainer, container, select, input, inputFieldBlock;
 
-      beforeEach(done => {
-        scrollableContainer = fixture('select');
-        container = scrollableContainer.querySelector('#container');
-        select = container.querySelector('vaadin-select');
+  beforeEach(done => {
+    scrollableContainer = fixture('select');
+    container = scrollableContainer.querySelector('#container');
+    select = container.querySelector('vaadin-select');
 
-        // Input without label and indents
-        input = select._inputElement;
-        inputFieldBlock = input.shadowRoot.querySelector('[part~="input-field"]');
+    // Input without label and indents
+    input = select._inputElement;
+    inputFieldBlock = input.shadowRoot.querySelector('[part~="input-field"]');
 
-        const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
-        // Position the input in the lower part of the viewport
-        container.style.paddingTop = viewportHeight / 2 + 'px';
-        scrollableContainer.scrollTop = 0;
+    const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
+    // Position the input in the lower part of the viewport
+    container.style.paddingTop = viewportHeight / 2 + 'px';
+    scrollableContainer.scrollTop = 0;
 
-        flush(done);
-      });
+    flush(done);
+  });
 
-      it('should toggle bottom-aligned attribute dependening on the part of the viewport', () => {
-        Enter(input);
-        expect(select._overlayElement.hasAttribute('bottom-aligned')).to.be.true;
-        scrollContainer(scrollableContainer, 150);
-        expect(select._overlayElement.hasAttribute('bottom-aligned')).to.be.false;
-      });
+  it('should toggle bottom-aligned attribute dependening on the part of the viewport', () => {
+    Enter(input);
+    expect(select._overlayElement.hasAttribute('bottom-aligned')).to.be.true;
+    scrollContainer(scrollableContainer, 150);
+    expect(select._overlayElement.hasAttribute('bottom-aligned')).to.be.false;
+  });
 
-      it('should update the position on scrolling', () => {
-        Enter(input);
-        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
-        expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
+  it('should update the position on scrolling', () => {
+    Enter(input);
+    expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
+    expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
 
-        scrollContainer(scrollableContainer, 40, 40);
+    scrollContainer(scrollableContainer, 40, 40);
 
-        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
-        expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
-      });
+    expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
+    expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
+  });
 
-      it('should update the position on iron-resize event', () => {
-        Enter(input);
-        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
-        expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
+  it('should update the position on iron-resize event', () => {
+    Enter(input);
+    expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
+    expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
 
-        container.style.paddingTop = '200px';
-        select.dispatchEvent(new CustomEvent('iron-resize', {bubbles: true}));
+    container.style.paddingTop = '200px';
+    select.dispatchEvent(new CustomEvent('iron-resize', {bubbles: true}));
 
-        expect(select._overlayElement.getBoundingClientRect().top).to.be.equal(inputFieldBlock.getBoundingClientRect().top);
-        expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
-      });
-    });
-  </script>
+    expect(select._overlayElement.getBoundingClientRect().top).to.be.equal(inputFieldBlock.getBoundingClientRect().top);
+    expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
+  });
+});
+</script>
 </body>

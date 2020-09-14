@@ -5,31 +5,48 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
   <title>vaadin-select Examples</title>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 
-  <link rel="import" href="../../polymer/polymer.html">
-  <link rel="import" href="../../vaadin-demo-helpers/vaadin-component-demo.html">
-  <link rel="import" href="../../vaadin-demo-helpers/vaadin-demo-snippet.html">
-  <script src="../../vaadin-demo-helpers/vaadin-demo-ready-event-emitter.js"></script>
-  <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
-  <link rel="import" href="../../vaadin-item/vaadin-item.html">
-  <link rel="import" href="../../vaadin-button/vaadin-button.html">
+  <script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-demo-helpers/vaadin-component-demo.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-demo-helpers/vaadin-demo-snippet.js"></script>
+  <script src="../../../@vaadin/vaadin-demo-helpers/vaadin-demo-ready-event-emitter.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-list-box/vaadin-list-box.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-item/vaadin-item.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-button/vaadin-button.js"></script>
 
-  <script src="select-demo.js"></script>
+  <script src="./select-demo.js"></script>
 
-  <link rel="import" href="../vaadin-select.html">
-  <link rel="import" href="../../iron-icon/iron-icon.html">
-  <link rel="import" href="../../vaadin-icons/vaadin-icons.html">
-  <link rel="import" href="../../vaadin-lumo-styles/icons.html">
-  <link rel="import" href="../../iron-form/iron-form.html">
+  <script type="module" src="../vaadin-select.js"></script>
+  <script type="module" src="../../../@polymer/iron-icon/iron-icon.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-icons/vaadin-icons.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-lumo-styles/icons.js"></script>
+  <script type="module" src="../../../@polymer/iron-form/iron-form.js"></script>
 
-  <custom-style>
+  <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
     <style include="vaadin-component-demo-shared-styles"></style>
-  </custom-style>
+  </custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
 </head>
 
 <body>
-  <dom-module id="custom-select-font-styles" theme-for="vaadin-item">
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-module id="custom-select-font-styles" theme-for="vaadin-item">
     <template>
       <style>
         :host([theme~="custom"]) {
@@ -37,9 +54,15 @@
         }
       </style>
     </template>
-  </dom-module>
+  </dom-module>`;
 
-  <dom-module id="custom-select-overlay-font-style" theme-for="vaadin-select-overlay">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-module id="custom-select-overlay-font-style" theme-for="vaadin-select-overlay">
     <template>
       <style>
         :host([theme~="custom"]) [part~="overlay"] {
@@ -47,12 +70,18 @@
         }
       </style>
     </template>
-  </dom-module>
+  </dom-module>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
 
   <!-- Used in the theme variants examples, keep in sync but use different ID -->
 
 
-  <dom-module id="custom-select-border" theme-for="vaadin-select-text-field">
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-module id="custom-select-border" theme-for="vaadin-select-text-field">
     <template>
       <style>
         :host([theme~="custom-border"]) [part="input-field"] {
@@ -61,9 +90,15 @@
         }
       </style>
     </template>
-  </dom-module>
+  </dom-module>`;
 
-  <dom-module id="custom-select-icon" theme-for="vaadin-select">
+document.body.appendChild($_documentContainer.content);
+</script>
+
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-module id="custom-select-icon" theme-for="vaadin-select">
     <template>
       <style>
         :host([theme~="custom-icon"]) [part="toggle-button"]::before {
@@ -71,9 +106,16 @@
         }
       </style>
     </template>
-  </dom-module>
+  </dom-module>`;
 
-  <vaadin-component-demo config-src="demos.json"></vaadin-component-demo>
+document.body.appendChild($_documentContainer.content);
+</script>
+
+  <script type="module">
+const $_documentContainer = document.createElement('template');
+$_documentContainer.innerHTML = `<vaadin-component-demo config-src="demos.json"></vaadin-component-demo>`;
+document.body.appendChild($_documentContainer.content);
+</script>
 </body>
 
 </html>

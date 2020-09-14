@@ -1,5 +1,8 @@
-<dom-module id="select-presentation-demos">
-  <template>
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+class SelectPresentationDemos extends DemoReadyEventEmitter(SelectDemo(PolymerElement)) {
+  static get template() {
+    return html`
     <style include="vaadin-component-demo-shared-styles">
       :host {
         display: block;
@@ -7,11 +10,11 @@
     </style>
     <h3>Separators</h3>
     <vaadin-demo-snippet id="select-list-box-separator" when-defined="vaadin-select">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="Weekdays" placeholder="Weekdays">
           <template>
             <vaadin-list-box>
-              <vaadin-item disabled>Weekdays</vaadin-item>
+              <vaadin-item disabled="">Weekdays</vaadin-item>
               <hr>
               <vaadin-item>Monday</vaadin-item>
               <vaadin-item>Tuesday</vaadin-item>
@@ -29,7 +32,7 @@
 
     <h3>Customizing the template content</h3>
     <vaadin-demo-snippet id="select-list-box-custom-content">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="User">
           <div slot="prefix">
             <iron-icon icon="lumo:user"></iron-icon>
@@ -37,23 +40,19 @@
           <template>
             <vaadin-list-box>
               <vaadin-item>
-                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;"
-                  src="https://randomuser.me/api/portraits/women/43.jpg" />
+                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;" src="https://randomuser.me/api/portraits/women/43.jpg">
                 Gabriella
               </vaadin-item>
               <vaadin-item>
-                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;"
-                  src="https://randomuser.me/api/portraits/men/77.jpg" />
+                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;" src="https://randomuser.me/api/portraits/men/77.jpg">
                 Rudi
               </vaadin-item>
               <vaadin-item>
-                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;"
-                  src="https://randomuser.me/api/portraits/men/35.jpg" />
+                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;" src="https://randomuser.me/api/portraits/men/35.jpg">
                 Hamsa
               </vaadin-item>
               <vaadin-item>
-                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;"
-                  src="https://randomuser.me/api/portraits/men/76.jpg" />
+                <img style="width: 21px; border-radius: 50%; vertical-align: bottom;" src="https://randomuser.me/api/portraits/men/76.jpg">
                 Jacob
               </vaadin-item>
             </vaadin-list-box>
@@ -69,7 +68,7 @@
       <code>vaadin-select</code> show the item's <code>label</code> instead.
     </p>
     <vaadin-demo-snippet id="select-list-box-custom-label" when-defined="vaadin-select">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="How are you feeling today?" placeholder="How are you feeling
           today?">
           <template>
@@ -96,14 +95,11 @@
         </vaadin-select>
       </template>
     </vaadin-demo-snippet>
+`;
+  }
 
-  </template>
-  <script>
-    class SelectPresentationDemos extends DemoReadyEventEmitter(SelectDemo(Polymer.Element)) {
-      static get is() {
-        return 'select-presentation-demos';
-      }
-    }
-    customElements.define(SelectPresentationDemos.is, SelectPresentationDemos);
-  </script>
-</dom-module>
+  static get is() {
+    return 'select-presentation-demos';
+  }
+}
+customElements.define(SelectPresentationDemos.is, SelectPresentationDemos);

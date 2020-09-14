@@ -1,5 +1,8 @@
-<dom-module id="select-validation-demos">
-  <template>
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+class SelectValidationDemos extends DemoReadyEventEmitter(SelectDemo(PolymerElement)) {
+  static get template() {
+    return html`
     <style include="vaadin-component-demo-shared-styles">
       :host {
         display: block;
@@ -7,8 +10,8 @@
     </style>
     <h3>Required</h3>
     <vaadin-demo-snippet id="select-required" when-defined="vaadin-select">
-      <template preserve-content>
-        <vaadin-select label="Required" required error-message="Please choose one option">
+      <template preserve-content="">
+        <vaadin-select label="Required" required="" error-message="Please choose one option">
           <template>
             <vaadin-list-box>
               <vaadin-item></vaadin-item>
@@ -21,14 +24,11 @@
         </vaadin-select>
       </template>
     </vaadin-demo-snippet>
-  </template>
+`;
+  }
 
-  <script>
-    class SelectValidationDemos extends DemoReadyEventEmitter(SelectDemo(Polymer.Element)) {
-      static get is() {
-        return 'select-validation-demos';
-      }
-    }
-    customElements.define(SelectValidationDemos.is, SelectValidationDemos);
-  </script>
-</dom-module>
+  static get is() {
+    return 'select-validation-demos';
+  }
+}
+customElements.define(SelectValidationDemos.is, SelectValidationDemos);

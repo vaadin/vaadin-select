@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>vaadin-select tests</title>
-  <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../test-fixture/test-fixture.html">
-  <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
-  <link rel="import" href="../../vaadin-item/vaadin-item.html">
-  <link rel="import" href="mock-item.html">
-  <link rel="import" href="../vaadin-select.html">
-  <link rel="import" href="not-animated-styles.html">
+  <script src="../../../wct-browser-legacy/browser.js"></script>
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script type="module" src="../../../@polymer/test-fixture/test-fixture.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-list-box/vaadin-list-box.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-item/vaadin-item.js"></script>
+  <script type="module" src="./mock-item.js"></script>
+  <script type="module" src="../vaadin-select.js"></script>
+  <script type="module" src="./not-animated-styles.js"></script>
 </head>
 
 <body>
@@ -42,160 +42,173 @@
     <template>
       <vaadin-select renderer="[[renderer]]"></vaadin-select>
     </template>
-    <script>
-      customElements.whenDefined('vaadin-select').then(() => {
-        class XRenderer extends Polymer.Element {
-          static get is() {
-            return 'x-renderer';
-          }
-          static get properties() {
-            return {
-              renderer: {
-                type: Function,
-                value: function() {
-                  return function(root) {
-                    if (!root.firstChild) {
-                      const listBox = document.createElement('vaadin-list-box');
-                      const item = document.createElement('mock-item');
-                      item.textContent = 'renderer item';
-                      listBox.appendChild(item);
-                      root.appendChild(listBox);
-                    }
-                  };
-                }
+    <script type="module">
+import '@polymer/test-fixture/test-fixture.js';
+import '@vaadin/vaadin-list-box/vaadin-list-box.js';
+import '@vaadin/vaadin-item/vaadin-item.js';
+import './mock-item.js';
+import '../vaadin-select.js';
+import './not-animated-styles.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+customElements.whenDefined('vaadin-select').then(() => {
+  class XRenderer extends PolymerElement {
+    static get is() {
+      return 'x-renderer';
+    }
+    static get properties() {
+      return {
+        renderer: {
+          type: Function,
+          value: function() {
+            return function(root) {
+              if (!root.firstChild) {
+                const listBox = document.createElement('vaadin-list-box');
+                const item = document.createElement('mock-item');
+                item.textContent = 'renderer item';
+                listBox.appendChild(item);
+                root.appendChild(listBox);
               }
             };
           }
         }
-        customElements.define(XRenderer.is, XRenderer);
-      });
-    </script>
+      };
+    }
+  }
+  customElements.define(XRenderer.is, XRenderer);
+});
+</script>
   </dom-module>
 
-  <script>
-    describe('vaadin-select renderer', () => {
-      let rendererContent;
+  <script type="module">
+import '@polymer/test-fixture/test-fixture.js';
+import '@vaadin/vaadin-list-box/vaadin-list-box.js';
+import '@vaadin/vaadin-item/vaadin-item.js';
+import './mock-item.js';
+import '../vaadin-select.js';
+import './not-animated-styles.js';
+describe('vaadin-select renderer', () => {
+  let rendererContent;
 
-      function generateRendererWithItems(items) {
-        return function(root, select) {
-          if (root.firstChild) {
-            root.firstChild.items && root.firstChild.items.forEach((item, index) =>
-              item.textContent = items[index] + (select.__testVar || ''));
-            return;
-          }
-
-          const listBox = window.document.createElement('vaadin-list-box');
-          items.forEach(text => {
-            const item = window.document.createElement('vaadin-item');
-            item.textContent = text + (select.__testVar || '');
-            item.value = text;
-            listBox.appendChild(item);
-          });
-          root.appendChild(listBox);
-        };
+  function generateRendererWithItems(items) {
+    return function(root, select) {
+      if (root.firstChild) {
+        root.firstChild.items && root.firstChild.items.forEach((item, index) =>
+          item.textContent = items[index] + (select.__testVar || ''));
+        return;
       }
 
-      beforeEach(function() {
-        rendererContent = document.createElement('vaadin-list-box');
-        const rendererItem = document.createElement('mock-item');
-        rendererItem.textContent = 'renderer item';
-        rendererContent.appendChild(rendererItem);
+      const listBox = window.document.createElement('vaadin-list-box');
+      items.forEach(text => {
+        const item = window.document.createElement('vaadin-item');
+        item.textContent = text + (select.__testVar || '');
+        item.value = text;
+        listBox.appendChild(item);
       });
+      root.appendChild(listBox);
+    };
+  }
 
-      describe('without template', () => {
-        let select;
+  beforeEach(function() {
+    rendererContent = document.createElement('vaadin-list-box');
+    const rendererItem = document.createElement('mock-item');
+    rendererItem.textContent = 'renderer item';
+    rendererContent.appendChild(rendererItem);
+  });
 
-        beforeEach(() => select = fixture('default'));
+  describe('without template', () => {
+    let select;
 
-        it('should use renderer when it is defined', () => {
-          select.renderer = root => root.appendChild(rendererContent);
-          expect(select.shadowRoot.querySelector('vaadin-list-box mock-item').textContent.trim()).to.equal('renderer item');
-        });
+    beforeEach(() => select = fixture('default'));
 
-        it('should pass vaadin-select as owner to vaadin-overlay', () => {
-          select.renderer = (root, select, model) => {
-            expect(select).to.eql(select);
-          };
-        });
+    it('should use renderer when it is defined', () => {
+      select.renderer = root => root.appendChild(rendererContent);
+      expect(select.shadowRoot.querySelector('vaadin-list-box mock-item').textContent.trim()).to.equal('renderer item');
+    });
 
-        it('should remove template when added after renderer', () => {
-          select.renderer = () => {};
-          const template = document.createElement('template');
-          expect(() => select._contentTemplate = template).to.throw(Error);
-          expect(select._contentTemplate).to.be.not.ok;
-        });
+    it('should pass vaadin-select as owner to vaadin-overlay', () => {
+      select.renderer = (root, select, model) => {
+        expect(select).to.eql(select);
+      };
+    });
 
-        it('should be possible to manually invoke renderer', () => {
-          const spy = select.renderer = sinon.spy();
-          select.opened = true;
-          spy.reset();
-          select.render();
-          expect(spy).to.be.calledOnce;
-        });
+    it('should remove template when added after renderer', () => {
+      select.renderer = () => {};
+      const template = document.createElement('template');
+      expect(() => select._contentTemplate = template).to.throw(Error);
+      expect(select._contentTemplate).to.be.not.ok;
+    });
 
-        it('should update selected value after renderer is called', done => {
-          select.renderer = generateRendererWithItems(['foo', 'bar']);
-          setTimeout(() => {
-            select.value = 'bar';
-            select.__testVar = 'baz';
-            select.render();
-            setTimeout(() => {
-              expect(select._menuElement.selected).to.be.equal(1);
-              expect(select._valueElement.textContent.trim()).to.be.equal('barbaz');
-              done();
-            });
-          });
-        });
+    it('should be possible to manually invoke renderer', () => {
+      const spy = select.renderer = sinon.spy();
+      select.opened = true;
+      spy.reset();
+      select.render();
+      expect(spy).to.be.calledOnce;
+    });
 
-        it('should update selected value after renderer is reassigned based on the value', done => {
-          select.renderer = generateRendererWithItems(['foo', 'bar']);
-          setTimeout(() => {
-            select.value = 'bar';
-            select.renderer = generateRendererWithItems(['bar', 'foo']);
-            setTimeout(() => {
-              expect(select.value).to.equal('bar');
-              expect(select._menuElement.selected).to.equal(0);
-              done();
-            });
-          });
-        });
-      });
-
-      describe('with template', () => {
-        let select;
-
-        beforeEach(() => select = fixture('with-template'));
-
-        it('should fallback to render content with Templatizer when renderer is not defined', () => {
-          expect(select.shadowRoot.querySelector('vaadin-list-box mock-item').textContent.trim()).to.equal('templatizer item');
-        });
-
-        it('should throw an error when setting a renderer if there is already a template', () => {
-          expect(() => select.renderer = () => {}).to.throw(Error);
-        });
-
-        it('should remove renderer when added after template', () => {
-          expect(() => select.renderer = () => {}).to.throw(Error);
-          expect(select.renderer).to.be.not.ok;
-        });
-      });
-
-      describe('assigned through property binding', () => {
-        let wrapper, select;
-
-        beforeEach(done => {
-          customElements.whenDefined('x-renderer').then(() => {
-            wrapper = fixture('from-props');
-            select = wrapper.shadowRoot.querySelector('vaadin-select');
-            done();
-          });
-        });
-
-        it('should render correctly when rendered assigned before shadow DOM is ready', () => {
-          select.opened = true;
-          expect(select._overlayElement.content.querySelector('mock-item').textContent.trim()).to.equal('renderer item');
+    it('should update selected value after renderer is called', done => {
+      select.renderer = generateRendererWithItems(['foo', 'bar']);
+      setTimeout(() => {
+        select.value = 'bar';
+        select.__testVar = 'baz';
+        select.render();
+        setTimeout(() => {
+          expect(select._menuElement.selected).to.be.equal(1);
+          expect(select._valueElement.textContent.trim()).to.be.equal('barbaz');
+          done();
         });
       });
     });
-  </script>
+
+    it('should update selected value after renderer is reassigned based on the value', done => {
+      select.renderer = generateRendererWithItems(['foo', 'bar']);
+      setTimeout(() => {
+        select.value = 'bar';
+        select.renderer = generateRendererWithItems(['bar', 'foo']);
+        setTimeout(() => {
+          expect(select.value).to.equal('bar');
+          expect(select._menuElement.selected).to.equal(0);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('with template', () => {
+    let select;
+
+    beforeEach(() => select = fixture('with-template'));
+
+    it('should fallback to render content with Templatizer when renderer is not defined', () => {
+      expect(select.shadowRoot.querySelector('vaadin-list-box mock-item').textContent.trim()).to.equal('templatizer item');
+    });
+
+    it('should throw an error when setting a renderer if there is already a template', () => {
+      expect(() => select.renderer = () => {}).to.throw(Error);
+    });
+
+    it('should remove renderer when added after template', () => {
+      expect(() => select.renderer = () => {}).to.throw(Error);
+      expect(select.renderer).to.be.not.ok;
+    });
+  });
+
+  describe('assigned through property binding', () => {
+    let wrapper, select;
+
+    beforeEach(done => {
+      customElements.whenDefined('x-renderer').then(() => {
+        wrapper = fixture('from-props');
+        select = wrapper.shadowRoot.querySelector('vaadin-select');
+        done();
+      });
+    });
+
+    it('should render correctly when rendered assigned before shadow DOM is ready', () => {
+      select.opened = true;
+      expect(select._overlayElement.content.querySelector('mock-item').textContent.trim()).to.equal('renderer item');
+    });
+  });
+});
+</script>
 </body>

@@ -1,4 +1,6 @@
-<dom-module id="not-animated-select-overlay" theme-for="vaadin-select-overlay">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-module id="not-animated-select-overlay" theme-for="vaadin-select-overlay">
   <template>
     <style include="lumo-select-overlay">
       :host([opening]),
@@ -9,4 +11,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

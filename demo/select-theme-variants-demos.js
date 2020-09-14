@@ -1,5 +1,8 @@
-<dom-module id="select-theme-variants-demos">
-  <template>
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+class SelectThemeVariantsDemos extends DemoReadyEventEmitter(SelectDemo(PolymerElement)) {
+  static get template() {
+    return html`
     <style include="vaadin-component-demo-shared-styles">
       :host {
         display: block;
@@ -9,7 +12,7 @@
     <h3>Text align</h3>
 
     <vaadin-demo-snippet id="select-theme-variants-demos-align">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select value="Jose">
           <template>
             <vaadin-list-box>
@@ -44,7 +47,7 @@
 
     <h3>Small size</h3>
     <vaadin-demo-snippet id="select-theme-variants-demos-sizes">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="Name" theme="small">
           <template>
             <vaadin-list-box>
@@ -59,7 +62,7 @@
 
     <h3>Helper text position</h3>
     <vaadin-demo-snippet id="helper-text-positions">
-      <template preserve-content>
+      <template preserve-content="">
         <h4>Below the field</h4>
         <vaadin-select label="Name" value="Jose" helper-text="Helper text below">
           <template>
@@ -71,8 +74,7 @@
           </template>
         </vaadin-select>
         <h4>Above the field</h4>
-        <vaadin-select label="Name" value="Jose" helper-text="Helper text above"
-          theme="helper-above-field">
+        <vaadin-select label="Name" value="Jose" helper-text="Helper text above" theme="helper-above-field">
         <template>
           <vaadin-list-box>
             <vaadin-item>Jose</vaadin-item>
@@ -83,14 +85,11 @@
         </vaadin-select>
       </template>
     </vaadin-demo-snippet>
+`;
+  }
 
-  </template>
-  <script>
-    class SelectThemeVariantsDemos extends DemoReadyEventEmitter(SelectDemo(Polymer.Element)) {
-      static get is() {
-        return 'select-theme-variants-demos';
-      }
-    }
-    customElements.define(SelectThemeVariantsDemos.is, SelectThemeVariantsDemos);
-  </script>
-</dom-module>
+  static get is() {
+    return 'select-theme-variants-demos';
+  }
+}
+customElements.define(SelectThemeVariantsDemos.is, SelectThemeVariantsDemos);

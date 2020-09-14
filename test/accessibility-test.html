@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>vaadin-select tests</title>
-  <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../iron-test-helpers/mock-interactions.js"></script>
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../test-fixture/test-fixture.html">
-  <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
-  <link rel="import" href="../../vaadin-item/vaadin-item.html">
-  <link rel="import" href="mock-item.html">
-  <link rel="import" href="../vaadin-select.html">
-  <link rel="import" href="not-animated-styles.html">
+  <script src="../../../wct-browser-legacy/browser.js"></script>
+  <script src="../../../@polymer/iron-test-helpers/mock-interactions.js" type="module"></script>
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script type="module" src="../../../@polymer/test-fixture/test-fixture.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-list-box/vaadin-list-box.js"></script>
+  <script type="module" src="../../../@vaadin/vaadin-item/vaadin-item.js"></script>
+  <script type="module" src="./mock-item.js"></script>
+  <script type="module" src="../vaadin-select.js"></script>
+  <script type="module" src="./not-animated-styles.js"></script>
 </head>
 
 <body>
@@ -28,73 +28,80 @@
     </template>
   </test-fixture>
 
-  <script>
-    describe('vaadin-select accessibility', () => {
-      let select;
+  <script type="module">
+import '@polymer/test-fixture/test-fixture.js';
+import '@vaadin/vaadin-list-box/vaadin-list-box.js';
+import '@vaadin/vaadin-item/vaadin-item.js';
+import './mock-item.js';
+import '../vaadin-select.js';
+import './not-animated-styles.js';
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+describe('vaadin-select accessibility', () => {
+  let select;
 
-      beforeEach(done => {
-        select = fixture('select');
-        flush(done);
-      });
+  beforeEach(done => {
+    select = fixture('select');
+    flush(done);
+  });
 
-      it('should have aria-required attribute set to true when required', () => {
-        select.setAttribute('required', '');
-        expect(select.getAttribute('aria-required')).to.be.equal('true');
-      });
+  it('should have aria-required attribute set to true when required', () => {
+    select.setAttribute('required', '');
+    expect(select.getAttribute('aria-required')).to.be.equal('true');
+  });
 
-      it('should have aria-disabled attribute set to true when disabled', () => {
-        select.setAttribute('disabled', '');
-        expect(select.getAttribute('aria-disabled')).to.be.equal('true');
-      });
+  it('should have aria-disabled attribute set to true when disabled', () => {
+    select.setAttribute('disabled', '');
+    expect(select.getAttribute('aria-disabled')).to.be.equal('true');
+  });
 
-      it('should have aria-hidden attribute to the native input', () => {
-        expect(select._nativeInput.getAttribute('aria-hidden')).to.be.equal('true');
-      });
+  it('should have aria-hidden attribute to the native input', () => {
+    expect(select._nativeInput.getAttribute('aria-hidden')).to.be.equal('true');
+  });
 
-      it('should have role button on the toggle button', () => {
-        expect(select._toggleElement.getAttribute('role')).to.be.equal('button');
-      });
+  it('should have role button on the toggle button', () => {
+    expect(select._toggleElement.getAttribute('role')).to.be.equal('button');
+  });
 
-      it('should have aria-haspopup="listbox" the toggle button', () => {
-        expect(select._toggleElement.getAttribute('aria-haspopup')).to.be.equal('listbox');
-      });
+  it('should have aria-haspopup="listbox" the toggle button', () => {
+    expect(select._toggleElement.getAttribute('aria-haspopup')).to.be.equal('listbox');
+  });
 
-      it('should have aria-label attribute on the toggle button', () => {
-        expect(select._toggleElement.getAttribute('aria-label')).to.equal('Toggle');
-      });
+  it('should have aria-label attribute on the toggle button', () => {
+    expect(select._toggleElement.getAttribute('aria-label')).to.equal('Toggle');
+  });
 
-      it('should set aria-expanded attribute on the toggle button', () => {
-        expect(select._toggleElement.getAttribute('aria-expanded')).to.be.equal('false');
-        select.opened = true;
-        expect(select._toggleElement.getAttribute('aria-expanded')).to.be.equal('true');
-      });
+  it('should set aria-expanded attribute on the toggle button', () => {
+    expect(select._toggleElement.getAttribute('aria-expanded')).to.be.equal('false');
+    select.opened = true;
+    expect(select._toggleElement.getAttribute('aria-expanded')).to.be.equal('true');
+  });
 
-      it('should have role listbox on menu element', () => {
-        expect(select._menuElement.getAttribute('role')).to.equal('listbox');
-      });
+  it('should have role listbox on menu element', () => {
+    expect(select._menuElement.getAttribute('role')).to.equal('listbox');
+  });
 
-      it('should have role option on items', done => {
-        // Wait for items
-        Polymer.RenderStatus.afterNextRender(select, () => setTimeout(() => {
-          expect(select._items[0].getAttribute('role')).to.equal('option');
-          expect(select._items[1].getAttribute('role')).to.equal('option');
-          done();
-        }));
-      });
+  it('should have role option on items', done => {
+    // Wait for items
+    afterNextRender(select, () => setTimeout(() => {
+      expect(select._items[0].getAttribute('role')).to.equal('option');
+      expect(select._items[1].getAttribute('role')).to.equal('option');
+      done();
+    }));
+  });
 
-      it('should have aria-labelledby on focus element', () => {
-        expect(
-          select._inputElement.focusElement.getAttribute('aria-labelledby')
-        ).to.not.be.empty;
-      });
+  it('should have aria-labelledby on focus element', () => {
+    expect(
+      select._inputElement.focusElement.getAttribute('aria-labelledby')
+    ).to.not.be.empty;
+  });
 
-      it('should have aria-describedby on focus element when invalid', () => {
-        select.errorMessage = 'invalid';
-        select.invalid = true;
-        expect(
-          select._inputElement.focusElement.getAttribute('aria-describedby')
-        ).to.not.be.empty;
-      });
-    });
-  </script>
+  it('should have aria-describedby on focus element when invalid', () => {
+    select.errorMessage = 'invalid';
+    select.invalid = true;
+    expect(
+      select._inputElement.focusElement.getAttribute('aria-describedby')
+    ).to.not.be.empty;
+  });
+});
+</script>
 </body>

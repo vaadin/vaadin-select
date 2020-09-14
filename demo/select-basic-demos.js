@@ -1,5 +1,8 @@
-<dom-module id="select-basic-demos">
-  <template>
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+class SelectBasicDemos extends DemoReadyEventEmitter(SelectDemo(PolymerElement)) {
+  static get template() {
+    return html`
     <style include="vaadin-component-demo-shared-styles">
       :host {
         display: block;
@@ -8,7 +11,7 @@
 
     <h3>Basic usage</h3>
     <vaadin-demo-snippet id="select-list-box-basic-usage" when-defined="vaadin-select">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="Label">
           <template>
             <vaadin-list-box>
@@ -43,7 +46,7 @@
     <h3>Helper text</h3>
     <p>Use the <code>helper-text</code> attribute or add content to the <code>helper</code> slot to set helper content.</p>
     <vaadin-demo-snippet id="helper-text">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="Label" value="Value" helper-text="Helper text">
           <template>
             <vaadin-list-box>
@@ -73,8 +76,8 @@
 
     <h3>Disabled and read-only</h3>
     <vaadin-demo-snippet id="select-list-box-disabled-readonly" when-defined="vaadin-select">
-      <template preserve-content>
-        <vaadin-select label="Disabled" disabled value="Value">
+      <template preserve-content="">
+        <vaadin-select label="Disabled" disabled="" value="Value">
           <template>
             <vaadin-list-box>
               <vaadin-item>Value</vaadin-item>
@@ -82,7 +85,7 @@
           </template>
         </vaadin-select>
 
-        <vaadin-select label="Read-only" readonly value="Value">
+        <vaadin-select label="Read-only" readonly="" value="Value">
           <template>
             <vaadin-list-box>
               <vaadin-item>Value</vaadin-item>
@@ -94,7 +97,7 @@
 
     <h3>Object list</h3>
     <vaadin-demo-snippet id="select-list-box-dynamic" when-defined="vaadin-select">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="Department"></vaadin-select>
         <script>
           window.addDemoReadyListener('#select-list-box-dynamic', function(document) {
@@ -121,14 +124,14 @@
               root.appendChild(listBox);
             };
           });
-        </script>
+        &lt;/script>
       </template>
     </vaadin-demo-snippet>
 
 
     <h3>Value changed</h3>
     <vaadin-demo-snippet id="select-list-box-on-change" when-defined="vaadin-select">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="Label">
           <template>
             <vaadin-list-box>
@@ -146,20 +149,20 @@
               output.innerText = event.target.value;
             });
           });
-        </script>
+        &lt;/script>
       </template>
     </vaadin-demo-snippet>
 
     <h3>Disabled item</h3>
     <vaadin-demo-snippet id="select-list-box-disabled-item">
-      <template preserve-content>
+      <template preserve-content="">
         <vaadin-select label="Team">
           <template>
             <vaadin-list-box>
               <vaadin-item>Flow</vaadin-item>
               <vaadin-item>Components</vaadin-item>
               <vaadin-item>Pro tools</vaadin-item>
-              <vaadin-item disabled>Developers Journey and Onboarding</vaadin-item>
+              <vaadin-item disabled="">Developers Journey and Onboarding</vaadin-item>
               <vaadin-item>Experts</vaadin-item>
               <vaadin-item>Incubator</vaadin-item>
             </vaadin-list-box>
@@ -167,14 +170,11 @@
         </vaadin-select>
       </template>
     </vaadin-demo-snippet>
+`;
+  }
 
-  </template>
-  <script>
-    class SelectBasicDemos extends DemoReadyEventEmitter(SelectDemo(Polymer.Element)) {
-      static get is() {
-        return 'select-basic-demos';
-      }
-    }
-    customElements.define(SelectBasicDemos.is, SelectBasicDemos);
-  </script>
-</dom-module>
+  static get is() {
+    return 'select-basic-demos';
+  }
+}
+customElements.define(SelectBasicDemos.is, SelectBasicDemos);

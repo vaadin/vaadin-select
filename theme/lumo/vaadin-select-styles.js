@@ -1,16 +1,15 @@
-<link rel="import" href="../../../vaadin-lumo-styles/sizing.html">
-<link rel="import" href="../../../vaadin-lumo-styles/spacing.html">
-<link rel="import" href="../../../vaadin-lumo-styles/style.html">
-<link rel="import" href="../../../vaadin-lumo-styles/font-icons.html">
+import '@vaadin/vaadin-lumo-styles/sizing.js';
+import '@vaadin/vaadin-lumo-styles/spacing.js';
+import '@vaadin/vaadin-lumo-styles/style.js';
+import '@vaadin/vaadin-lumo-styles/font-icons.js';
+import '@vaadin/vaadin-lumo-styles/mixins/menu-overlay.js';
+import '@vaadin/vaadin-lumo-styles/mixins/field-button.js';
+import '@vaadin/vaadin-text-field/theme/lumo/vaadin-text-field.js';
+import '@vaadin/vaadin-item/theme/lumo/vaadin-item.js';
+import '@vaadin/vaadin-list-box/theme/lumo/vaadin-list-box.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-<link rel="import" href="../../../vaadin-lumo-styles/mixins/menu-overlay.html">
-<link rel="import" href="../../../vaadin-lumo-styles/mixins/field-button.html">
-
-<link rel="import" href="../../../vaadin-text-field/theme/lumo/vaadin-text-field.html">
-<link rel="import" href="../../../vaadin-item/theme/lumo/vaadin-item.html">
-<link rel="import" href="../../../vaadin-list-box/theme/lumo/vaadin-list-box.html">
-
-<dom-module id="lumo-select" theme-for="vaadin-select">
+const $_documentContainer = html`<dom-module id="lumo-select" theme-for="vaadin-select">
   <template>
     <style include="lumo-field-button">
       :host {
@@ -51,9 +50,7 @@
       }
     </style>
   </template>
-</dom-module>
-
-<dom-module id="lumo-select-text-field" theme-for="vaadin-select-text-field">
+</dom-module><dom-module id="lumo-select-text-field" theme-for="vaadin-select-text-field">
   <template>
     <style>
       :host([theme~="align-center"]) ::slotted([part~="value"]) {
@@ -101,9 +98,7 @@
       }
     </style>
   </template>
-</dom-module>
-
-<dom-module id="lumo-select-overlay" theme-for="vaadin-select-overlay">
+</dom-module><dom-module id="lumo-select-overlay" theme-for="vaadin-select-overlay">
   <template>
     <style include="lumo-menu-overlay">
       :host {
@@ -141,4 +136,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

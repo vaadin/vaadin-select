@@ -1,13 +1,13 @@
-<link rel="import" href="../../../vaadin-item/theme/material/vaadin-item.html">
-<link rel="import" href="../../../vaadin-list-box/theme/material/vaadin-list-box.html">
-<link rel="import" href="../../../vaadin-text-field/theme/material/vaadin-text-field.html">
+import '@vaadin/vaadin-item/theme/material/vaadin-item.js';
+import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box.js';
+import '@vaadin/vaadin-text-field/theme/material/vaadin-text-field.js';
+import '@vaadin/vaadin-material-styles/color.js';
+import '@vaadin/vaadin-material-styles/font-icons.js';
+import '@vaadin/vaadin-material-styles/mixins/menu-overlay.js';
+import '@vaadin/vaadin-material-styles/mixins/field-button.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-<link rel="import" href="../../../vaadin-material-styles/color.html">
-<link rel="import" href="../../../vaadin-material-styles/font-icons.html">
-<link rel="import" href="../../../vaadin-material-styles/mixins/menu-overlay.html">
-<link rel="import" href="../../../vaadin-material-styles/mixins/field-button.html">
-
-<dom-module id="material-select" theme-for="vaadin-select">
+const $_documentContainer = html`<dom-module id="material-select" theme-for="vaadin-select">
   <template>
     <style include="material-field-button">
       :host {
@@ -30,9 +30,7 @@
       }
     </style>
   </template>
-</dom-module>
-
-<dom-module id="material-select-text-field" theme-for="vaadin-select-text-field">
+</dom-module><dom-module id="material-select-text-field" theme-for="vaadin-select-text-field">
   <template>
     <style>
       :host {
@@ -54,9 +52,7 @@
       }
     </style>
   </template>
-</dom-module>
-
-<dom-module id="material-select-overlay" theme-for="vaadin-select-overlay">
+</dom-module><dom-module id="material-select-overlay" theme-for="vaadin-select-overlay">
   <template>
     <style include="material-menu-overlay">
       :host([bottom-aligned]) {
@@ -68,4 +64,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);
