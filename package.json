@@ -49,6 +49,7 @@
     "generate-typings": "gen-typescript-declarations --outDir . --verify"
   },
   "devDependencies": {
+    "@polymer/gen-typescript-declarations": "^1.6.2",
     "@polymer/iron-test-helpers": "^3.0.0",
     "@polymer/iron-component-page": "^4.0.0",
     "@polymer/iron-form": "^3.0.0",
