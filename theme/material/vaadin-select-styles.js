@@ -1,3 +1,4 @@
+import { registerStyles, css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
 import '@vaadin/vaadin-item/theme/material/vaadin-item.js';
 import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box.js';
 import '@vaadin/vaadin-text-field/theme/material/vaadin-text-field.js';
@@ -5,65 +6,64 @@ import '@vaadin/vaadin-material-styles/color.js';
 import '@vaadin/vaadin-material-styles/font-icons.js';
 import '@vaadin/vaadin-material-styles/mixins/menu-overlay.js';
 import '@vaadin/vaadin-material-styles/mixins/field-button.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-const $_documentContainer = html`<dom-module id="material-select" theme-for="vaadin-select">
-  <template>
-    <style include="material-field-button">
-      :host {
-        display: inline-flex;
-        -webkit-tap-highlight-color: transparent;
-      }
+registerStyles(
+  'vaadin-select',
+  css`
+    :host {
+      display: inline-flex;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-      [part="toggle-button"]::before {
-        content: var(--material-icons-dropdown);
-      }
+    [part="toggle-button"]::before {
+      content: var(--material-icons-dropdown);
+    }
 
-      :host([opened]) [part="toggle-button"] {
-        transform: rotate(180deg);
-      }
+    :host([opened]) [part="toggle-button"] {
+      transform: rotate(180deg);
+    }
 
-      /* Disabled */
+    :host([disabled]) {
+      pointer-events: none;
+    }
+  `,
+  { include: ['material-field-button'], moduleId: 'material-select' }
+);
 
-      :host([disabled]) {
-        pointer-events: none;
-      }
-    </style>
-  </template>
-</dom-module><dom-module id="material-select-text-field" theme-for="vaadin-select-text-field">
-  <template>
-    <style>
-      :host {
-        width: 100%;
-      }
+registerStyles(
+  'vaadin-select-text-field',
+  css`
+    :host {
+      width: 100%;
+    }
 
-      :host([disabled]) [part="input-field"],
-      [part="input-field"],
-      [part="value"] {
-        cursor: default;
-      }
+    :host([disabled]) [part="input-field"],
+    [part="input-field"],
+    [part="value"] {
+      cursor: default;
+    }
 
-      [part="input-field"]:focus {
-        outline: none;
-      }
+    [part="input-field"]:focus {
+      outline: none;
+    }
 
-      ::slotted([part="value"]) {
-        display: flex;
-      }
-    </style>
-  </template>
-</dom-module><dom-module id="material-select-overlay" theme-for="vaadin-select-overlay">
-  <template>
-    <style include="material-menu-overlay">
-      :host([bottom-aligned]) {
-        justify-content: flex-end;
-      }
+    ::slotted([part="value"]) {
+      display: flex;
+    }
+  `,
+  { moduleId: 'material-select-text-field' }
+);
 
-      [part="overlay"] {
-        min-width: var(--vaadin-select-text-field-width);
-      }
-    </style>
-  </template>
-</dom-module>`;
+registerStyles(
+  'vaadin-select-overlay',
+  css`
+    :host([bottom-aligned]) {
+      justify-content: flex-end;
+    }
 
-document.head.appendChild($_documentContainer.content);
+    [part="overlay"] {
+      min-width: var(--vaadin-select-text-field-width);
+    }
+  `,
+  { include: ['material-menu-overlay'], moduleId: 'material-select-overlay' }
+);
