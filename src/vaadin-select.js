@@ -5,7 +5,6 @@ This program is available under Apache License Version 2.0, available at https:/
 */
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
-import '@polymer/polymer/lib/elements/custom-style.js';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 import '@vaadin/vaadin-themable-mixin/vaadin-theme-property-mixin.js';
 import { ControlStateMixin } from '@vaadin/vaadin-control-state-mixin/vaadin-control-state-mixin.js';
@@ -19,7 +18,7 @@ import { FlattenedNodesObserver } from '@polymer/polymer/lib/utils/flattened-nod
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<custom-style>
+$_documentContainer.innerHTML = `
   <style>
     @font-face {
       font-family: "vaadin-select-icons";
@@ -28,7 +27,7 @@ $_documentContainer.innerHTML = `<custom-style>
       font-style: normal;
     }
   </style>
-</custom-style>`;
+`;
 
 document.head.appendChild($_documentContainer.content);
 /**
