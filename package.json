@@ -47,12 +47,7 @@
     "@polymer/gen-typescript-declarations": "^1.6.2",
     "@polymer/iron-test-helpers": "^3.0.0",
     "@polymer/iron-component-page": "^4.0.0",
-    "@polymer/iron-form": "^3.0.0",
-    "@polymer/iron-icon": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
-    "wct-browser-legacy": "^1.0.1",
-    "@vaadin/vaadin-demo-helpers": "^3.1.0",
-    "@vaadin/vaadin-button": "^2.4.0",
-    "@vaadin/vaadin-icons": "^4.3.1"
+    "wct-browser-legacy": "^1.0.1"
   }
 }
