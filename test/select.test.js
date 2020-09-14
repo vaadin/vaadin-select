@@ -7,7 +7,6 @@ import '@vaadin/vaadin-list-box/vaadin-list-box.js';
 import '@vaadin/vaadin-item/vaadin-item.js';
 import './mock-item.js';
 import '../vaadin-select.js';
-import './not-animated-styles.js';
 
 function arrowUp(target) {
   keyDownOn(target, 38, [], 'ArrowUp');

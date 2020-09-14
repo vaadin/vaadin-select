@@ -5,7 +5,6 @@ import { keyDownOn } from '@polymer/iron-test-helpers/mock-interactions.js';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
 import './mock-item.js';
 import '../vaadin-select.js';
-import './not-animated-styles.js';
 
 function enter(target) {
   keyDownOn(target, 13, [], 'Enter');

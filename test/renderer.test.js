@@ -4,7 +4,6 @@ import { fixture, html, nextFrame } from '@open-wc/testing-helpers';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
 import './mock-item.js';
 import '../vaadin-select.js';
-import './not-animated-styles.js';
 
 describe('vaadin-select accessibility', () => {
   let select;

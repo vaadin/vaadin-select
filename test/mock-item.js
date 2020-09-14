@@ -1,15 +1,15 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+
 class MockItemElement extends PolymerElement {
   static get template() {
     return html`
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <slot></slot>
-`;
+      <style>
+        :host {
+          display: block;
+        }
+      </style>
+      <slot></slot>
+    `;
   }
 
   static get is() {
@@ -42,8 +42,8 @@ class MockItemElement extends PolymerElement {
       this.value = attrValue;
     }
 
-    this.addEventListener('keydown', e => this._onKeydown(e));
-    this.addEventListener('keyup', e => this._onKeyup(e));
+    this.addEventListener('keydown', (e) => this._onKeydown(e));
+    this.addEventListener('keyup', (e) => this._onKeyup(e));
   }
 
   get value() {
