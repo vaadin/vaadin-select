@@ -1,47 +1,30 @@
-<!doctype html>
-
-<head>
-  <meta charset="UTF-8">
-  <title>vaadin-select tests</title>
-  <script src="../../../wct-browser-legacy/browser.js"></script>
-  <script src="../../../@polymer/iron-test-helpers/mock-interactions.js" type="module"></script>
-  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-  <script type="module" src="../../../@polymer/test-fixture/test-fixture.js"></script>
-  <script type="module" src="../../../@vaadin/vaadin-list-box/vaadin-list-box.js"></script>
-  <script type="module" src="../../../@vaadin/vaadin-item/vaadin-item.js"></script>
-  <script type="module" src="./mock-item.js"></script>
-  <script type="module" src="../vaadin-select.js"></script>
-  <script type="module" src="./not-animated-styles.js"></script>
-</head>
-
-<body>
-  <test-fixture id="select">
-    <template>
-      <vaadin-select label="Label">
-        <template>
-          <vaadin-list-box>
-            <mock-item>option_1</mock-item>
-            <mock-item>option_2</mock-item>
-          </vaadin-list-box>
-        </template>
-      </vaadin-select>
-    </template>
-  </test-fixture>
-
-  <script type="module">
-import '@polymer/test-fixture/test-fixture.js';
+import { expect } from '@esm-bundle/chai';
+import { fixture, html, nextFrame } from '@open-wc/testing-helpers';
+import { render } from 'lit-html';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
-import '@vaadin/vaadin-item/vaadin-item.js';
 import './mock-item.js';
 import '../vaadin-select.js';
 import './not-animated-styles.js';
-import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+
 describe('vaadin-select accessibility', () => {
   let select;
 
-  beforeEach(done => {
-    select = fixture('select');
-    flush(done);
+  beforeEach(async () => {
+    select = await fixture(html`<vaadin-select label="Label"></vaadin-select>`);
+    select.renderer = (root) => {
+      if (root.firstElementChild) {
+        return;
+      }
+      render(
+        html`
+          <vaadin-list-box>
+            <mock-item>Option 1</mock-item>
+            <mock-item>Option 2</mock-item>
+          </vaadin-list-box>
+        `,
+        root
+      );
+    };
   });
 
   it('should have aria-required attribute set to true when required', () => {
@@ -80,28 +63,20 @@ describe('vaadin-select accessibility', () => {
     expect(select._menuElement.getAttribute('role')).to.equal('listbox');
   });
 
-  it('should have role option on items', done => {
+  it('should have role option on items', async () => {
     // Wait for items
-    afterNextRender(select, () => setTimeout(() => {
-      expect(select._items[0].getAttribute('role')).to.equal('option');
-      expect(select._items[1].getAttribute('role')).to.equal('option');
-      done();
-    }));
+    await nextFrame();
+    expect(select._items[0].getAttribute('role')).to.equal('option');
+    expect(select._items[1].getAttribute('role')).to.equal('option');
   });
 
   it('should have aria-labelledby on focus element', () => {
-    expect(
-      select._inputElement.focusElement.getAttribute('aria-labelledby')
-    ).to.not.be.empty;
+    expect(select._inputElement.focusElement.getAttribute('aria-labelledby')).to.not.be.empty;
   });
 
   it('should have aria-describedby on focus element when invalid', () => {
     select.errorMessage = 'invalid';
     select.invalid = true;
-    expect(
-      select._inputElement.focusElement.getAttribute('aria-describedby')
-    ).to.not.be.empty;
+    expect(select._inputElement.focusElement.getAttribute('aria-describedby')).to.not.be.empty;
   });
 });
-</script>
-</body>
