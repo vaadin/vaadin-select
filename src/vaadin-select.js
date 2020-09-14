@@ -103,7 +103,7 @@ document.head.appendChild($_documentContainer.content);
  * Note: the `theme` attribute value set on `<vaadin-select>` is
  * propagated to the internal themable components listed above.
  *
- * @extends PolymerElement
+ * @extends HTMLElement
  * @mixes ElementMixin
  * @mixes ControlStateMixin
  * @mixes ThemableMixin
