@@ -5,8 +5,6 @@ This program is available under Apache License Version 2.0, available at https:/
 */
 import { TextFieldElement } from '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
 
-let memoizedTemplate;
-
 /**
  * The text-field element.
  *
@@ -22,29 +20,6 @@ let memoizedTemplate;
 class SelectTextFieldElement extends TextFieldElement {
   static get is() {
     return 'vaadin-select-text-field';
-  }
-
-  static get template() {
-    // Check if text-field is using slotted input
-    if (super.template.content.querySelector('slot[name="input"]')) {
-      return super.template;
-    }
-
-    if (!memoizedTemplate) {
-      // Clone the superclass template
-      memoizedTemplate = super.template.cloneNode(true);
-
-      // Create a slot for the value element
-      const slot = document.createElement('slot');
-      slot.setAttribute('name', 'value');
-
-      // Insert the slot before the text-field
-      const input = memoizedTemplate.content.querySelector('input');
-
-      input.parentElement.replaceChild(slot, input);
-      slot.appendChild(input);
-    }
-    return memoizedTemplate;
   }
 
   get focusElement() {

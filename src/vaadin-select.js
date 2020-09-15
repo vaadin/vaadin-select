@@ -572,11 +572,8 @@ class SelectElement extends ElementMixin(
 
     const hasContent = this._hasContent(selected);
 
-    // Check if text-field is using slotted input
-    const slotName = this._inputElement.shadowRoot.querySelector('slot[name="input"]') ? 'input' : 'value';
-
     // Toggle visibility of _valueElement vs fallback input with placeholder
-    this._valueElement.slot = hasContent ? slotName : '';
+    this._valueElement.slot = hasContent ? 'input' : '';
 
     // Ensure the slot distribution to apply correct style scope for cloned item
     if (hasContent && window.ShadyDOM) {
