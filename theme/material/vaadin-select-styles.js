@@ -15,11 +15,11 @@ registerStyles(
       -webkit-tap-highlight-color: transparent;
     }
 
-    [part="toggle-button"]::before {
+    [part='toggle-button']::before {
       content: var(--material-icons-dropdown);
     }
 
-    :host([opened]) [part="toggle-button"] {
+    :host([opened]) [part='toggle-button'] {
       transform: rotate(180deg);
     }
 
@@ -37,17 +37,17 @@ registerStyles(
       width: 100%;
     }
 
-    :host([disabled]) [part="input-field"],
-    [part="input-field"],
-    [part="value"] {
+    :host([disabled]) [part='input-field'],
+    [part='input-field'],
+    [part='value'] {
       cursor: default;
     }
 
-    [part="input-field"]:focus {
+    [part='input-field']:focus {
       outline: none;
     }
 
-    ::slotted([part="value"]) {
+    ::slotted([part='value']) {
       display: flex;
     }
   `,
@@ -61,7 +61,7 @@ registerStyles(
       justify-content: flex-end;
     }
 
-    [part="overlay"] {
+    [part='overlay'] {
       min-width: var(--vaadin-select-text-field-width);
     }
   `,

@@ -1,15 +1,15 @@
 describe('vaadin-select', () => {
   const locator = '#select-tests[data-ready]';
 
-  ['lumo', 'material'].forEach(theme => {
-    it(`${theme}-default`, function() {
+  ['lumo', 'material'].forEach((theme) => {
+    it(`${theme}-default`, function () {
       return this.browser
         .url(`select.html?theme=${theme}`)
         .waitForVisible(locator, 10000)
         .assertView(`${theme}-default`, locator);
     });
 
-    it(`${theme}-rtl`, function() {
+    it(`${theme}-rtl`, function () {
       return this.browser
         .url(`rtl.html?theme=${theme}`)
         .waitForVisible(locator, 10000)
@@ -17,8 +17,8 @@ describe('vaadin-select', () => {
     });
   });
 
-  ['ltr', 'rtl'].forEach(dir => {
-    it(`${dir}-align`, function() {
+  ['ltr', 'rtl'].forEach((dir) => {
+    it(`${dir}-align`, function () {
       return this.browser
         .url(`align-themes.html?dir=${dir}`)
         .waitForVisible(locator, 10000)
@@ -26,10 +26,7 @@ describe('vaadin-select', () => {
     });
   });
 
-  it('lumo-variants', function() {
-    return this.browser
-      .url(`lumo.html`)
-      .waitForVisible(locator, 10000)
-      .assertView('lumo-variants', locator);
+  it('lumo-variants', function () {
+    return this.browser.url(`lumo.html`).waitForVisible(locator, 10000).assertView('lumo-variants', locator);
   });
 });

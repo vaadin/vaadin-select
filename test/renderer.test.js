@@ -52,7 +52,7 @@ describe('vaadin-select accessibility', () => {
     select.opened = true;
     spy.resetHistory();
     select.render();
-    expect(spy.callCount).to.equal(1)
+    expect(spy.callCount).to.equal(1);
   });
 
   it('should update selected value after renderer is called', async () => {
@@ -66,7 +66,7 @@ describe('vaadin-select accessibility', () => {
     expect(select._valueElement.textContent.trim()).to.be.equal('barbaz');
   });
 
-  it('should update selected value after renderer is reassigned based on the value', async() => {
+  it('should update selected value after renderer is reassigned based on the value', async () => {
     select.renderer = generateRendererWithItems(['foo', 'bar']);
     await nextFrame();
     select.value = 'bar';

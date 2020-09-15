@@ -6,18 +6,19 @@ This program is available under Apache License Version 2.0, available at https:/
 import { TextFieldElement } from '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
 
 let memoizedTemplate;
+
 /**
-  * The text-field element.
-  *
-  * ### Styling
-  *
-  * See [`<vaadin-text-field>` documentation](https://github.com/vaadin/vaadin-text-field/blob/master/src/vaadin-text-field.html)
-  * for `<vaadin-select-text-field>` parts and available slots (prefix, suffix etc.)
-  *
-  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
-  *
-  * @extends PolymerElement
-  */
+ * The text-field element.
+ *
+ * ### Styling
+ *
+ * See [`<vaadin-text-field>` documentation](https://github.com/vaadin/vaadin-text-field/blob/master/src/vaadin-text-field.html)
+ * for `<vaadin-select-text-field>` parts and available slots (prefix, suffix etc.)
+ *
+ * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
+ *
+ * @extends PolymerElement
+ */
 class SelectTextFieldElement extends TextFieldElement {
   static get is() {
     return 'vaadin-select-text-field';

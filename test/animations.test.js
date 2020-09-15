@@ -16,7 +16,7 @@ function space(target) {
 
 function afterAnimation(el) {
   const name = getComputedStyle(el).getPropertyValue('animation-name');
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     if (name && name != 'none') {
       const listener = () => {
         el.removeEventListener('animationend', listener);
@@ -52,7 +52,7 @@ describe('vaadin-select accessibility', () => {
     input = select._inputElement;
   });
 
-  it('should not fail when quick toggling with mouse because of animations', async() => {
+  it('should not fail when quick toggling with mouse because of animations', async () => {
     input.click();
     getFirstMenuItem(select).click();
     input.click();
@@ -61,7 +61,7 @@ describe('vaadin-select accessibility', () => {
     expect(select._overlayElement.opened).to.be.false;
   });
 
-  it('should not fail when quick toggling with keyboard because of animations', async() => {
+  it('should not fail when quick toggling with keyboard because of animations', async () => {
     space(input);
     space(getFirstMenuItem(select));
     space(input);

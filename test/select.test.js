@@ -2,7 +2,7 @@ import { expect } from '@esm-bundle/chai';
 import sinon from 'sinon';
 import { fixture, html, nextFrame } from '@open-wc/testing-helpers';
 import { render } from 'lit-html';
-import { keyDownOn, keyboardEventFor } from '@polymer/iron-test-helpers/mock-interactions.js';
+import { keyDownOn, keyUpOn, keyboardEventFor } from '@polymer/iron-test-helpers/mock-interactions.js';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
 import '@vaadin/vaadin-item/vaadin-item.js';
 import './mock-item.js';
@@ -269,7 +269,7 @@ describe('vaadin-select', () => {
         expect(select._overlayElement.opened).to.be.false;
       });
 
-      it('should align the overlay on top left corner by default on input click', async() => {
+      it('should align the overlay on top left corner by default on input click', async () => {
         // NOTE: avoid setting bottom-aligned because of web-test-runner window size
         select.setAttribute('style', 'position: absolute; top: 10px');
         enter(input);
@@ -594,8 +594,8 @@ describe('vaadin-select', () => {
         arrowUp(menu);
 
         const secondOption = menu.querySelector('[value="v2"]');
-        MockInteractions.keyDownOn(secondOption, 13, [], 'Enter');
-        MockInteractions.keyUpOn(secondOption, 13, [], 'Enter');
+        keyDownOn(secondOption, 13, [], 'Enter');
+        keyUpOn(secondOption, 13, [], 'Enter');
         expect(changeSpy.callCount).to.equal(1);
       });
     });

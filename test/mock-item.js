@@ -75,7 +75,7 @@ class MockItemElement extends PolymerElement {
     }
   }
 
-  _onKeyup(event) {
+  _onKeyup() {
     if (this.hasAttribute('active')) {
       this._setActive(false);
       this.click();

@@ -3,18 +3,15 @@
 Copyright (c) 2017 Vaadin Ltd.
 This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
-import '@vaadin/vaadin-themable-mixin/vaadin-theme-property-mixin.js';
 import { ControlStateMixin } from '@vaadin/vaadin-control-state-mixin/vaadin-control-state-mixin.js';
 import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
 import '@polymer/iron-media-query/iron-media-query.js';
 import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 import './vaadin-select-overlay.js';
 import './vaadin-select-text-field.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `
@@ -109,46 +106,58 @@ document.head.appendChild($_documentContainer.content);
  * @mixes ThemableMixin
  * @demo demo/index.html
  */
-class SelectElement extends
-  ElementMixin(
-    ControlStateMixin(
-      ThemableMixin(
-        mixinBehaviors(IronResizableBehavior, PolymerElement)))) {
+class SelectElement extends ElementMixin(
+  ControlStateMixin(ThemableMixin(mixinBehaviors(IronResizableBehavior, PolymerElement)))
+) {
   static get template() {
     return html`
-    <style>
-      :host {
-        display: inline-block;
-      }
+      <style>
+        :host {
+          display: inline-block;
+        }
 
-      vaadin-select-text-field {
-        width: 100%;
-        min-width: 0;
-      }
+        vaadin-select-text-field {
+          width: 100%;
+          min-width: 0;
+        }
 
-      :host([hidden]) {
-        display: none !important;
-      }
+        :host([hidden]) {
+          display: none !important;
+        }
 
-      [part="toggle-button"] {
-        font-family: "vaadin-select-icons";
-      }
+        [part='toggle-button'] {
+          font-family: 'vaadin-select-icons';
+        }
 
-      [part="toggle-button"]::before {
-        content: "\\e900";
-      }
-    </style>
+        [part='toggle-button']::before {
+          content: '\\e900';
+        }
+      </style>
 
-    <vaadin-select-text-field placeholder="[[placeholder]]" label="[[label]]" required="[[required]]" invalid="[[invalid]]" error-message="[[errorMessage]]" readonly\$="[[readonly]]" helper-text="[[helperText]]" theme\$="[[theme]]">
-      <slot name="prefix" slot="prefix"></slot>
-      <slot name="helper" slot="helper">[[helperText]]</slot>
-      <div part="value"></div>
-      <div part="toggle-button" slot="suffix" role="button" aria-haspopup="listbox" aria-label="Toggle"></div>
-    </vaadin-select-text-field>
-    <vaadin-select-overlay opened="{{opened}}" with-backdrop="[[_phone]]" phone\$="[[_phone]]" theme\$="[[theme]]"></vaadin-select-overlay>
+      <vaadin-select-text-field
+        placeholder="[[placeholder]]"
+        label="[[label]]"
+        required="[[required]]"
+        invalid="[[invalid]]"
+        error-message="[[errorMessage]]"
+        readonly$="[[readonly]]"
+        helper-text="[[helperText]]"
+        theme$="[[theme]]"
+      >
+        <slot name="prefix" slot="prefix"></slot>
+        <slot name="helper" slot="helper">[[helperText]]</slot>
+        <div part="value"></div>
+        <div part="toggle-button" slot="suffix" role="button" aria-haspopup="listbox" aria-label="Toggle"></div>
+      </vaadin-select-text-field>
+      <vaadin-select-overlay
+        opened="{{opened}}"
+        with-backdrop="[[_phone]]"
+        phone$="[[_phone]]"
+        theme$="[[theme]]"
+      ></vaadin-select-overlay>
 
-    <iron-media-query query="[[_phoneMediaQuery]]" query-matches="{{_phone}}"></iron-media-query>
-`;
+      <iron-media-query query="[[_phoneMediaQuery]]" query-matches="{{_phone}}"></iron-media-query>
+    `;
   }
 
   static get is() {
@@ -336,8 +345,8 @@ class SelectElement extends
     this._nativeInput.setAttribute('tabindex', -1);
     this._nativeInput.style.pointerEvents = 'none';
 
-    this.focusElement.addEventListener('click', e => this.opened = !this.readonly);
-    this.focusElement.addEventListener('keydown', e => this._onKeyDown(e));
+    this.focusElement.addEventListener('click', () => (this.opened = !this.readonly));
+    this.focusElement.addEventListener('keydown', (e) => this._onKeyDown(e));
   }
 
   /**
@@ -366,7 +375,7 @@ class SelectElement extends
     this._oldRenderer = renderer;
 
     if (renderer) {
-      overlay.setProperties({owner: this, renderer: renderer});
+      overlay.setProperties({ owner: this, renderer: renderer });
       this.render();
 
       if (overlay.content.firstChild) {
@@ -377,19 +386,25 @@ class SelectElement extends
 
   /** @private */
   _assignMenuElement() {
-    this._menuElement = Array.from(this._overlayElement.content.children).filter(element => element.localName !== 'style')[0];
+    this._menuElement = Array.from(this._overlayElement.content.children).filter(
+      (element) => element.localName !== 'style'
+    )[0];
 
     if (this._menuElement) {
-      this._menuElement.addEventListener('items-changed', e => {
+      this._menuElement.addEventListener('items-changed', () => {
         this._items = this._menuElement.items;
-        this._items.forEach(item => item.setAttribute('role', 'option'));
+        this._items.forEach((item) => item.setAttribute('role', 'option'));
       });
-      this._menuElement.addEventListener('selected-changed', e => this._updateValueSlot());
-      this._menuElement.addEventListener('keydown', e => this._onKeyDownInside(e));
-      this._menuElement.addEventListener('click', e => {
-        this.__userInteraction = true;
-        this.opened = false;
-      }, true);
+      this._menuElement.addEventListener('selected-changed', () => this._updateValueSlot());
+      this._menuElement.addEventListener('keydown', (e) => this._onKeyDownInside(e));
+      this._menuElement.addEventListener(
+        'click',
+        () => {
+          this.__userInteraction = true;
+          this.opened = false;
+        },
+        true
+      );
 
       this._menuElement.setAttribute('role', 'listbox');
     }
@@ -400,8 +415,7 @@ class SelectElement extends
    * @protected
    */
   get focusElement() {
-    return this._inputElement ||
-      (this._inputElement = this.shadowRoot.querySelector('vaadin-select-text-field'));
+    return this._inputElement || (this._inputElement = this.shadowRoot.querySelector('vaadin-select-text-field'));
   }
 
   /** @protected */
@@ -450,7 +464,6 @@ class SelectElement extends
       if (/^(Enter|SpaceBar|\s|ArrowDown|Down|ArrowUp|Up)$/.test(e.key)) {
         e.preventDefault();
         this.opened = true;
-
       } else if (/[a-zA-Z0-9]/.test(e.key) && e.key.length === 1) {
         const selected = this._menuElement.selected;
         const currentIdx = selected !== undefined ? selected : -1;
@@ -512,9 +525,9 @@ class SelectElement extends
       return false;
     }
     return Boolean(
-      selected.hasAttribute('label') ?
-        selected.getAttribute('label') :
-        selected.textContent.trim() || selected.children.length
+      selected.hasAttribute('label')
+        ? selected.getAttribute('label')
+        : selected.textContent.trim() || selected.children.length
     );
   }
 
@@ -576,7 +589,7 @@ class SelectElement extends
       this._selectedChanging = true;
       this.value = selected.value || '';
       if (this.__userInteraction) {
-        this.dispatchEvent(new CustomEvent('change', {bubbles: true}));
+        this.dispatchEvent(new CustomEvent('change', { bubbles: true }));
         this.__userInteraction = false;
       }
       delete this._selectedChanging;
@@ -624,14 +637,14 @@ class SelectElement extends
     if (bottomAlign) {
       this._overlayElement.setAttribute('bottom-aligned', '');
       this._overlayElement.style.removeProperty('top');
-      this._overlayElement.style.bottom = (viewportHeight - inputRect.bottom) + 'px';
+      this._overlayElement.style.bottom = viewportHeight - inputRect.bottom + 'px';
     } else {
       this._overlayElement.removeAttribute('bottom-aligned');
       this._overlayElement.style.removeProperty('bottom');
       this._overlayElement.style.top = inputRect.top + 'px';
     }
 
-    this._overlayElement.updateStyles({'--vaadin-select-text-field-width': inputRect.width + 'px'});
+    this._overlayElement.updateStyles({ '--vaadin-select-text-field-width': inputRect.width + 'px' });
   }
 
   /**

@@ -1,5 +1,5 @@
 import { expect } from '@esm-bundle/chai';
-import { fixture, html, nextFrame } from '@open-wc/testing-helpers';
+import { fixture, html } from '@open-wc/testing-helpers';
 import { render } from 'lit-html';
 import { keyDownOn } from '@polymer/iron-test-helpers/mock-interactions.js';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
