@@ -41,9 +41,10 @@
     "@vaadin/vaadin-element-mixin": "^2.4.1"
   },
   "scripts": {
-    "debug": "web-test-runner test/*.test.js --node-resolve --watch",
+    "debug": "web-test-runner test/*.test.js --watch",
     "generate-typings": "gen-typescript-declarations --outDir . --verify",
-    "test": "web-test-runner test/*.test.js --node-resolve"
+    "test": "web-test-runner test/*.test.js",
+    "test:sauce": "TEST_ENV=sauce npm test"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.1.5",
@@ -52,6 +53,7 @@
     "@polymer/iron-component-page": "^4.0.0",
     "@polymer/iron-test-helpers": "^3.0.0",
     "@web/test-runner": "^0.7.24",
+    "@web/test-runner-saucelabs": "0.0.2",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "sinon": "^9.0.0"
   }
