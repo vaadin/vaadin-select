@@ -1,8 +1,5 @@
 {
-  "globals": {
-    "describe": false,
-    "beforeEach": false,
-    "it": false,
-    "gemini": false
+  "env": {
+    "mocha": true
   }
 }

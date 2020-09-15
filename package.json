@@ -43,6 +43,7 @@
   "scripts": {
     "debug": "web-test-runner test/*.test.js --watch",
     "generate-typings": "gen-typescript-declarations --outDir . --verify",
+    "lint": "eslint src theme test",
     "screenshots": "hermione test/visual/test.js --update-refs",
     "test": "web-test-runner test/*.test.js",
     "test:sauce": "TEST_ENV=sauce npm test",
@@ -57,9 +58,13 @@
     "@web/test-runner": "^0.7.24",
     "@web/test-runner-saucelabs": "0.0.2",
     "@webcomponents/webcomponentsjs": "^2.0.0",
+    "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "hermione": "^3.0.1",
     "hermione-esm": "^0.4.0",
     "hermione-sauce": "^0.1.0",
+    "prettier": "^2.1.1",
     "sinon": "^9.0.0"
   }
 }
