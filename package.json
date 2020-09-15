@@ -44,6 +44,7 @@
     "debug": "web-test-runner test/*.test.js --watch",
     "generate-typings": "gen-typescript-declarations --outDir . --verify",
     "lint": "eslint src theme test",
+    "preversion": "magi update-version",
     "screenshots": "hermione test/visual/test.js --update-refs",
     "test": "web-test-runner test/*.test.js",
     "test:sauce": "TEST_ENV=sauce npm test",
