@@ -1,3 +1,4 @@
+/* eslint-env node */
 const { createSauceLabsLauncher } = require('@web/test-runner-saucelabs');
 
 const config = {
