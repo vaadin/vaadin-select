@@ -24,6 +24,9 @@ jobs:
     - name: Run Stylelint
       run: npm run lint:css
 
+    - name: Generate typings
+      run: npm run generate-typings
+
   unit-tests:
     runs-on: ubuntu-latest
 
