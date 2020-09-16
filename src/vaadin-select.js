@@ -360,13 +360,6 @@ class SelectElement extends ElementMixin(
   }
 
   /** @private */
-  _removeNewRenderer(renderer, oldRenderer) {
-    if (renderer !== oldRenderer) {
-      this.renderer = undefined;
-    }
-  }
-
-  /** @private */
   _rendererChanged(renderer, overlay) {
     if (!overlay) {
       return;
@@ -424,15 +417,6 @@ class SelectElement extends ElementMixin(
     this.removeEventListener('iron-resize', this._boundSetPosition);
     // Making sure the select is closed and removed from DOM after detaching the select.
     this.opened = false;
-  }
-
-  notifyResize() {
-    super.notifyResize();
-    if (this.positionTarget && this.opened) {
-      this._setPosition();
-      // Schedule another position update (to cover virtual keyboard opening for example)
-      requestAnimationFrame(this._setPosition.bind(this));
-    }
   }
 
   /** @private */
