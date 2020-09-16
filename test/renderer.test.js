@@ -75,4 +75,13 @@ describe('vaadin-select accessibility', () => {
     expect(select.value).to.equal('bar');
     expect(select._menuElement.selected).to.equal(0);
   });
+
+  it('should not throw when setting renderer before overlay is ready', () => {
+    expect(() => {
+      const select = document.createElement('vaadin-select');
+      select.renderer = () => {};
+      document.body.appendChild(select);
+      document.body.removeChild(select);
+    }).to.not.throw(Error);
+  });
 });
