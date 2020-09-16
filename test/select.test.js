@@ -280,6 +280,18 @@ describe('vaadin-select', () => {
         expect(inputRect.left).to.be.equal(inputRect.left);
       });
 
+      it('should align the overlay on top right corner in RTL on input click', async () => {
+        select.setAttribute('dir', 'rtl');
+        // NOTE: avoid setting bottom-aligned because of web-test-runner window size
+        select.setAttribute('style', 'position: absolute; top: 10px');
+        enter(input);
+        await nextFrame();
+        const overlayRect = select._overlayElement.getBoundingClientRect();
+        const inputRect = input.shadowRoot.querySelector('[part~="input-field"]').getBoundingClientRect();
+        expect(overlayRect.top).to.be.equal(inputRect.top);
+        expect(inputRect.right).to.be.equal(inputRect.right);
+      });
+
       it('should store the text-field width in the custom CSS property on overlay opening', () => {
         input.style.width = '200px';
         select.opened = true;
