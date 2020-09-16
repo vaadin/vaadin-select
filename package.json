@@ -27,6 +27,7 @@
   ],
   "scripts": {
     "debug": "web-test-runner test/*.test.js --watch",
+    "check-version": "magi check-version",
     "generate-typings": "gen-typescript-declarations --outDir . --verify",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint src theme test",
@@ -82,6 +83,7 @@
     "hermione-sauce": "^0.1.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.3.0",
+    "magi-cli": "^0.27.0",
     "prettier": "^2.1.1",
     "sinon": "^9.0.0",
     "stylelint": "^13.7.1",
