@@ -2,7 +2,7 @@ import { expect } from '@esm-bundle/chai';
 import sinon from 'sinon';
 import { fixture, html, nextFrame } from '@open-wc/testing-helpers';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
-import './mock-item.js';
+import '@vaadin/vaadin-item/vaadin-item.js';
 import '../vaadin-select.js';
 
 describe('vaadin-select accessibility', () => {
@@ -31,14 +31,14 @@ describe('vaadin-select accessibility', () => {
   beforeEach(async () => {
     select = await fixture(html`<vaadin-select></vaadin-select>`);
     rendererContent = document.createElement('vaadin-list-box');
-    const rendererItem = document.createElement('mock-item');
+    const rendererItem = document.createElement('vaadin-item');
     rendererItem.textContent = 'renderer item';
     rendererContent.appendChild(rendererItem);
   });
 
   it('should use renderer when it is defined', () => {
     select.renderer = (root) => root.appendChild(rendererContent);
-    expect(select.shadowRoot.querySelector('vaadin-list-box mock-item').textContent.trim()).to.equal('renderer item');
+    expect(select.shadowRoot.querySelector('vaadin-list-box vaadin-item').textContent.trim()).to.equal('renderer item');
   });
 
   it('should pass vaadin-select as owner to vaadin-overlay', () => {

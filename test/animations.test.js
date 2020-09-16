@@ -3,11 +3,11 @@ import { fixture, html } from '@open-wc/testing-helpers';
 import { render } from 'lit-html';
 import { keyDownOn } from '@polymer/iron-test-helpers/mock-interactions.js';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
-import './mock-item.js';
+import '@vaadin/vaadin-item/vaadin-item.js';
 import '../vaadin-select.js';
 
 function getFirstMenuItem(menu) {
-  return menu._overlayElement.content.querySelector('mock-item');
+  return menu._overlayElement.content.querySelector('vaadin-item');
 }
 
 function space(target) {
@@ -41,9 +41,9 @@ describe('vaadin-select accessibility', () => {
       render(
         html`
           <vaadin-list-box>
-            <mock-item>Option 1</mock-item>
-            <mock-item>Option 2</mock-item>
-            <mock-item>Option 3</mock-item>
+            <vaadin-item>Option 1</vaadin-item>
+            <vaadin-item>Option 2</vaadin-item>
+            <vaadin-item>Option 3</vaadin-item>
           </vaadin-list-box>
         `,
         root

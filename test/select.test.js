@@ -5,7 +5,6 @@ import { render } from 'lit-html';
 import { keyDownOn, keyUpOn, keyboardEventFor } from '@polymer/iron-test-helpers/mock-interactions.js';
 import '@vaadin/vaadin-list-box/vaadin-list-box.js';
 import '@vaadin/vaadin-item/vaadin-item.js';
-import './mock-item.js';
 import '../vaadin-select.js';
 
 function arrowUp(target) {
@@ -86,12 +85,12 @@ describe('vaadin-select', () => {
         render(
           html`
             <vaadin-list-box>
-              <mock-item>Option 1</mock-item>
-              <mock-item value="v2" label="o2">Option 2</mock-item>
-              <mock-item value="">Option 3</mock-item>
-              <mock-item></mock-item>
-              <mock-item label="">Empty</mock-item>
-              <mock-item value="v4" disabled>Disabled</mock-item>
+              <vaadin-item>Option 1</vaadin-item>
+              <vaadin-item value="v2" label="o2">Option 2</vaadin-item>
+              <vaadin-item value="">Option 3</vaadin-item>
+              <vaadin-item></vaadin-item>
+              <vaadin-item label="">Empty</vaadin-item>
+              <vaadin-item value="v4" disabled>Disabled</vaadin-item>
             </vaadin-list-box>
           `,
           root
@@ -625,8 +624,8 @@ describe('vaadin-select', () => {
         render(
           html`
             <vaadin-list-box>
-              <mock-item value="v1">t1</mock-item>
-              <mock-item value="v2" label="o2">t2</mock-item>
+              <vaadin-item value="v1">t1</vaadin-item>
+              <vaadin-item value="v2" label="o2">t2</vaadin-item>
             </vaadin-list-box>
           `,
           root
