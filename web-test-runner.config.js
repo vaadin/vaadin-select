@@ -4,11 +4,12 @@ const { createSauceLabsLauncher } = require('@web/test-runner-saucelabs');
 const config = {
   nodeResolve: true,
   coverageConfig: {
+    include: ['**/src/*'],
     threshold: {
-      statements: 99,
-      branches: 62,
+      statements: 100,
+      branches: 57,
       functions: 100,
-      lines: 99
+      lines: 100
     }
   }
 };
