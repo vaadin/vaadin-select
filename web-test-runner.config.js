@@ -2,7 +2,15 @@
 const { createSauceLabsLauncher } = require('@web/test-runner-saucelabs');
 
 const config = {
-  nodeResolve: true
+  nodeResolve: true,
+  coverageConfig: {
+    threshold: {
+      statements: 99,
+      branches: 62,
+      functions: 100,
+      lines: 99
+    }
+  }
 };
 
 if (process.env.TEST_ENV === 'sauce') {
