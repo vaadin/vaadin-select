@@ -559,11 +559,6 @@ class SelectElement extends ElementMixin(
     // Toggle visibility of _valueElement vs fallback input with placeholder
     this._valueElement.slot = hasContent ? 'input' : '';
 
-    // Ensure the slot distribution to apply correct style scope for cloned item
-    if (hasContent && window.ShadyDOM) {
-      window.ShadyDOM.flush();
-    }
-
     this._attachSelectedItem(selected);
 
     if (!this._valueChanging && selected) {
