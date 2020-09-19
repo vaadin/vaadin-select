@@ -3,6 +3,7 @@ const { createSauceLabsLauncher } = require('@web/test-runner-saucelabs');
 
 const config = {
   nodeResolve: true,
+  testsFinishTimeout: 60000,
   coverageConfig: {
     include: ['**/src/*'],
     threshold: {
@@ -33,13 +34,13 @@ if (process.env.TEST_ENV === 'sauce') {
       ...sharedCapabilities,
       browserName: 'safari',
       platform: 'macOS 10.14',
-      version: '13'
+      browserVersion: '13'
     }),
     sauceLabsLauncher({
       ...sharedCapabilities,
       browserName: 'safari',
       platform: 'iOS Simulator',
-      version: '13.1'
+      browserVersion: '13.1'
     })
   ];
 }
