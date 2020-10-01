@@ -28,8 +28,14 @@ if (process.env.TEST_ENV === 'sauce') {
     }
   };
 
-  config.concurrency = 1;
+  config.concurrency = 2;
   config.browsers = [
+    sauceLabsLauncher({
+      ...sharedCapabilities,
+      browserName: 'firefox',
+      platform: 'Windows 10',
+      browserVersion: 'latest'
+    }),
     sauceLabsLauncher({
       ...sharedCapabilities,
       browserName: 'safari',
