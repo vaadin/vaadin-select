@@ -360,6 +360,14 @@ class SelectElement extends ElementMixin(
   }
 
   /** @protected */
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('iron-resize', this._boundSetPosition);
+    // Making sure the select is closed and removed from DOM after detaching the select.
+    this.opened = false;
+  }
+
+  /** @protected */
   ready() {
     super.ready();
 
@@ -479,14 +487,6 @@ class SelectElement extends ElementMixin(
    */
   get focusElement() {
     return this._inputElement || (this._inputElement = this.shadowRoot.querySelector('vaadin-select-text-field'));
-  }
-
-  /** @protected */
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener('iron-resize', this._boundSetPosition);
-    // Making sure the select is closed and removed from DOM after detaching the select.
-    this.opened = false;
   }
 
   /** @private */

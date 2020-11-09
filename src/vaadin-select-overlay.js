@@ -26,8 +26,6 @@ registerStyles(
  * for `<vaadin-select-overlay>` parts.
  *
  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
- *
- * @extends PolymerElement
  */
 class SelectOverlayElement extends OverlayElement {
   static get is() {

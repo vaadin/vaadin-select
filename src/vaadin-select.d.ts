@@ -201,6 +201,7 @@ declare class SelectElement extends ElementMixin(ControlStateMixin(ThemableMixin
     listener: (this: SelectElement, ev: SelectEventMap[K]) => void,
     options?: boolean | AddEventListenerOptions
   ): void;
+
   removeEventListener<K extends keyof SelectEventMap>(
     type: K,
     listener: (this: SelectElement, ev: SelectEventMap[K]) => void,

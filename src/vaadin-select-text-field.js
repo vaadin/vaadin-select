@@ -14,8 +14,6 @@ import { TextFieldElement } from '@vaadin/vaadin-text-field/src/vaadin-text-fiel
  * for `<vaadin-select-text-field>` parts and available slots (prefix, suffix etc.)
  *
  * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
- *
- * @extends PolymerElement
  */
 class SelectTextFieldElement extends TextFieldElement {
   static get is() {
