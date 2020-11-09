@@ -75,11 +75,6 @@ registerStyles(
       display: flex;
     }
 
-    /* ShadyCSS limitation workaround */
-    [part='input-field'] ::slotted([part='value']) [selected]::before {
-      display: none;
-    }
-
     [part='input-field']:focus {
       outline: none;
     }
