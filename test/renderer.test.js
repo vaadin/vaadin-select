@@ -5,7 +5,7 @@ import '@vaadin/vaadin-list-box/vaadin-list-box.js';
 import '@vaadin/vaadin-item/vaadin-item.js';
 import '../vaadin-select.js';
 
-describe('vaadin-select accessibility', () => {
+describe('renderer', () => {
   let select;
   let rendererContent;
 

@@ -18,7 +18,7 @@ function scrollContainer(container, value, scrollLeft) {
   window.dispatchEvent(new CustomEvent('scroll', { bubbles: true }));
 }
 
-describe('vaadin-select accessibility', () => {
+describe('scrollable viewport', () => {
   let scrollableContainer, container, select, overlay, input, inputFieldBlock;
 
   beforeEach(async () => {
