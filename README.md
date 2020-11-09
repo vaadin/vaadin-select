@@ -92,7 +92,7 @@ To use the Material theme, import the correspondent file from the `theme/materia
 
 ## Running tests from the command line
 
-1. When in the `vaadin-select` directory, run `polymer test`
+1. When in the `vaadin-select` directory, run `npm test`
 
 
 ## Following the coding style
