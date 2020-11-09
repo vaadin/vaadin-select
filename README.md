@@ -80,6 +80,8 @@ To use the Material theme, import the correspondent file from the `theme/materia
 
 1. Fork the `vaadin-select` repository and clone it locally.
 
+1. Make sure you have [node.js](https://nodejs.org/) 12.x installed.
+
 1. Make sure you have [npm](https://www.npmjs.com/) installed.
 
 1. When in the `vaadin-select` directory, run `npm install` to install dependencies.
