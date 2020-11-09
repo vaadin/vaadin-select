@@ -4,6 +4,8 @@ import { ControlStateMixin } from '@vaadin/vaadin-control-state-mixin/vaadin-con
 
 import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
+import { SelectEventMap, SelectRenderer } from './interfaces';
+
 /**
  * `<vaadin-select>` is a Web Component for selecting values from a list of items. The content of the
  * the select can be populated in two ways: imperatively by using renderer callback function and
@@ -173,16 +175,16 @@ declare class SelectElement extends ElementMixin(ControlStateMixin(ThemableMixin
    * When present, it specifies that the element is read-only.
    */
   readonly: boolean;
-  connectedCallback(): void;
-  disconnectedCallback(): void;
-  ready(): void;
+
   _setFocused(focused: boolean): void;
 
   /**
    * Manually invoke existing renderer.
    */
   render(): void;
+
   _onKeyDown(e: KeyboardEvent): void;
+
   _onKeyDownInside(e: KeyboardEvent): void;
 
   /**
@@ -211,30 +213,3 @@ declare global {
 }
 
 export { SelectElement };
-
-import { SelectRenderer } from '../@types/interfaces';
-
-export type SelectOpenedChanged = CustomEvent<{ value: boolean; path: 'opened' }>;
-
-export type SelectInvalidChanged = CustomEvent<{ value: boolean; path: 'invalid' }>;
-
-export type SelectValueChanged = CustomEvent<{ value: string; path: 'value' }>;
-
-export interface SelectElementEventMap {
-  /**
-   * Fired when the `opened` property changes.
-   */
-  'opened-changed': SelectOpenedChanged;
-
-  /**
-   * Fired when the `invalid` property changes.
-   */
-  'invalid-changed': SelectInvalidChanged;
-
-  /**
-   * Fired when the `value` property changes.
-   */
-  'value-changed': SelectValueChanged;
-}
-
-export interface SelectEventMap extends HTMLElementEventMap, SelectElementEventMap {}
