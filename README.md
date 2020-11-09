@@ -76,7 +76,7 @@ To use the Material theme, import the correspondent file from the `theme/materia
 - `vaadin-select.js`
 
 
-## Running demos and tests in a browser
+## Running API docs and tests in a browser
 
 1. Fork the `vaadin-select` repository and clone it locally.
 
@@ -86,10 +86,9 @@ To use the Material theme, import the correspondent file from the `theme/materia
 
 1. Run `npm start`, browser will automatically open the component API documentation.
 
-1. You can also open demo or in-browser tests by adding **test** to the URL:
+1. You can also open visual tests, for example:
 
-  - http://127.0.0.1:3000/components/vaadin-select/test/
-
+  - http://127.0.0.1:3000/test/visual/select.html
 
 ## Running tests from the command line
 
