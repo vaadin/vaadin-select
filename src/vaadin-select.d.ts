@@ -178,6 +178,8 @@ declare class SelectElement extends ElementMixin(ControlStateMixin(ThemableMixin
 
   _setFocused(focused: boolean): void;
 
+  ready(): void;
+
   /**
    * Manually invoke existing renderer.
    */
