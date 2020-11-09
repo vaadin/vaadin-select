@@ -27,8 +27,8 @@ $_documentContainer.innerHTML = `
 `;
 
 document.head.appendChild($_documentContainer.content);
+
 /**
- *
  * `<vaadin-select>` is a Web Component for selecting values from a list of items. The content of the
  * the select can be populated in two ways: imperatively by using renderer callback function and
  * declaratively by using Polymer's Templates.
@@ -125,7 +125,6 @@ document.head.appendChild($_documentContainer.content);
  * @mixes ElementMixin
  * @mixes ControlStateMixin
  * @mixes ThemableMixin
- * @demo demo/index.html
  */
 class SelectElement extends ElementMixin(
   ControlStateMixin(ThemableMixin(mixinBehaviors(IronResizableBehavior, PolymerElement)))

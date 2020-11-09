@@ -5,11 +5,13 @@ import { ControlStateMixin } from '@vaadin/vaadin-control-state-mixin/vaadin-con
 import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
 /**
- * `<vaadin-select>` is a Web Component for selecting values from a list of items.
+ * `<vaadin-select>` is a Web Component for selecting values from a list of items. The content of the
+ * the select can be populated in two ways: imperatively by using renderer callback function and
+ * declaratively by using Polymer's Templates.
  *
  * ### Rendering
  *
- * The options for `<vaadin-select>` can be provided by using the renderer callback function.
+ * By default, the select uses the content provided by using the renderer callback function.
  *
  * The renderer function provides `root`, `select` arguments.
  * Generate DOM content, append it to the `root` element and control the state
@@ -38,6 +40,24 @@ import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.
  * DOM generated during the renderer call can be reused
  * in the next renderer call and will be provided with the `root` argument.
  * On first call it will be empty.
+ *
+ * ### Polymer Templates
+ *
+ * Alternatively, the content can be provided with Polymer's Template.
+ * Select finds the first child template and uses that in case renderer callback function
+ * is not provided. You can also set a custom template using the `template` property.
+ *
+ * ```
+ * <vaadin-select>
+ *   <template>
+ *     <vaadin-list-box>
+ *       <vaadin-item label="foo">Foo</vaadin-item>
+ *       <vaadin-item>Bar</vaadin-item>
+ *       <vaadin-item>Baz</vaadin-item>
+ *     </vaadin-list-box>
+ *   </template>
+ * </vaadin-select>
+ * ```
  *
  * Hint: By setting the `label` property of inner vaadin-items you will
  * be able to change the visual representation of the selected value in the input part.
