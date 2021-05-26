@@ -1,11 +1,13 @@
 # &lt;vaadin-select&gt;
 
+> ⚠️ Starting from Vaadin 20, the source code and issues for this component are migrated to the [`vaadin/web-components`](https://github.com/vaadin/web-components/tree/master/packages/vaadin-select) monorepository.
+> This repository contains the source code and releases of `<vaadin-select>` for the Vaadin versions 10 to 19.
+
+[&lt;vaadin-select&gt;](https://vaadin.com/components/vaadin-select) is a Web Component similar to a native browser select element, part of the [Vaadin components](https://vaadin.com/components).
+
 [Live Demo ↗](https://vaadin.com/components/vaadin-select/html-examples)
 |
 [API documentation ↗](https://vaadin.com/components/vaadin-select/html-api)
-
-
-[&lt;vaadin-select&gt;](https://vaadin.com/components/vaadin-select) is a Web Component similar to a native browser select element, part of the [Vaadin components](https://vaadin.com/components).
 
 [![npm version](https://badgen.net/npm/v/@vaadin/vaadin-select)](https://www.npmjs.com/package/@vaadin/vaadin-select)
 [![Build Status](https://github.com/vaadin/vaadin-select/workflows/tests/badge.svg)](https://github.com/vaadin/vaadin-select/actions)
