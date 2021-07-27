@@ -88,25 +88,29 @@
 
       it('should update the position on scrolling', () => {
         Enter(input);
-        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
-        expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
+        // Overlay has an additional half pixel of size in Google Android emulator, checking with a margin of error
+        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.closeTo(inputFieldBlock.getBoundingClientRect().bottom, 0.5);
+        expect(select._overlayElement.getBoundingClientRect().left).to.be.closeTo(inputFieldBlock.getBoundingClientRect().left, 0.5);
 
         scrollContainer(scrollableContainer, 40, 40);
 
-        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
-        expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
+        // Overlay has an additional half pixel of size in Google Android emulator, checking with a margin of error
+        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.closeTo(inputFieldBlock.getBoundingClientRect().bottom, 0.5);
+        expect(select._overlayElement.getBoundingClientRect().left).to.be.closeTo(inputFieldBlock.getBoundingClientRect().left, 0.5);
       });
 
       it('should update the position on iron-resize event', () => {
         Enter(input);
-        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.equal(inputFieldBlock.getBoundingClientRect().bottom);
-        expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
+        // Overlay has an additional half pixel of size in Google Android emulator, checking with a margin of error
+        expect(select._overlayElement.getBoundingClientRect().bottom).to.be.closeTo(inputFieldBlock.getBoundingClientRect().bottom, 0.5);
+        expect(select._overlayElement.getBoundingClientRect().left).to.be.closeTo(inputFieldBlock.getBoundingClientRect().left, 0.5);
 
         container.style.paddingTop = '200px';
         select.dispatchEvent(new CustomEvent('iron-resize', {bubbles: true}));
 
-        expect(select._overlayElement.getBoundingClientRect().top).to.be.equal(inputFieldBlock.getBoundingClientRect().top);
-        expect(select._overlayElement.getBoundingClientRect().left).to.be.equal(inputFieldBlock.getBoundingClientRect().left);
+        // Overlay has an additional half pixel of size in Google Android emulator, checking with a margin of error
+        expect(select._overlayElement.getBoundingClientRect().top).to.be.closeTo(inputFieldBlock.getBoundingClientRect().top, 0.5);
+        expect(select._overlayElement.getBoundingClientRect().left).to.be.closeTo(inputFieldBlock.getBoundingClientRect().left, 0.5);
       });
     });
   </script>
