@@ -140,6 +140,10 @@
   <test-fixture id="select-with-slotted-helper">
     <template>
       <vaadin-select>
+        <template>
+          <vaadin-list-box>
+          </vaadin-list-box>
+        </template>
         <div slot="helper">foo</div>
       </vaadin-select>
     </template>
@@ -741,6 +745,15 @@
         it('should display the helper text when provided', () => {
           select.helperText = 'Foo';
           expect(select._inputElement.helperText).to.equal(select.helperText);
+        });
+
+        it('should not open select after helper click', () => {
+          const select = fixture('select-with-slotted-helper');
+          const helper = select.querySelector('[slot="helper"]');
+
+          helper.click();
+
+          expect(select.hasAttribute('opened')).to.be.false;
         });
       });
 
