@@ -645,15 +645,17 @@
             const iframe = window.top.document.querySelector('.subsuite');
 
             select.addEventListener('iron-resize', () => {
-              expect(select._phone).to.be.true;
-              expect(select._overlayElement.hasAttribute('phone')).to.be.true;
-              wrapper.style.removeProperty('height');
-              wrapper.style.removeProperty('width');
-              iframe.style.removeProperty('width');
-              iframe.style.removeProperty('height');
-              iframe.style.removeProperty('minHeight');
-              iframe.style.removeProperty('minWidth');
-              done();
+              Polymer.RenderStatus.afterNextRender(select, () => {
+                expect(select._phone).to.be.true;
+                expect(select._overlayElement.hasAttribute('phone')).to.be.true;
+                wrapper.style.removeProperty('height');
+                wrapper.style.removeProperty('width');
+                iframe.style.removeProperty('width');
+                iframe.style.removeProperty('height');
+                iframe.style.removeProperty('minHeight');
+                iframe.style.removeProperty('minWidth');
+                done();
+              });
             });
 
             wrapper.style.height = '419px';
