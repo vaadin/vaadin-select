@@ -133,6 +133,11 @@
           expect(spy).to.be.calledOnce;
         });
 
+        it('should not throw when invoking renderer before attaching to the DOM', () => {
+          const select = document.createElement('vaadin-select');
+          expect(() => select.render()).not.to.throw(Error);
+        });
+
         it('should update selected value after renderer is called', done => {
           select.renderer = generateRendererWithItems(['foo', 'bar']);
           setTimeout(() => {
