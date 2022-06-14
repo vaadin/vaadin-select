@@ -695,16 +695,20 @@ This program is available under Apache License Version 2.0, available at https:/
         _setPosition() {
           const inputRect = this._inputElement.shadowRoot.querySelector('[part~="input-field"]').getBoundingClientRect();
           const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
-          const bottomAlign = inputRect.top > (viewportHeight - inputRect.height) / 2;
+          const shouldAlignRight = this._shouldAlignRight(inputRect);
+          const shouldAlignAbove = this._shouldAlignAbove(inputRect);
 
-          const isRtl = this.getAttribute('dir') === 'rtl';
-          if (isRtl) {
+          if (shouldAlignRight) {
+            this._overlayElement.setAttribute('right-aligned', '');
             this._overlayElement.style.right = document.documentElement.clientWidth - inputRect.right + 'px';
+            this._overlayElement.style.removeProperty('left');
           } else {
+            this._overlayElement.removeAttribute('right-aligned');
             this._overlayElement.style.left = inputRect.left + 'px';
+            this._overlayElement.style.removeProperty('right');
           }
 
-          if (bottomAlign) {
+          if (shouldAlignAbove) {
             this._overlayElement.setAttribute('bottom-aligned', '');
             this._overlayElement.style.removeProperty('top');
             this._overlayElement.style.bottom = (viewportHeight - inputRect.bottom) + 'px';
@@ -715,6 +719,17 @@ This program is available under Apache License Version 2.0, available at https:/
           }
 
           this._overlayElement.updateStyles({'--vaadin-select-text-field-width': inputRect.width + 'px'});
+        }
+
+        _shouldAlignRight(targetRect) {
+          const spaceRight = (window.innerWidth - targetRect.right) / window.innerWidth;
+          return spaceRight < 0.3;
+        }
+
+        _shouldAlignAbove(targetRect) {
+          const spaceBelow =
+            (window.innerHeight - targetRect.bottom - Math.min(document.body.scrollTop, 0)) / window.innerHeight;
+          return spaceBelow < 0.3;
         }
 
         /**
