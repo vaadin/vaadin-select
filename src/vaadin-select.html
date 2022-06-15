@@ -722,14 +722,14 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _shouldAlignRight(targetRect) {
-          const spaceRight = (window.innerWidth - targetRect.right) / window.innerWidth;
+          const viewportWidth = Math.min(window.innerWidth, document.documentElement.clientWidth);
+          const spaceRight = (viewportWidth - targetRect.right) / viewportWidth;
           return spaceRight < 0.3;
         }
 
         _shouldAlignAbove(targetRect) {
-          const spaceBelow =
-            (window.innerHeight - targetRect.bottom - Math.min(document.body.scrollTop, 0)) / window.innerHeight;
-          return spaceBelow < 0.3;
+          const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
+          return targetRect.top > (viewportHeight - targetRect.height) / 2;
         }
 
         /**
