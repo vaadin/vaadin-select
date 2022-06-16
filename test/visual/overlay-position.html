@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>Overlay position tests</title>
+  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../../polymer/polymer.html">
+  <script>
+    const dir = window.location.search.match(/dir=([^&]+)/)[1] || 'ltr';
+    document.documentElement.setAttribute('dir', dir);
+
+    const theme = window.location.search.match(/theme=([^&]+)/)[1] || 'lumo';
+    document.write(`<link rel="import" href="../../theme/${theme}/vaadin-select.html">`);
+    document.write(`<link rel="import" href="../../../vaadin-list-box/theme/${theme}/vaadin-list-box.html">`);
+    document.write(`<link rel="import" href="../../../vaadin-item/theme/${theme}/vaadin-item.html">`);
+
+    window.addEventListener('WebComponentsReady', () => {
+      document.querySelectorAll('vaadin-select').forEach((select) => {
+        select.opened = true;
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: sans-serif;
+      height: 100%;
+    }
+
+    .layout {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      height: 100%;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+
+  <div class="layout" id="layout">
+    <div class="row">
+      <vaadin-select label="Top Left" theme="align-left">
+        <template>
+          <vaadin-list-box>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+
+      <vaadin-select label="Top Right" theme="align-right">
+        <template>
+          <vaadin-list-box>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+    </div>
+
+    <div class="row">
+      <vaadin-select label="Bottom Left" theme="align-left">
+        <template>
+          <vaadin-list-box>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+
+      <vaadin-select label="Bottom Right" theme="align-right">
+        <template>
+          <vaadin-list-box>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+    </div>
+  </div>
+</body>

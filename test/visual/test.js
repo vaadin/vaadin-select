@@ -28,6 +28,15 @@ gemini.suite('vaadin-select', function(rootSuite) {
         .setCaptureElements('#select')
         .capture('select');
     });
+
+    ['ltr', 'rtl'].forEach((dir) => {
+      gemini.suite(`${theme}-${dir}-overlay-position`, function(suite) {
+        suite
+          .setUrl(`overlay-position.html?theme=${theme}&dir=${dir}`)
+          .setCaptureElements('#layout')
+          .capture('select');
+      });
+    });
   });
 
   ['ltr', 'rtl'].forEach(dir => {
