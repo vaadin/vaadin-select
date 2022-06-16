@@ -694,13 +694,14 @@ This program is available under Apache License Version 2.0, available at https:/
         /** @private */
         _setPosition() {
           const inputRect = this._inputElement.shadowRoot.querySelector('[part~="input-field"]').getBoundingClientRect();
+          const viewportWidth = Math.min(window.innerWidth, document.documentElement.clientWidth);
           const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
-          const shouldAlignRight = this._shouldAlignRight(inputRect);
-          const shouldAlignAbove = this._shouldAlignAbove(inputRect);
+          const shouldAlignRight = this._shouldAlignRight(inputRect, viewportWidth);
+          const shouldAlignAbove = this._shouldAlignAbove(inputRect, viewportHeight);
 
           if (shouldAlignRight) {
             this._overlayElement.setAttribute('right-aligned', '');
-            this._overlayElement.style.right = document.documentElement.clientWidth - inputRect.right + 'px';
+            this._overlayElement.style.right = (viewportWidth - inputRect.right) + 'px';
             this._overlayElement.style.removeProperty('left');
           } else {
             this._overlayElement.removeAttribute('right-aligned');
@@ -721,14 +722,12 @@ This program is available under Apache License Version 2.0, available at https:/
           this._overlayElement.updateStyles({'--vaadin-select-text-field-width': inputRect.width + 'px'});
         }
 
-        _shouldAlignRight(targetRect) {
-          const viewportWidth = Math.min(window.innerWidth, document.documentElement.clientWidth);
+        _shouldAlignRight(targetRect, viewportWidth) {
           const spaceRight = (viewportWidth - targetRect.right) / viewportWidth;
           return spaceRight < 0.3;
         }
 
-        _shouldAlignAbove(targetRect) {
-          const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
+        _shouldAlignAbove(targetRect, viewportHeight) {
           return targetRect.top > (viewportHeight - targetRect.height) / 2;
         }
 
