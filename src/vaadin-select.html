@@ -693,6 +693,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
         /** @private */
         _setPosition() {
+
           const inputRect = this._inputElement.shadowRoot.querySelector('[part~="input-field"]').getBoundingClientRect();
           const viewportWidth = Math.min(window.innerWidth, document.documentElement.clientWidth);
           const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
@@ -723,7 +724,32 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _shouldAlignRight(targetRect, viewportWidth) {
+          const isRTL = this.getAttribute('dir') === 'rtl';
+          const spaceLeft = targetRect.left / viewportWidth;
           const spaceRight = (viewportWidth - targetRect.right) / viewportWidth;
+
+          if (isRTL) {
+            // When RTL mode, should align the dropdown right
+            // as long as there is enough space on the left side.
+            //
+            // Default alignment for RTL:
+            //
+            //           _____Select_____
+            // ––––––––––––––––––––––––––
+            // | Dropdown               |
+            // ––––––––––––––––––––––––––
+            return spaceLeft > 0.3;
+          }
+
+          // When LTL mode, should align the dropdown right
+          // only when there is not enough space on the right side.
+          //
+          // Default alignment for LTL:
+          //
+          // _____Select_____
+          // ––––––––––––––––––––––––––
+          // | Dropdown               |
+          // ––––––––––––––––––––––––––
           return spaceRight < 0.3;
         }
 
