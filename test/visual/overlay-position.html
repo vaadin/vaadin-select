@@ -45,6 +45,10 @@
       display: flex;
       justify-content: space-between;
     }
+
+    .row-center {
+      justify-content: center;
+    }
   </style>
 
   <div class="layout" id="layout">
@@ -70,8 +74,20 @@
       </vaadin-select>
     </div>
 
-    <div class="row">
+    <div class="row row-center">
       <vaadin-select label="Bottom Left" theme="align-left">
+        <template>
+          <vaadin-list-box>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+            <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+    </div>
+
+    <div class="row">
+      <vaadin-select label="Center" theme="align-left">
         <template>
           <vaadin-list-box>
             <vaadin-item>Long Title Long Title Long Title Long Title</vaadin-item>
