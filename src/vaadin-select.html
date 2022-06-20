@@ -696,8 +696,8 @@ This program is available under Apache License Version 2.0, available at https:/
           const inputRect = this._inputElement.shadowRoot.querySelector('[part~="input-field"]').getBoundingClientRect();
           const viewportWidth = Math.min(window.innerWidth, document.documentElement.clientWidth);
           const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
-          const shouldAlignRight = this._shouldAlignRight(inputRect, viewportWidth);
-          const shouldAlignAbove = this._shouldAlignAbove(inputRect, viewportHeight);
+          const shouldAlignRight = this.__shouldAlignRight(inputRect, viewportWidth);
+          const shouldAlignBottom = this.__shouldAlignBottom(inputRect, viewportHeight);
 
           if (shouldAlignRight) {
             this._overlayElement.setAttribute('right-aligned', '');
@@ -709,7 +709,7 @@ This program is available under Apache License Version 2.0, available at https:/
             this._overlayElement.style.removeProperty('right');
           }
 
-          if (shouldAlignAbove) {
+          if (shouldAlignBottom) {
             this._overlayElement.setAttribute('bottom-aligned', '');
             this._overlayElement.style.removeProperty('top');
             this._overlayElement.style.bottom = (viewportHeight - inputRect.bottom) + 'px';
@@ -722,7 +722,8 @@ This program is available under Apache License Version 2.0, available at https:/
           this._overlayElement.updateStyles({'--vaadin-select-text-field-width': inputRect.width + 'px'});
         }
 
-        _shouldAlignRight(targetRect, viewportWidth) {
+        /** @private */
+        __shouldAlignRight(targetRect, viewportWidth) {
           const isRTL = this.getAttribute('dir') === 'rtl';
           const spaceLeft = targetRect.left / viewportWidth;
           const spaceRight = (viewportWidth - targetRect.right) / viewportWidth;
@@ -752,7 +753,8 @@ This program is available under Apache License Version 2.0, available at https:/
           return spaceRight < 0.3;
         }
 
-        _shouldAlignAbove(targetRect, viewportHeight) {
+        /** @private */
+        __shouldAlignBottom(targetRect, viewportHeight) {
           return targetRect.top > (viewportHeight - targetRect.height) / 2;
         }
 
