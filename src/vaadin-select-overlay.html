@@ -14,6 +14,22 @@ This program is available under Apache License Version 2.0, available at https:/
         align-items: flex-start;
         justify-content: flex-start;
       }
+
+      :host([bottom-aligned]) {
+        justify-content: flex-end;
+      }
+
+      :host([right-aligned]) {
+        align-items: flex-end;
+      }
+
+      :host([dir="rtl"]) {
+        align-items: flex-end;
+      }
+
+      :host([dir="rtl"][right-aligned]) {
+        align-items: flex-start;
+      }
     </style>
   </template>
 </dom-module>
