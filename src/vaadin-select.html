@@ -694,17 +694,22 @@ This program is available under Apache License Version 2.0, available at https:/
         /** @private */
         _setPosition() {
           const inputRect = this._inputElement.shadowRoot.querySelector('[part~="input-field"]').getBoundingClientRect();
+          const viewportWidth = Math.min(window.innerWidth, document.documentElement.clientWidth);
           const viewportHeight = Math.min(window.innerHeight, document.documentElement.clientHeight);
-          const bottomAlign = inputRect.top > (viewportHeight - inputRect.height) / 2;
+          const shouldAlignRight = this.__shouldAlignRight(inputRect, viewportWidth);
+          const shouldAlignBottom = this.__shouldAlignBottom(inputRect, viewportHeight);
 
-          const isRtl = this.getAttribute('dir') === 'rtl';
-          if (isRtl) {
-            this._overlayElement.style.right = document.documentElement.clientWidth - inputRect.right + 'px';
+          if (shouldAlignRight) {
+            this._overlayElement.setAttribute('right-aligned', '');
+            this._overlayElement.style.right = (viewportWidth - inputRect.right) + 'px';
+            this._overlayElement.style.removeProperty('left');
           } else {
+            this._overlayElement.removeAttribute('right-aligned');
             this._overlayElement.style.left = inputRect.left + 'px';
+            this._overlayElement.style.removeProperty('right');
           }
 
-          if (bottomAlign) {
+          if (shouldAlignBottom) {
             this._overlayElement.setAttribute('bottom-aligned', '');
             this._overlayElement.style.removeProperty('top');
             this._overlayElement.style.bottom = (viewportHeight - inputRect.bottom) + 'px';
@@ -715,6 +720,42 @@ This program is available under Apache License Version 2.0, available at https:/
           }
 
           this._overlayElement.updateStyles({'--vaadin-select-text-field-width': inputRect.width + 'px'});
+        }
+
+        /** @private */
+        __shouldAlignRight(targetRect, viewportWidth) {
+          const isRTL = this.getAttribute('dir') === 'rtl';
+          const spaceLeft = targetRect.left / viewportWidth;
+          const spaceRight = (viewportWidth - targetRect.right) / viewportWidth;
+
+          if (isRTL) {
+            // When RTL mode, should align the dropdown right
+            // as long as there is enough space on the left side.
+            //
+            // Default alignment for RTL:
+            //
+            //           _____Select_____
+            // ––––––––––––––––––––––––––
+            // | Dropdown               |
+            // ––––––––––––––––––––––––––
+            return spaceLeft > 0.3;
+          }
+
+          // When LTL mode, should align the dropdown right
+          // only when there is not enough space on the right side.
+          //
+          // Default alignment for LTL:
+          //
+          // _____Select_____
+          // ––––––––––––––––––––––––––
+          // | Dropdown               |
+          // ––––––––––––––––––––––––––
+          return spaceRight < 0.3;
+        }
+
+        /** @private */
+        __shouldAlignBottom(targetRect, viewportHeight) {
+          return targetRect.top > (viewportHeight - targetRect.height) / 2;
         }
 
         /**
