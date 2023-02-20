@@ -764,7 +764,10 @@ This program is available under Apache License Version 2.0, available at https:/
          * @return {boolean} True if the value is valid and sets the `invalid` flag appropriately
          */
         validate() {
-          return !(this.invalid = !(this.disabled || !this.required || this.value));
+          this.invalid = (this.invalid = !(this.disabled || !this.required || this.value));
+          this.dispatchEvent(new CustomEvent('validated', {detail: {valid: !this.invalid}}));
+          return !this.invalid;
+
         }
 
         /**
