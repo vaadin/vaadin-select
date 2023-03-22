@@ -521,11 +521,10 @@ This program is available under Apache License Version 2.0, available at https:/
             this.focusElement.setAttribute('has-value', '');
           }
 
-          // Skip validation for the initial empty string value
-          if (value === '' && oldValue === undefined) {
-            return;
+          // Validate only if `value` changes after initialization.
+          if (oldValue !== undefined) {
+            this.validate();
           }
-          this.validate();
         }
 
         /**
