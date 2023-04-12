@@ -3,5 +3,6 @@ window.VaadinSelectSuites = [
   'renderer.html',
   'scrollable-viewport-test.html',
   'animations-test.html',
-  'accessibility-test.html'
+  'accessibility-test.html',
+  'validation.html'
 ];
