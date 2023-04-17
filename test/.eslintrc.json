@@ -1,14 +1,19 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
   "globals": {
     "WCT": false,
     "describe": false,
     "beforeEach": false,
+    "afterEach": false,
     "fixture": false,
     "flush": false,
     "it": false,
     "expect": false,
     "gemini": false,
     "sinon": false,
-    "MockInteractions": false
+    "MockInteractions": false,
+    "nextRender": false
   }
 }
