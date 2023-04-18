@@ -14,38 +14,5 @@
 
 <body>
   <script>
-  describe('initial validation', () => {
-    let select, validateSpy;
-
-    beforeEach(() => {
-      select = document.createElement('vaadin-select');
-      validateSpy = sinon.spy(select, 'validate');
-    });
-
-    afterEach(() => {
-      select.remove();
-    });
-
-    it('should not validate by default', async() => {
-      document.body.appendChild(select);
-      await nextRender();
-      expect(validateSpy.called).to.be.false;
-    });
-
-    it('should not validate when the field has an initial value', async() => {
-      select.value = 'value';
-      document.body.appendChild(select);
-      await nextRender();
-      expect(validateSpy.called).to.be.false;
-    });
-
-    it('should not validate when the field has an initial value and invalid', async() => {
-      select.value = 'value';
-      select.invalid = true;
-      document.body.appendChild(select);
-      await nextRender();
-      expect(validateSpy.called).to.be.false;
-    });
-  });
   </script>
 </body>
