@@ -9,7 +9,6 @@
   <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
   <link rel="import" href="../../vaadin-item/vaadin-item.html">
   <link rel="import" href="../vaadin-select.html">
-  <link rel="import" href="helpers.html">
   <link rel="import" href="../../test-fixture/test-fixture.html">
 </head>
 
@@ -30,27 +29,27 @@
   <script>
   describe('basic', () => {
     let select;
-  
+
     beforeEach(() => {
       select = fixture('select');
     });
-  
+
     it('should fire a validated event on validation success', () => {
       const validatedSpy = sinon.spy();
       select.addEventListener('validated', validatedSpy);
       select.validate();
-  
+
       expect(validatedSpy.calledOnce).to.be.true;
       const event = validatedSpy.firstCall.args[0];
       expect(event.detail.valid).to.be.true;
     });
-  
+
     it('should fire a validated event on validation failure', () => {
       const validatedSpy = sinon.spy();
       select.addEventListener('validated', validatedSpy);
       select.required = true;
       select.validate();
-  
+
       expect(validatedSpy.calledOnce).to.be.true;
       const event = validatedSpy.firstCall.args[0];
       expect(event.detail.valid).to.be.false;

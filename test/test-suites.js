@@ -4,5 +4,5 @@ window.VaadinSelectSuites = [
   'scrollable-viewport-test.html',
   'animations-test.html',
   'accessibility-test.html',
-  // 'validation.html'
+  'validation.html'
 ];
