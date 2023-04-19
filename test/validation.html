@@ -9,10 +9,51 @@
   <link rel="import" href="../../vaadin-list-box/vaadin-list-box.html">
   <link rel="import" href="../../vaadin-item/vaadin-item.html">
   <link rel="import" href="../vaadin-select.html">
-   <link rel="import" href="helpers.html">
+  <link rel="import" href="helpers.html">
 </head>
 
 <body>
+  <test-fixture id="select">
+    <template>
+      <vaadin-select>
+        <template>
+          <vaadin-list-box>
+            <vaadin-item>Foo</vaadin-item>
+            <vaadin-item>Bar</vaadin-item>
+            <vaadin-item>Baz</vaadin-item>
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+    </template>
+  </test-fixture>
   <script>
+  describe('basic', () => {
+    let select;
+  
+    beforeEach(() => {
+      select = fixture('select');
+    });
+  
+    it('should fire a validated event on validation success', () => {
+      const validatedSpy = sinon.spy();
+      select.addEventListener('validated', validatedSpy);
+      select.validate();
+  
+      expect(validatedSpy.calledOnce).to.be.true;
+      const event = validatedSpy.firstCall.args[0];
+      expect(event.detail.valid).to.be.true;
+    });
+  
+    it('should fire a validated event on validation failure', () => {
+      const validatedSpy = sinon.spy();
+      select.addEventListener('validated', validatedSpy);
+      select.required = true;
+      select.validate();
+  
+      expect(validatedSpy.calledOnce).to.be.true;
+      const event = validatedSpy.firstCall.args[0];
+      expect(event.detail.valid).to.be.false;
+    });
+  });
   </script>
 </body>
